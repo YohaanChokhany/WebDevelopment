@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yohaan Chokhany</title>
+    <style>
+
+        .home-text {
+            position: fixed;
+            width: 70%;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            -ms-transform: translate(-50%,-50%);
+        }
+
+        .footer {
+            color: #f1f1f1;
+            transition: 0.3s;
+            text-decoration: none
+        }
+
+        .footer:hover {
+            text-decoration: none;
+            color: #333
+        }
+
+        h1 {font-size: 7vw;}
+        h2 {font-size: 4vw;}
+        h6 {font-size: 1vw;}
+        a:hover {
+            text-decoration: none;
+        }
+
+        #next::selection {color: #f1f1f1; background-color: transparent}
+        #cursor {cursor: text}
+        #title, #byline, #click {font-family: Helvetica Neue, Helvetica, Sans-Serif}
+
+        .enterButton {
+            background-color: #333;
+            color: #f1f1f1;
+        }
+    </style>
+</head>
+<body onkeyup="redirectNext()" onload="onloadFunction()">
+<div class="home-text">
+    <h1 id="title" align="center"></h1>
+    <h2 align="center" id="byline"></h2>
+    <h6 align="center" id="click"></h6>
+</div>
+<div style="position: absolute; bottom: 0; width: 100%; background-color: red">
+    <h6 style="font-size: 100%; text-align: center; color: #f1f1f1;">© 2021 <a class="footer" href="/">Yohaan Chokhany</a> | All Rights Reserved</h6>
+</div>
+<script>
+    var animationOver = false;
+    var lastClick = document.getElementById("header");
+    var underline = document.getElementById("underline");
+    function changeColor(x) {
+        var id = x.id;
+        lastClick.classList.remove("active");
+        x.classList.add("active");
+        lastClick = x;
+        if (id == "news") {
+            underline.classList.remove("contact");
+            underline.classList.remove("about");
+            underline.classList.add("news");
+        } else if (id == "about") {
+            underline.classList.remove("contact");
+            underline.classList.add("about");
+            underline.classList.remove("news");
+        } else if (id == "contact") {
+            underline.classList.add("contact");
+            underline.classList.remove("about");
+            underline.classList.remove("news");
+        } else if (id == "header") {
+            underline.classList.remove("contact");
+            underline.classList.remove("about");
+            underline.classList.remove("news");
+        }
+    }
+    function redirectNext() {
+        if (event.keyCode == 13 && animationOver == true) {
+            window.location.href = "/next-class";
+        }
+    }
+    var titleNumber = 0;
+    var byNumber = 0;
+    var clickNumber = 0;
+    var i = 0;
+    var i2 = 0;
+    var i3 = 0;
+    var i4 = 0;
+    var i5 = 0;
+    var txt = 'Yohaan Chokhany';
+    var txt2 = "By: Yohaan Chokhany";
+    var txt3 = "Press ";
+    var txt4 = " to continue";
+    var txt5 = "Enter";
+    var speed = 75;
+
+    function onloadFunction() {
+        typeWriter();
+    }
+
+    function typeWriter() {
+        if (i < txt.length) {
+            document.getElementById("title").innerHTML = "";
+            while (titleNumber <= i) {
+                document.getElementById("title").innerHTML += txt.charAt(titleNumber);
+                titleNumber++;
+            }
+            document.getElementById("title").innerHTML += "<a id='cursor' style='cursor: text; border: none; font-size; 7vw; background-color: #333; padding-left: 20px; padding-right: 20px;'></a>";
+            titleNumber = 0;
+            i++;
+            setTimeout(typeWriter, speed);
+        } else {
+            document.getElementById("title").innerHTML = txt;
+            typeWriter3();
+        }
+    }
+
+    function typeWriter2() {
+        if (i2 < txt2.length) {
+            document.getElementById("byline").innerHTML = "";
+            while (byNumber <= i2) {
+                document.getElementById("byline").innerHTML += txt2.charAt(byNumber);
+                byNumber++;
+            }
+            document.getElementById("byline").innerHTML += "<a id='cursor' style='cursor: text; border: none; font-size; 4vw; background-color: #333; padding-left: 12px; padding-right: 12px;'></a>";
+            byNumber = 0;
+            i2++;
+            setTimeout(typeWriter2, speed);
+        } else {
+            document.getElementById("byline").innerHTML = txt2;
+            typeWriter3();
+        }
+    }
+
+    function typeWriter3() {
+        if (i3 < txt3.length) {
+            document.getElementById("click").innerHTML = "";
+            while (clickNumber <= i3) {
+                document.getElementById("click").innerHTML += txt3.charAt(clickNumber);
+                clickNumber++;
+            }
+            document.getElementById("click").innerHTML += "<a id='cursor' style='cursor: text; border: none; font-size; 1vw; background-color: #333; padding-left: 3px; padding-right: 3px;'></a>";
+            clickNumber = 0;
+            i3++;
+            setTimeout(typeWriter3, speed);
+        } else {
+            typeWriter5()
+        }
+    }
+
+    function typeWriter5() {
+        if (i5 < txt5.length) {
+            document.getElementById("click").innerHTML = txt3;
+            while (clickNumber <= i5) {
+                if (clickNumber == 0) {
+                    document.getElementById("click").innerHTML = txt3 + "<code id='next' class='enterButton'>" + txt5.charAt(0) + "</code>";
+                } else if (clickNumber == 1) {
+                    document.getElementById("click").innerHTML = txt3 + "<code id='next' class='enterButton'>" + txt5.charAt(0) + txt5.charAt(1) + "</code>";
+                } else if (clickNumber == 2) {
+                    document.getElementById("click").innerHTML = txt3 + "<code id='next' class='enterButton'>" + txt5.charAt(0) + txt5.charAt(1) + txt5.charAt(2) + "</code>";
+                } else if (clickNumber == 3) {
+                    document.getElementById("click").innerHTML = txt3 + "<code id='next' class='enterButton'>" + txt5.charAt(0) + txt5.charAt(1) + txt5.charAt(2) + txt5.charAt(3) + "</code>";
+                } else if (clickNumber == 4) {
+                    document.getElementById("click").innerHTML = txt3 + "<code id='next' class='enterButton'>" + txt5.charAt(0) + txt5.charAt(1) + txt5.charAt(2) + txt5.charAt(3) + txt5.charAt(4) + "</code>";
+                } else if (clickNumber == 5) {
+                    document.getElementById("click").innerHTML = txt3 + "<code id='next' class='enterButton'>" + txt5 + "</code>";
+                }
+                clickNumber++;
+            }
+            document.getElementById("click").innerHTML += "<a id='cursor' style='cursor: text; border: none; font-size; 1vw; background-color: #333; padding-left: 3px; padding-right: 3px;'></a>";
+            clickNumber = 0;
+            i5++;
+            setTimeout(typeWriter5, speed);
+        } else {
+            typeWriter4()
+        }
+    }
+
+    function typeWriter4() {
+        if (i4 < txt4.length) {
+            document.getElementById("click").innerHTML = txt3 + "<code style='background-color: #333; color: #f1f1f1'>" + txt5 + "</code>";
+            while (clickNumber <= i4) {
+                document.getElementById("click").innerHTML += txt4.charAt(clickNumber);
+                clickNumber++;
+            }
+            document.getElementById("click").innerHTML += "<a id='cursor' style='cursor: text; border: none; font-size; 1vw; background-color: #333; padding-left: 3px; padding-right: 3px;'></a>";
+            clickNumber = 0;
+            i4++;
+            setTimeout(typeWriter4, speed);
+        } else {
+            animationOver = true;
+            setTimeout(blinkOutCursor, 500);
+        }
+    }
+
+    function blinkOutCursor() {
+        document.getElementById("cursor").style.backgroundColor = "#f1f1f1";
+        setTimeout(blinkInCursor, 500);
+    }
+
+    function blinkInCursor() {
+        document.getElementById("cursor").style.backgroundColor = "#333";
+        setTimeout(blinkOutCursor, 500);
+    }
+</script>
+</body>
+</html>

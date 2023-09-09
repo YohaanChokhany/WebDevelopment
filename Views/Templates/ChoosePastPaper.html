@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Past Paper</title>
+        <style>
+
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+              -webkit-appearance: none;
+              margin: 0;
+            }
+
+            input[type=number] {
+              -moz-appearance: textfield;
+            }
+
+            ::placeholder {
+              color: #bbb;
+              opacity: 1;
+            }
+
+            :-ms-input-placeholder {
+              color: #bbb;
+            }
+
+            ::-ms-input-placeholder {
+              color: #bbb;
+            }
+            #inputSubject:disabled {
+                color: #333
+            }
+            #inputSubject {
+                width: 266px;
+                position: absolute;
+                top: 80px;
+                height: 30px;
+                background-color: transparent;
+                border-width: 0px 0px 0px 0px;
+                border-style: solid;
+                border-color: #ccc;
+                transition: 0s;
+                z-index: 100;
+            }
+
+            .paperNum {
+                display: none;
+                width: 100%;
+                margin-top: -10px;
+                height: 30px;
+                background-color: transparent;
+                border-width: 0px 0px 1px 0px;
+                border-style: solid;
+                border-color: #ccc;
+                opacity: 0
+            }
+
+            .underline {
+                width: 0%;
+                height: 0px;
+                position: absolute;
+                margin-left: 133px;
+                top: 110px;
+                z-index: 1;
+                border-width: 0px 0px 1px 0px;
+                border-style: solid;
+                border-color: red;
+                transition: 0.3s;
+            }
+
+            .mainForm {
+                position: relative;
+                padding: 67px;
+                padding-top: 57px;
+                padding-bottom: 57px;
+                width: 400px;
+                height: 189px;
+                background-color: white;
+                border-radius: 30px;
+                box-shadow: 0px 0px 100px 0px #999;
+                transition: 0.3s
+            }
+
+            .reset {
+                width: 10%;
+                position: fixed;
+                left: 45%;
+                background-color: red;
+                color: #f1f1f1;
+                transition: 0.3s;
+                text-align: center;
+                padding: 10px;
+                bottom: 100px;
+            }
+            .reset:hover {
+                background-color: #333;
+                color: #f1f1f1;
+                text-decoration: none;
+            }
+
+            .link, .link:focus {
+                border: none;
+                outline: none;
+                text-decoration: none;
+                background-color: red;
+                color: #f1f1f1;
+                transition: 0.3s;
+                text-align: center;
+                padding: 10px;
+                width: 30%;
+                margin-left: 35%;
+            }
+            .link:hover {
+                background-color: #333;
+                color: #f1f1f1;
+                text-decoration: none;
+            }
+
+            .inputSubjectTitle {
+                position: absolute;
+                top: 78px;
+                font-size: 14px;
+                margin-left: 2px;
+                transition: 0.3s
+            }
+
+            #inputSubject:focus ~ .inputSubjectTitle {
+                color: red;
+                font-size: 11px;
+                top: 64px;
+                margin-left: 0px;
+            }
+
+            #inputSubject:focus ~ #inputUnderlineSubject {
+                width: 266px;
+                margin-left: 0px;
+            }
+
+            #errorSubject {
+                position: absolute;
+                top: 103px;
+            }
+            .inputSubjectTitleDisabled {
+                color: #777
+            }
+        </style>
+    </head>
+    <body onload="onloadFunction()" onresize="onresizeFunction()" onkeypress="onkeypressFunction()">
+        <div id="container" class="container" style="width: 100%;">
+            <a href="/calculator?g=c" class="icon-button" style="left: 0px; bottom: 39px;"><span title="Calculator" class="material-icons">calculate</span> Calculator</a>
+            <div id="randomInputSection" style="transition: 0.3s">
+                <h1 align="center" style="color: #333; padding-top: 30px; font-size: 30pt">Choose Past Paper</h1>
+                <a onclick="restart()" class="icon-button" style="top: 62px; right: 0px;">Reset <span class="material-icons">refresh</span></a>
+                <div id="mainForm" class="mainForm">
+                    <input autocomplete="off" oninput="errorSubject.style.display = 'none';" spellcheck="false" id="inputSubject" type="text">
+                    <h6 id="inputSubjectTitle" class="inputSubjectTitle">Subject</h6>
+                    <div id="inputUnderlineBackgroundSubject" class="underline" style="transition: 0s;width: 266px; margin-left: 0%; border-color: #ccc"></div>
+                    <div style="z-index: 1" id="inputUnderlineSubject" class="underline"></div>
+                    <h6 id="errorSubject" style="color: red"></h6>
+                    <h6 id="inputPaperNumTitle" class="inputLabel" style="display: none; opacity: 0; padding-top: 20px">Paper No.</h6>
+                    <input autocomplete="off" spellcheck="false" oninput="checkPaperNum()" max="6" min="1" class="paperNum" id="inputPaperNum" type="number" placeholder="Paper Number" onfocus="focusInput('inputUnderlinePaperNum', 'inputPaperNumTitle')" onfocusout="focusOutInput('inputUnderlinePaperNum', 'inputPaperNumTitle')">
+                    <div id="inputUnderlinePaperNum" class="underline"></div>
+                    <h6 id="errorPaperNum" class="inputLabel" style="color: red"></h6>
+                </div>
+            </div>
+            <div id="outputSection" style="opacity: 0; display: none; transition: 0.3s;">
+                <div class="button-holder"><a onclick="calculatePaper()" class="icon-button" style="top: 62px; left: 0px"><span onclick="calculatePaper()" class="material-icons">refresh</span> Find New</a></div>
+                <a onclick="restart()" class="icon-button" style="top: 62px; right: 0px">Close <span onclick="restart()" class="material-icons">close</span></a>
+                <div id="outputData" class="mainForm" style="height: 329px; width: 50%; left: 25%;">
+                    <h3 id="outputSubject" align="center"></h3>
+                    <h3 id="outputEdition" align="center"></h3>
+                    <button class="link" id="questionPaper" style="margin-bottom: 10px">Question Paper</button>
+                    <button class="link" id="insertPaper" style="margin-bottom: 10px">Insert</button>
+                    <button class="link" id="sourceFiles" style="margin-bottom: 10px">Source Files</button>
+                    <button class="link" id="markScheme">Mark Scheme</button>
+                </div>
+            </div>
+        </div>
+        <div style="position: absolute; bottom: 0; width: 100%; background-color: red">
+            <h6 style="font-family: Marvel, Helvetic Neue, Sans-Serif; font-size: 18px; text-align: center; color: #f1f1f1;">© 2021 <a class="footer" href="/">Yohaan Chokhany</a> | All Rights Reserved</h6>
+        </div>
+        <script>
+            var resizeValue = "small";
+            var outputSubject = document.getElementById("outputSubject");
+            var outputEdition = document.getElementById("outputEdition");
+            var questionPaper = document.getElementById("questionPaper");
+            var markScheme = document.getElementById("markScheme");
+            var insertPaper = document.getElementById("insertPaper");
+            var sourceFiles = document.getElementById("sourceFiles");
+
+            var numYear = 0;
+            var numMonth = 0;
+            var minYear = 2009;
+            var marchMinYear = 2015;
+            var editionMonth = "";
+            var month = "";
+
+            var randomInputSection = document.getElementById("randomInputSection");
+            var outputSection = document.getElementById("outputSection");
+
+            var validSubject = false;
+            var subject = "";
+            var link = "";
+            var code = "";
+            var paperNumVisible = false;
+
+            var mainForm = document.getElementById("mainForm");
+            var outputData = document.getElementById("outputData");
+
+            var inputSubject = document.getElementById("inputSubject");
+            var inputSubjectTitle = document.getElementById("inputSubjectTitle");
+            var errorSubject = document.getElementById("errorSubject");
+
+            var inputPaperNum = document.getElementById("inputPaperNum");
+            var inputPaperNumTitle = document.getElementById("inputPaperNumTitle");
+            var errorPaperNum = document.getElementById("errorPaperNum");
+
+            function focusInput(underline, title) {
+                document.getElementById(underline).style.width = "100%";
+                document.getElementById(underline).style.marginLeft = "0";
+                document.getElementById(title).style.color = "red";
+            }
+
+            function focusOutInput(underline, title) {
+                document.getElementById(underline).style.width = "0%";
+                document.getElementById(underline).style.marginLeft = "50%";
+                document.getElementById(title).style.color = "#bbb";
+            }
+
+            function checkSubject() {
+                var value = inputSubject.value;
+                var valueLower = value.toLowerCase();
+                if (valueLower == "eng" || valueLower == "english") {
+                    validSubject = true;
+                    link = "0500_";
+                    code = "0500";
+                    subject = "English";
+                } else if (valueLower == "maths" || valueLower == "mathematics" || valueLower == "math" || valueLower == "int. maths" || valueLower == "int. math" || valueLower == "international math" || valueLower == "international maths" || valueLower == "international mathematics") {
+                    validSubject = true;
+                    link = "0607_";
+                    code = "0607";
+                    subject = "International Mathematics";
+                } else if (valueLower == "phy" || valueLower == "physics") {
+                    validSubject = true;
+                    link = "0625_";
+                    code = "0625";
+                    subject = "Physics";
+                } else if (valueLower == "chem" || valueLower == "chemistry") {
+                    validSubject = true;
+                    link = "0620_";
+                    code = "0620";
+                    subject = "Chemistry";
+                } else if (valueLower == "bio" || valueLower == "biology") {
+                    validSubject = true;
+                    link = "0610_";
+                    code = "0610";
+                    subject = "Biology";
+                } else if (valueLower == "eco" || valueLower == "econ" || valueLower == "economics") {
+                    validSubject = true;
+                    link = "0455_";
+                    code = "0455";
+                    subject = "Economics";
+                } else if (valueLower == "gp" || valueLower == "global perspective" || valueLower == "global perspectives") {
+                    validSubject = true;
+                    link = "0457_";
+                    code = "0457";
+                    subject = "Global Perspectives";
+                } else if (valueLower == "fre" || valueLower == "french") {
+                    validSubject = true;
+                    link = "0520_";
+                    code = "0520";
+                    subject = "French";
+                } else if (valueLower == "ict" || valueLower == "information and communication technology" || valueLower == "information communication technology") {
+                    validSubject = true;
+                    link = "0417_";
+                    code = "0417";
+                    subject = "ICT";
+                } else {
+                    validSubject = false;
+                    subject = "";
+                }
+
+                if (validSubject == true && subject != "Global Perspectives") {
+                    errorSubject.style.display = "none";
+                    getPaperNum();
+                    paperNumVisible = true;
+                } else if (subject == "Global Perspectives") {
+                    errorSubject.style.display = "none";
+                    calculatePaper();
+                } else {
+                    errorSubject.style.display = "block";
+                    errorSubject.innerHTML = "INVALID";
+                }
+            }
+
+            function checkPaperNum() {
+                if (inputPaperNum.value != "") {
+                    if (Number.isInteger(parseInt(inputPaperNum.value)) == true) {
+                        if (inputPaperNum.value <= 6 && inputPaperNum.value >= 1) {
+                            if (inputPaperNum.value == 2 || inputPaperNum.value == 1 || inputPaperNum.value == 3 || inputPaperNum.value == 4 || inputPaperNum.value == 5 || inputPaperNum.value == 6) {
+                                errorPaperNum.innerHTML = "";
+                                if (inputPaperNum.value == 1) {
+                                    if (subject == "International Mathematics" || subject == "Biology" || subject == "Chemistry" || subject == "Physics") {
+                                        errorPaperNum.innerHTML = "Only Values 2, 4 and 6 are Allowed";
+                                    }
+                                } else if (inputPaperNum.value == 3) {
+                                    if (subject == "Economics" || subject == "English") {
+                                        errorPaperNum.innerHTML = "Only Values 1 and 2 are Allowed";
+                                    } else if (subject == "International Mathematics" || subject == "Biology" || subject == "Chemistry" || subject == "Physics") {
+                                        errorPaperNum.innerHTML = "Only Values 2, 4 and 6 are Allowed";
+                                    }
+                                } else if (inputPaperNum.value == 4) {
+                                    if (subject == "ICT") {
+                                        errorPaperNum.innerHTML = "Only Values Between 1 and 3 are Allowed";
+                                    } else if (subject == "Economics" || subject == "English") {
+                                        errorPaperNum.innerHTML = "Only Values 1 and 2 are Allowed";
+                                    }
+                                } else if (inputPaperNum.value == 5) {
+                                    if (subject == "ICT") {
+                                        errorPaperNum.innerHTML = "Only Values Between 1 and 3 are Allowed";
+                                    } else if (subject == "Economics" || subject == "English") {
+                                        errorPaperNum.innerHTML = "Only Values 1 and 2 are Allowed";
+                                    } else if (subject == "French") {
+                                        errorPaperNum.innerHTML = "Only Values Between 1 and 4 are Allowed";
+                                    } else if (subject == "International Mathematics" || subject == "Biology" || subject == "Chemistry" || subject == "Physics") {
+                                        errorPaperNum.innerHTML = "Only Values 2, 4 and 6 are Allowed";
+                                    }
+                                } else if (inputPaperNum.value == 6) {
+                                    if (subject == "ICT") {
+                                        errorPaperNum.innerHTML = "Only Values Between 1 and 3 are Allowed";
+                                    } else if (subject == "Economics" || subject == "English") {
+                                        errorPaperNum.innerHTML = "Only Values 1 and 2 are Allowed";
+                                    } else if (subject == "French") {
+                                        errorPaperNum.innerHTML = "Only Values Between 1 and 4 are Allowed";
+                                    }
+                                }
+                            } else {
+                                errorPaperNum.innerHTML = "Only Integer Values are Allowed";
+                            }
+                        } else {
+                            if (subject == "Economics" || subject == "English") {
+                                errorPaperNum.innerHTML = "Only Values 1 and 2 are Allowed";
+                            } else if (subject == "ICT") {
+                                errorPaperNum.innerHTML = "Only Values Between 1 and 3 are Allowed";
+                            } else if (subject == "French") {
+                                errorPaperNum.innerHTML = "Only Values Between 1 and 4 are Allowed";
+                            } else {
+                                errorPaperNum.innerHTML = "Only Values Between 1 and 6 are Allowed";
+                            }
+                        }
+                    } else {
+                        errorPaperNum.innerHTML = "Only Number Values are Allowed";
+                    }
+                } else {
+                    errorPaperNum.innerHTML = "Please Enter a Value";
+                }
+            }
+
+            function verifyPaperNum() {
+                paperNum = inputPaperNum.value;
+                if (inputPaperNum.value != "") {
+                    if (Number.isInteger(parseInt(inputPaperNum.value)) == true) {
+                        if (inputPaperNum.value <= 6 && inputPaperNum.value >= 1) {
+                            if (inputPaperNum.value == 6 || inputPaperNum.value == 5 || inputPaperNum.value == 4 || inputPaperNum.value == 3 || inputPaperNum.value == 2 || inputPaperNum.value == 1) {
+                                errorPaperNum.innerHTML = "";
+                                if (inputPaperNum.value == 1) {
+                                    if (subject == "International Mathematics" || subject == "Biology" || subject == "Chemistry" || subject == "Physics") {
+                                        errorPaperNum.innerHTML = "Only Values 2, 4 and 6 are Allowed";
+                                    } else {
+                                        return true;
+                                    }
+                                } else if (inputPaperNum.value == 2) {
+                                    return true;
+                                } else if (inputPaperNum.value == 3) {
+                                    if (subject == "Economics" || subject == "English") {
+                                        errorPaperNum.innerHTML = "Only Values 1 and 2 are Allowed";
+                                    } else if (subject == "International Mathematics" || subject == "Biology" || subject == "Chemistry" || subject == "Physics") {
+                                        errorPaperNum.innerHTML = "Only Values 2, 4 and 6 are Allowed";
+                                    } else {
+                                        return true;
+                                    }
+                                } else if (inputPaperNum.value == 4) {
+                                    if (subject == "ICT") {
+                                        errorPaperNum.innerHTML = "Only Values Between 1 and 3 are Allowed";
+                                    } else if (subject == "Economics" || subject == "English") {
+                                        errorPaperNum.innerHTML = "Only Values 1 and 2 are Allowed";
+                                    } else {
+                                        return true;
+                                    }
+                                } else if (inputPaperNum.value == 5) {
+                                    if (subject == "ICT") {
+                                        errorPaperNum.innerHTML = "Only Values Between 1 and 3 are Allowed";
+                                    } else if (subject == "Economics" || subject == "English") {
+                                        errorPaperNum.innerHTML = "Only Values 1 and 2 are Allowed";
+                                    } else if (subject == "French") {
+                                        errorPaperNum.innerHTML = "Only Values Between 1 and 4 are Allowed";
+                                    } else if (subject == "International Mathematics" || subject == "Biology" || subject == "Chemistry" || subject == "Physics") {
+                                        errorPaperNum.innerHTML = "Only Values 2, 4 and 6 are Allowed";
+                                    } else {
+                                        return true;
+                                    }
+                                } else if (inputPaperNum.value == 6) {
+                                    if (subject == "ICT") {
+                                        errorPaperNum.innerHTML = "Only Values Between 1 and 3 are Allowed";
+                                    } else if (subject == "Economics" || subject == "English") {
+                                        errorPaperNum.innerHTML = "Only Values 1 and 2 are Allowed";
+                                    } else if (subject == "French") {
+                                        errorPaperNum.innerHTML = "Only Values Between 1 and 4 are Allowed";
+                                    } else {
+                                        return true;
+                                    }
+                                }
+                            } else {
+                                errorPaperNum.innerHTML = "Only Integer Values are Allowed";
+                                return false;
+                            }
+                        } else {
+                            if (subject == "Economics" || subject == "English") {
+                                errorPaperNum.innerHTML = "Only Values 1 and 2 are Allowed";
+                            } else if (subject == "ICT") {
+                                errorPaperNum.innerHTML = "Only Values Between 1 and 3 are Allowed";
+                            } else if (subject == "French") {
+                                errorPaperNum.innerHTML = "Only Values Between 1 and 4 are Allowed";
+                            } else {
+                                errorPaperNum.innerHTML = "Only Values Between 1 and 6 are Allowed";
+                            }
+                            return false;
+                        }
+                    } else {
+                        errorPaperNum.innerHTML = "Only Number Values are Allowed";
+                        return false;
+                    }
+                } else {
+                    errorPaperNum.innerHTML = "Please Enter a Value";
+                    return false;
+                }
+            }
+
+            function getPaperNum() {
+                inputPaperNum.style.display = "block";
+                inputPaperNumTitle.style.display = "block";
+                mainForm.style.height = "252px";
+                inputSubject.value = subject;
+                var height = window.innerHeight - 35;
+                document.getElementById("inputUnderlineSubject").style.borderColor = "rgba(255, 0, 0, 0)";
+                document.getElementById("inputUnderlineBackgroundSubject").style.borderColor = "rgba(204, 204, 204, 0)";
+                var inputMarginTop = (height + 116 - 252) / 2;
+                mainForm.style.top = inputMarginTop - 164 + "px";
+                inputSubjectTitle.classList.add("inputSubjectTitleDisabled")
+                inputSubjectTitle.classList.remove("inputSubjectTitle")
+                inputSubject.disabled = "true";
+                inputSubject.blur();
+                setTimeout(function() {inputPaperNum.style.opacity = "1";}, 300)
+                setTimeout(function() {inputPaperNumTitle.style.opacity = "1";}, 300)
+                setTimeout(function() {inputPaperNum.focus()}, 300)
+            }
+
+            function transitionToOutput() {
+                randomInputSection.style.opacity = "0";
+                outputSection.style.display = "block";
+                setTimeout(function() {outputSection.style.opacity = "1";}, 100);
+                setTimeout(function() {randomInputSection.style.display = "none";}, 300);
+            }
+
+            function restart() {
+                inputSubject.value = "";
+                inputPaperNum.value = "";
+                inputPaperNum.style.opacity = "0";
+                inputPaperNum.style.display = "none";
+                paperNumVisible = false;
+                var height = window.innerHeight - 35;
+                mainForm.style.height = "189px";
+                inputPaperNumTitle.style.opacity = "0";
+                inputPaperNumTitle.style.display = "none";
+                inputSubject.disabled = false;
+                document.getElementById("inputUnderlineSubject").style.borderColor = "red";
+                document.getElementById("inputUnderlineBackgroundSubject").style.borderColor = "#ccc";
+                var inputMarginTop = (height + 116 - 220) / 2;
+                mainForm.style.top = inputMarginTop - 164 + "px";
+                inputSubjectTitle.classList.remove("inputSubjectTitleDisabled")
+                inputSubjectTitle.classList.add("inputSubjectTitle")
+                outputSection.style.opacity = "0";
+                randomInputSection.style.display = "block";
+                setTimeout(function() {randomInputSection.style.opacity = "1";}, 100);
+                setTimeout(function() {outputSection.style.display = "none";}, 300);
+                setTimeout(function() {inputSubject.focus()}, 300);
+                errorPaperNum.innerHTML = "";
+                document.title = "Past Paper";
+            }
+
+            function calculatePaper() {
+                if (subject == "International Mathematics") {
+                    numMonth = Math.ceil(Math.random() * 2) + 1;
+                } else {
+                    numMonth = Math.ceil(Math.random() * 3);
+                }
+
+                if (numMonth == 1) {
+                    numYear = Math.ceil(Math.random() * 5) + 14;
+                } else {
+                    if (subject == "Biology" || subject == "Physics" || subject == "Chemistry") {
+                        if (paperNum == 2) {
+                            numYear = Math.ceil(Math.random() * 4) + 15;
+                        } else {
+                            numYear = Math.ceil(Math.random() * 10) + 9;
+                        }
+                    } else if (subject == "International Mathematics") {
+                        numYear = Math.ceil(Math.random() * 4) + 14;
+                    } else {
+                        numYear = Math.ceil(Math.random() * 10) + 9;
+                    }
+                }
+
+                if (subject == "Global Perspectives") {
+                    if (numYear < 18) {
+                        paperNum = 3;
+                    } else {
+                        paperNum = 1;
+                    }
+                }
+
+                if (numMonth == 1) {
+                    if (subject == "ICT") {
+                        if (paperNum == 2 || paperNum == 3) {
+                            paper = paperNum + "1";
+                        } else {
+                            paper = paperNum + "2";
+                        }
+                    } else {
+                        paper = paperNum + "2";
+                    }
+                } else {
+                    if (subject == "ICT") {
+                        if (numMonth == 2) {
+                            paperExt = Math.ceil(Math.random() * 2);
+                            paper = paperNum.toString() + paperExt.toString()
+                        } else if (numMonth == 3) {
+                            paper = paperNum;
+                        }
+                    } else {
+                        paperExt = Math.ceil(Math.random() * 3);
+                        paper = paperNum.toString() + paperExt.toString()
+                    }
+                }
+
+                if (numMonth == 1) {
+                    editionMonth = "February/March";
+                    month = "m";
+                } else if (numMonth == 2) {
+                    editionMonth = "May/June";
+                    month = "s";
+                } else if (numMonth == 3) {
+                    editionMonth = "October/November";
+                    month = "w";
+                }
+
+                qpLink = "https://myaccount.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/" + link + month + numYear + "_qp_" + paper + ".pdf";
+                msLink = "https://myaccount.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/" + link + month + numYear + "_ms_" + paper + ".pdf";
+                if (subject == "Global Perspectives" || subject == "English" || subject == "English Writer's Effect") {
+                    inLink = "https://myaccount.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/" + link + month + numYear + "_in_" + paper + ".pdf";
+                    insertPaper.onclick = function() {window.open(inLink)};
+                    insertPaper.onauxclick = function() {window.open(inLink)};
+                    insertPaper.style.display = "block";
+                    var height = window.innerHeight;
+                    var inputMarginTopOutput = (height - 100 - 252) / 2;
+                    outputData.style.top = inputMarginTopOutput + "px";
+                    outputData.style.height = "379px";
+                    sourceFiles.style.display = "none";
+                    resizeValue = "big";
+                } else if (subject == "ICT" && paperNum == "2" || subject == "ICT" && paperNum == "3") {
+                    sfLink = "https://pastpapers.papacambridge.com/download.php?url=https://myaccount.papacambridge.com/directories/CAIE/CAIE-pastpapers/upload/" + link + month + numYear + "_sf_" + paper + ".zip";
+                    sourceFiles.onclick = function() {window.open(sfLink)};
+                    sourceFiles.onauxclick = function() {window.open(sfLink)};
+                    sourceFiles.style.display = "block";
+                    var height = window.innerHeight;
+                    var inputMarginTopOutput = (height - 100 - 252) / 2;
+                    outputData.style.top = inputMarginTopOutput + "px";
+                    outputData.style.height = "379px";
+                    insertPaper.style.display = "none";
+                    resizeValue = "big";
+                } else {
+                    insertPaper.style.display = "none";
+                    var height = window.innerHeight - 35;
+                    sourceFiles.style.display = "none";
+                    var inputMarginTopOutput = (height - 252) / 2;
+                    outputData.style.top = inputMarginTopOutput + "px";
+                    outputData.style.height = "329px";
+                    resizeValue = "small";
+                }
+                questionPaper.onclick = function() {window.open(qpLink)};
+                questionPaper.onauxclick = function() {window.open(qpLink)};
+                markScheme.onclick = function() {window.open(msLink)};
+                markScheme.onauxclick = function() {window.open(msLink)};
+                outputSubject.innerHTML = "Subject: " + subject;
+                var totalYear = numYear + 2000;
+                outputEdition.innerHTML = "Edition: " + editionMonth + " " + totalYear + " Paper " + paper;
+                shortSubject = subject;
+                if (shortSubject == "ICT") {
+                    shortSubject = "ICT";
+                } else if (shortSubject == "International Mathematics") {
+                    shortSubject = "Mathematics";
+                } else if (shortSubject == "Global Perspectives") {
+                    shortSubject = "GP";
+                }
+                document.title = shortSubject + " | Past Paper";
+            }
+
+            function onkeypressFunction() {
+                if (event.key == "Enter") {
+                    if (document.activeElement.id == "inputSubject") {
+                        checkSubject();
+                        if (subject == "Global Perspectives" || subject == "English" || subject == "English Writer's Effect") {
+                            calculatePaper();
+                            transitionToOutput();
+                        }
+                    } else if (document.activeElement.id == "inputPaperNum") {
+                        isPaperNumVerified = verifyPaperNum();
+                        if (isPaperNumVerified) {
+                            calculatePaper();
+                            transitionToOutput();
+                        }
+                    }
+                }
+            }
+
+            function onresizeFunction() {
+                var height = window.innerHeight - 35;
+                if (paperNumVisible == false) {
+                    var inputMarginTop = (height + 116 - 220) / 2;
+                } else {
+                    var inputMarginTop = (height + 116 - 252) / 2
+                }
+                mainForm.style.top = inputMarginTop - 164 + "px";
+                if (subject == "Global Perspectives" || subject == "English" || subject == "ICT") {
+                    var inputMarginTopOutput = (height - 65 - 252) / 2;
+                    outputData.style.top = inputMarginTopOutput + "px";
+                } else {
+                    mainForm.style.top = inputMarginTop - 164 + "px";
+                    outputData.style.top = inputMarginTopOutput + "px";
+                }
+            }
+
+            function onloadFunction() {
+                document.getElementById("container").style.opacity = "1";
+                var height = window.innerHeight - 35;
+                var width = window.innerWidth;
+                var inputMarginTop = (height + 116 - 220) / 2;
+                var inputMarginTopOutput = (height - 252) / 2
+                mainForm.style.top = inputMarginTop - 164 + "px";
+                mainForm.style.left = (width - 400) / 2 + "px";
+                outputData.style.top = inputMarginTopOutput + "px";
+                setTimeout(function() {inputSubject.focus()}, 300);
+            }
+        </script>
+    </body>
+</html>

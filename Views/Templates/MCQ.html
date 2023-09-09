@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href='https://fonts.googleapis.com/css?family=Karla' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <title>MCQ</title>
+    <style>
+      html {overflow-x: hidden}
+      #list {
+        transition: padding-left 0.3s, opacity 0.3s;
+        opacity: 0;
+        display: none;
+      }
+
+      .checkBox, .checkBoxIncorrect-A, .checkBoxIncorrect-B, .checkBoxIncorrect-C, .checkBoxIncorrect-D, .checkBoxCorrect {
+        visibility: hidden;
+        display: inline-block;
+      }
+      label {
+        cursor: pointer;
+        position: relative;
+        padding-left: 20px;
+        color: #333
+      }
+      .checkBox:disabled + label, .checkBoxIncorrect-A:disabled + label, .checkBoxIncorrect-B:disabled + label, .checkBoxIncorrect-C:disabled + label, .checkBoxIncorrect-D:disabled + label, .checkBoxCorrect:disabled + label {
+        cursor: text;
+      }
+      .checkBox + label:before ,.checkBoxCorrect + label:before {
+        border: 1px solid #333;
+        content: "\00a0";
+        position: absolute;
+        left: 0;
+        top: 2px;
+        display: inline-block;
+        font: 16px/1em sans-serif;
+        height: 16px;
+        min-width: 16px;
+        margin: 0 .25em 0 0;
+        border-radius: 4px;
+        vertical-align: bottom;
+      }
+      .checkBoxIncorrect-A + label:before {
+        border: 1px solid #333;
+        content: "\00a0";
+        position: absolute;
+        left: 0;
+        top: 2px;
+        display: inline-block;
+        font: 16px/1em sans-serif;
+        height: 16px;
+        min-width: 16px;
+        margin: 0 .25em 0 0;
+        border-radius: 4px;
+        vertical-align: bottom;
+      }
+      .checkBoxIncorrect-B + label:before {
+        border: 1px solid #333;
+        content: "\00a0";
+        position: absolute;
+        left: 0;
+        top: 2px;
+        display: inline-block;
+        font: 16px/1em sans-serif;
+        height: 16px;
+        min-width: 16px;
+        margin: 0 .25em 0 0;
+        border-radius: 4px;
+        vertical-align: bottom;
+      }
+      .checkBoxIncorrect-C + label:before {
+        border: 1px solid #333;
+        content: "\00a0";
+        position: absolute;
+        left: 0;
+        top: 2px;
+        display: inline-block;
+        font: 16px/1em sans-serif;
+        height: 16px;
+        min-width: 16px;
+        margin: 0 .25em 0 0;
+        border-radius: 4px;
+        vertical-align: bottom;
+      }
+      .checkBoxIncorrect-D + label:before {
+        border: 1px solid #333;
+        content: "\00a0";
+        position: absolute;
+        left: 0;
+        top: 2px;
+        display: inline-block;
+        font: 16px/1em sans-serif;
+        height: 16px;
+        min-width: 16px;
+        margin: 0 .25em 0 0;
+        border-radius: 4px;
+        vertical-align: bottom;
+      }
+      .checkBox + label:after, .checkBoxCorrect + label:after {
+        content: "\2713";
+        position: absolute;
+        left: 2px;
+        top: 0px;
+        opacity: 0;
+        transform: scale(0.5);
+        transition: 0.3s;
+      }
+      .checkBoxIncorrect-A + label:after {
+        content: "\00D7";
+        position: absolute;
+        left: 1px;
+        top: -9px;
+        opacity: 1;
+        font-size: 25px;
+      }
+      .checkBoxIncorrect-B + label:after {
+        content: "\00D7";
+        position: absolute;
+        left: 1px;
+        top: -9px;
+        opacity: 1;
+        font-size: 25px;
+      }
+      .checkBoxIncorrect-C + label:after {
+        content: "\00D7";
+        position: absolute;
+        left: 1px;
+        top: -9px;
+        opacity: 1;
+        font-size: 25px;
+      }
+      .checkBoxIncorrect-D + label:after {
+        content: "\00D7";
+        position: absolute;
+        left: 2px;
+        top: -9px;
+        opacity: 1;
+        font-size: 25px;
+      }
+      .checkBox:checked + label:after, .checkBox:checked:disabled + label:after {
+        color: #fff;
+        opacity: 1;
+        transform: scale(1)
+      }
+      .checkBoxIncorrect-A:checked + label:after, .checkBoxIncorrect-A:checked:disabled + label:after {
+        color: #ff616B;
+        opacity: 1;
+        transform: scale(1)
+      }
+      .checkBoxIncorrect-B:checked + label:after, .checkBoxIncorrect-B:checked:disabled + label:after {
+        color: #ff616B;
+        opacity: 1;
+        transform: scale(1)
+      }
+      .checkBoxIncorrect-C:checked + label:after, .checkBoxIncorrect-C:checked:disabled + label:after {
+        color: #ff616B;
+        opacity: 1;
+        transform: scale(1)
+      }
+      .checkBoxIncorrect-D:checked + label:after, .checkBoxIncorrect-D:checked:disabled + label:after {
+        color: #ff616B;
+        opacity: 1;
+        transform: scale(1)
+      }
+      .checkBoxCorrect:checked + label:after, .checkBoxCorrect:checked:disabled + label:after {
+        color: #61f186;
+        opacity: 1;
+        transform: scale(1)
+      }
+      .checkBox:checked + label:before, .checkBox:checked:disabled + label:before {
+        background-color: #f00;
+        border: 1px solid #f00;
+      }
+      .checkBoxCorrect:checked + label:before, .checkBoxCorrect:checked:disabled + label:before, .checkBoxIncorrect-A:checked + label:before, .checkBoxIncorrect-A:checked:disabled + label:before, .checkBoxIncorrect-B:checked + label:before, .checkBoxIncorrect-B:checked:disabled + label:before, .checkBoxIncorrect-C:checked + label:before, .checkBoxIncorrect-C:checked:disabled + label:before, .checkBoxIncorrect-D:checked + label:before, .checkBoxIncorrect-D:checked:disabled + label:before {
+        background-color: #fff;
+        border: 1px solid #fff;
+      }
+
+      li {
+        padding-top: 20px;
+        position: relative;
+        transition: 0.3s;
+        font-family: Karla;
+        font-size: 13pt;
+        background: transparent;
+      }
+      hr {
+        border-top: 1px solid #ddd;
+        margin-bottom: 0px;
+        transition: 0.3s;
+        width: 750px;
+        margin-left: -20px;
+      }
+      .correctQuestion {
+        position: absolute;
+        right: 0px;
+        height: 100%;
+        top: 0;
+      }
+      .checkQuestionButton {
+        height: 71px;
+        width: 71px;
+        margin: 0px;
+        border-radius: 0px;
+        border: 0;
+        transition: 0.3s;
+        display: none;
+        opacity: 0;
+      }
+      .correct {
+        background-color: #61f186;
+      }
+      .incorrect {
+        background-color: #f77276;
+      }
+      .correct:active {
+        transform: scale(0.8)
+      }
+      .incorrect:active {
+        transform: scale(0.8)
+      }
+      #reset {
+        position: absolute;
+        height: 60px;
+        width: 60px;
+        top: 120px;
+        right: 33px;
+        border: none;
+        border-radius: 0;
+        transition: ease-in-out 0.2s;
+        display: none;
+        opacity: 0;
+      }
+      #reset:active, #displayCorrection:active {
+        transform: scale(0.8)
+      }
+      #displayCorrection {
+        position: absolute;
+        height: 63px;
+        width: 63px;
+        top: 62px;
+        left: 0;
+        border: none;
+        border-radius: 0;
+        transition: ease-in-out 0.2s;
+      }
+      #displayCorrectionLightBox, #timeUpLightBox {
+        height: 200px;
+        width: 400px;
+        border-radius: 20px;
+        background-color: #f1f1f1;
+        z-index: 1000;
+        position: fixed;
+        opacity: 0;
+        display: none;
+        transform: scale(0.5);
+        transition: transform 0.3s, opacity 0.3s;
+      }
+      #solvedStatsLightBox {
+        height: 300px;
+        width: 400px;
+        border-radius: 20px;
+        background-color: #f1f1f1;
+        z-index: 1000;
+        position: fixed;
+        opacity: 0;
+        display: none;
+        transform: scale(0.5);
+        transition: transform 0.3s, opacity 0.3s;
+      }
+      #background {
+        top: 0;
+        left: 0;
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        background-color: #000;
+        opacity: 0.5;
+        z-index: 999;
+        opacity: 0;
+        display: none;
+        transition: 0.3s
+      }
+      #displayCorrectionLightBox h1, #solvedStatsLightBox h1, #timeUpLightBox h1 {
+        font-family: Karla;
+        font-size: 30pt;
+        text-align: center;
+        padding-top: 20px;
+      }
+      .light-box-button {
+        width: 100px;
+        height: 40px;
+        font-family: Karla;
+        font-size: 14pt;
+        border: none;
+        border-radius: 6px;
+        background-color: #61f186;
+        transition: 0.3s;
+        margin-top: 10px;
+      }
+      .yes-button {
+        background-color: #61f186;
+        margin-left: 75px;
+        color: #166429
+      }
+      .yes-button:active {
+        transform: scale(0.85);
+      }
+      .cancel-button {
+        margin-left: 50px;
+        background-color: #ddd;
+        color: #555
+      }
+      .cancel-button:active {
+        transform: scale(0.85);
+      }
+
+      #myProgress {
+        border-radius: 6px;
+        margin-left: 50px;
+        width: 300px;
+        background-color: #ddd;
+        margin-bottom: 20px;
+      }
+
+      #myBar {
+        border-radius: 6px;
+        width: 0%;
+        height: 30px;
+        background-color: #61f186;
+        transition: width 0.5s;
+      }
+
+      #scoreText {
+        font-family: Karla;
+        text-align: center;
+        color: #2654f5;
+        padding: 40px;
+        padding-bottom: 0px;
+        font-size: 30pt;
+      }
+
+      #score, #maxScore {
+        display: inline-block;
+      }
+
+      #score {
+        transform: scale(0.5);
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.15s;
+      }
+
+      #chooseSubject {
+        transition: 0.3s;
+        width: 347px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 100px;
+        padding: 20px;
+        padding-top: 1px;
+        border-radius: 20px;
+        box-shadow: 0px 0px 50px #888888;
+      }
+
+      #time {
+        position: fixed;
+        top: 100px;
+        left: 40px;
+        font-family: Karla;
+        font-size: 20pt;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s
+      }
+
+      #minutes, #seconds {
+        display: inline-block;
+        width: 40px;
+      }
+
+      #minutes {
+        text-align: right
+      }
+
+      #timeTakenSolvedStats {
+        font-family: Karla;
+        text-align: center;
+        color: #2654f5;
+        font-size: 20px;
+        margin-top: -10px;
+        padding-bottom: 20px;
+        transform: scale(0.5);
+        opacity: 0;
+        transition: opacity 0.3s, transform 0.15s;
+      }
+      #doneButton {
+        position: absolute;
+        top: 90px;
+        right: 100px;
+        display: none;
+        opacity: 0;
+      }
+
+      #pauseTimer::before {
+        content: 'pause'
+      }
+
+      #playTimer {
+        position: fixed;
+        font-size: 200pt;
+        background: #61f186;
+        border: none;
+        border-radius: 50%;
+        opacity: 0;
+        display: none;
+        height: 300px;
+        width: 300px;
+        transition: opacity 0.3s, transform 0.2s;
+        z-index: 100;
+      }
+
+      #playTimer::before {
+        content: 'play_arrow'
+      }
+
+      #covering {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: #f1f1f1;
+        opacity: 0;
+        display: none;
+        transition: 0.3s;
+        z-index: 60;
+      }
+
+      #pauseTimer {
+        height: 50px;
+        width: 50px;
+        background-color: #61f186;
+        border: none;
+        border-radius: 50%;
+        position: fixed;
+        top: 100px;
+        right: 30px;
+        opacity: 0;
+        display: none;
+        transition: opacity 0.3s, transform 0.3s;
+        z-index: 10
+      }
+
+      #pauseTimer:active {
+        transform: scale(0.8)
+      }
+    </style>
+  </head>
+  <body onload="onloadFunction()" onresize="onresizeFunction()">
+    <div id="container" class="container">
+      <h1 style="text-align: center; font-family: Karla" >MCQ</h1>
+      <button id="doneButton" onclick="doneButton()" class="light-box-button yes-button" ></button>
+
+      <div id="background"></div>
+
+      <div id="covering"></div>
+
+      <button onclick="pause()" id="pauseTimer" class="material-icons"></button>
+      <button onclick="play()" id="playTimer" class="material-icons" onmousedown="playButtonMouseDown(this)" onmouseup="playButtonMouseUp(this)" onmouseout="playButtonMouseUp(this)"></button>
+
+      <div id="time">
+        <div id="minutes">0</div>:<div id="seconds">00</div>
+      </div>
+
+      <div id="displayCorrectionLightBox">
+        <h1>Correct Questions?</h1>
+        <button onclick="correctAllQuestions(); closeDisplayQuestionsModal(); displayCorrection(); changeViewMode('Correct')" class="light-box-button yes-button">Yes</button><button onclick="closeDisplayQuestionsModal(); changeViewMode('Answer'); startTime(); showDoneButton()" class="light-box-button cancel-button">Not Now</button>
+      </div>
+
+      <div id="solvedStatsLightBox">
+        <div id="scoreText"><div id="score"></div>/<div id="maxScore"></div></div>
+        <div id="timeTakenSolvedStats"></div>
+        <div id="myProgress">
+          <div id="myBar"></div>
+        </div>
+        <button onclick="closeSolvedStatsModal(); window.close()" class="light-box-button yes-button">Close</button><button id="solvedStatsNotNow" onclick="closeSolvedStatsModal(); changeViewMode('Correct'); showDoneButton()" class="light-box-button cancel-button">Review</button>
+      </div>
+
+      <div id="timeUpLightBox">
+        <h1 style="color: #FF322C">Time Up!</h1>
+        <button onclick="correctAllQuestions(); closeTimeUpModal(); displayCorrection(); changeViewMode('Correct')" class="light-box-button yes-button" style="width: 200px; margin-left: 100px">Correct Questions</button>
+      </div>
+
+      <div id="chooseSubject">
+        <h2 id="startSubject" style="font-family: Karla; font-size: 24pt; text-align: center"></h2>
+        <button onclick="defineSubject('Economics')" class="light-box-button yes-button" style="width: 130px; margin-left: 89px;">Start Test</button>
+      </div>
+
+      <ol id="list">
+        <li id="question-1">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(1, 'A')" id="A-1" type="checkbox"><label for="A-1">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(1, 'B')" id="B-1" type="checkbox"><label for="B-1">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(1, 'C')" id="C-1" type="checkbox"><label for="C-1">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(1, 'D')" id="D-1" type="checkbox"><label for="D-1">D</label>
+          <hr id="hr-1">
+        </li>
+        <li id="question-2">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(2, 'A')" id="A-2" type="checkbox"><label for="A-2">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(2, 'B')" id="B-2" type="checkbox"><label for="B-2">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(2, 'C')" id="C-2" type="checkbox"><label for="C-2">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(2, 'D')" id="D-2" type="checkbox"><label for="D-2">D</label>
+          <hr id="hr-2">
+        </li>
+        <li id="question-3">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(3, 'A')" id="A-3" type="checkbox"><label for="A-3">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(3, 'B')" id="B-3" type="checkbox"><label for="B-3">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(3, 'C')" id="C-3" type="checkbox"><label for="C-3">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(3, 'D')" id="D-3" type="checkbox"><label for="D-3">D</label>
+          <hr id="hr-3">
+        </li>
+        <li id="question-4">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(4, 'A')" id="A-4" type="checkbox"><label for="A-4">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(4, 'B')" id="B-4" type="checkbox"><label for="B-4">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(4, 'C')" id="C-4" type="checkbox"><label for="C-4">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(4, 'D')" id="D-4" type="checkbox"><label for="D-4">D</label>
+          <hr id="hr-4">
+        </li>
+        <li id="question-5">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(5, 'A')" id="A-5" type="checkbox"><label for="A-5">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(5, 'B')" id="B-5" type="checkbox"><label for="B-5">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(5, 'C')" id="C-5" type="checkbox"><label for="C-5">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(5, 'D')" id="D-5" type="checkbox"><label for="D-5">D</label>
+          <hr id="hr-5">
+        </li>
+        <li id="question-6">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(6, 'A')" id="A-6" type="checkbox"><label for="A-6">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(6, 'B')" id="B-6" type="checkbox"><label for="B-6">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(6, 'C')" id="C-6" type="checkbox"><label for="C-6">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(6, 'D')" id="D-6" type="checkbox"><label for="D-6">D</label>
+          <hr id="hr-6">
+        </li>
+        <li id="question-7">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(7, 'A')" id="A-7" type="checkbox"><label for="A-7">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(7, 'B')" id="B-7" type="checkbox"><label for="B-7">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(7, 'C')" id="C-7" type="checkbox"><label for="C-7">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(7, 'D')" id="D-7" type="checkbox"><label for="D-7">D</label>
+          <hr id="hr-7">
+        </li>
+        <li id="question-8">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(8, 'A')" id="A-8" type="checkbox"><label for="A-8">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(8, 'B')" id="B-8" type="checkbox"><label for="B-8">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(8, 'C')" id="C-8" type="checkbox"><label for="C-8">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(8, 'D')" id="D-8" type="checkbox"><label for="D-8">D</label>
+          <hr id="hr-8">
+        </li>
+        <li id="question-9">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(9, 'A')" id="A-9" type="checkbox"><label for="A-9">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(9, 'B')" id="B-9" type="checkbox"><label for="B-9">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(9, 'C')" id="C-9" type="checkbox"><label for="C-9">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(9, 'D')" id="D-9" type="checkbox"><label for="D-9">D</label>
+          <hr id="hr-9">
+        </li>
+        <li id="question-10">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(10, 'A')" id="A-10" type="checkbox"><label for="A-10">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(10, 'B')" id="B-10" type="checkbox"><label for="B-10">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(10, 'C')" id="C-10" type="checkbox"><label for="C-10">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(10, 'D')" id="D-10" type="checkbox"><label for="D-10">D</label>
+          <hr id="hr-10">
+        </li>
+        <li id="question-11">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(11, 'A')" id="A-11" type="checkbox"><label for="A-11">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(11, 'B')" id="B-11" type="checkbox"><label for="B-11">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(11, 'C')" id="C-11" type="checkbox"><label for="C-11">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(11, 'D')" id="D-11" type="checkbox"><label for="D-11">D</label>
+          <hr id="hr-11">
+        </li>
+        <li id="question-12">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(12, 'A')" id="A-12" type="checkbox"><label for="A-12">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(12, 'B')" id="B-12" type="checkbox"><label for="B-12">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(12, 'C')" id="C-12" type="checkbox"><label for="C-12">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(12, 'D')" id="D-12" type="checkbox"><label for="D-12">D</label>
+          <hr id="hr-12">
+        </li>
+        <li id="question-13">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(13, 'A')" id="A-13" type="checkbox"><label for="A-13">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(13, 'B')" id="B-13" type="checkbox"><label for="B-13">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(13, 'C')" id="C-13" type="checkbox"><label for="C-13">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(13, 'D')" id="D-13" type="checkbox"><label for="D-13">D</label>
+          <hr id="hr-13">
+        </li>
+        <li id="question-14">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(14, 'A')" id="A-14" type="checkbox"><label for="A-14">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(14, 'B')" id="B-14" type="checkbox"><label for="B-14">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(14, 'C')" id="C-14" type="checkbox"><label for="C-14">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(14, 'D')" id="D-14" type="checkbox"><label for="D-14">D</label>
+          <hr id="hr-14">
+        </li>
+        <li id="question-15">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(15, 'A')" id="A-15" type="checkbox"><label for="A-15">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(15, 'B')" id="B-15" type="checkbox"><label for="B-15">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(15, 'C')" id="C-15" type="checkbox"><label for="C-15">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(15, 'D')" id="D-15" type="checkbox"><label for="D-15">D</label>
+          <hr id="hr-15">
+        </li>
+        <li id="question-16">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(16, 'A')" id="A-16" type="checkbox"><label for="A-16">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(16, 'B')" id="B-16" type="checkbox"><label for="B-16">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(16, 'C')" id="C-16" type="checkbox"><label for="C-16">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(16, 'D')" id="D-16" type="checkbox"><label for="D-16">D</label>
+          <hr id="hr-16">
+        </li>
+        <li id="question-17">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(17, 'A')" id="A-17" type="checkbox"><label for="A-17">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(17, 'B')" id="B-17" type="checkbox"><label for="B-17">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(17, 'C')" id="C-17" type="checkbox"><label for="C-17">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(17, 'D')" id="D-17" type="checkbox"><label for="D-17">D</label>
+          <hr id="hr-17">
+        </li>
+        <li id="question-18">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(18, 'A')" id="A-18" type="checkbox"><label for="A-18">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(18, 'B')" id="B-18" type="checkbox"><label for="B-18">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(18, 'C')" id="C-18" type="checkbox"><label for="C-18">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(18, 'D')" id="D-18" type="checkbox"><label for="D-18">D</label>
+          <hr id="hr-18">
+        </li>
+        <li id="question-19">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(19, 'A')" id="A-19" type="checkbox"><label for="A-19">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(19, 'B')" id="B-19" type="checkbox"><label for="B-19">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(19, 'C')" id="C-19" type="checkbox"><label for="C-19">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(19, 'D')" id="D-19" type="checkbox"><label for="D-19">D</label>
+          <hr id="hr-19">
+        </li>
+        <li id="question-20">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(20, 'A')" id="A-20" type="checkbox"><label for="A-20">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(20, 'B')" id="B-20" type="checkbox"><label for="B-20">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(20, 'C')" id="C-20" type="checkbox"><label for="C-20">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(20, 'D')" id="D-20" type="checkbox"><label for="D-20">D</label>
+          <hr id="hr-20">
+        </li>
+        <li id="question-21">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(21, 'A')" id="A-21" type="checkbox"><label for="A-21">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(21, 'B')" id="B-21" type="checkbox"><label for="B-21">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(21, 'C')" id="C-21" type="checkbox"><label for="C-21">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(21, 'D')" id="D-21" type="checkbox"><label for="D-21">D</label>
+          <hr id="hr-21">
+        </li>
+        <li id="question-22">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(22, 'A')" id="A-22" type="checkbox"><label for="A-22">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(22, 'B')" id="B-22" type="checkbox"><label for="B-22">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(22, 'C')" id="C-22" type="checkbox"><label for="C-22">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(22, 'D')" id="D-22" type="checkbox"><label for="D-22">D</label>
+          <hr id="hr-22">
+        </li>
+        <li id="question-23">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(23, 'A')" id="A-23" type="checkbox"><label for="A-23">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(23, 'B')" id="B-23" type="checkbox"><label for="B-23">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(23, 'C')" id="C-23" type="checkbox"><label for="C-23">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(23, 'D')" id="D-23" type="checkbox"><label for="D-23">D</label>
+          <hr id="hr-23">
+        </li>
+        <li id="question-24">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(24, 'A')" id="A-24" type="checkbox"><label for="A-24">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(24, 'B')" id="B-24" type="checkbox"><label for="B-24">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(24, 'C')" id="C-24" type="checkbox"><label for="C-24">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(24, 'D')" id="D-24" type="checkbox"><label for="D-24">D</label>
+          <hr id="hr-24">
+        </li>
+        <li id="question-25">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(25, 'A')" id="A-25" type="checkbox"><label for="A-25">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(25, 'B')" id="B-25" type="checkbox"><label for="B-25">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(25, 'C')" id="C-25" type="checkbox"><label for="C-25">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(25, 'D')" id="D-25" type="checkbox"><label for="D-25">D</label>
+          <hr id="hr-25">
+        </li>
+        <li id="question-26">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(26, 'A')" id="A-26" type="checkbox"><label for="A-26">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(26, 'B')" id="B-26" type="checkbox"><label for="B-26">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(26, 'C')" id="C-26" type="checkbox"><label for="C-26">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(26, 'D')" id="D-26" type="checkbox"><label for="D-26">D</label>
+          <hr id="hr-26">
+        </li>
+        <li id="question-27">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(27, 'A')" id="A-27" type="checkbox"><label for="A-27">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(27, 'B')" id="B-27" type="checkbox"><label for="B-27">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(27, 'C')" id="C-27" type="checkbox"><label for="C-27">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(27, 'D')" id="D-27" type="checkbox"><label for="D-27">D</label>
+          <hr id="hr-27">
+        </li>
+        <li id="question-28">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(28, 'A')" id="A-28" type="checkbox"><label for="A-28">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(28, 'B')" id="B-28" type="checkbox"><label for="B-28">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(28, 'C')" id="C-28" type="checkbox"><label for="C-28">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(28, 'D')" id="D-28" type="checkbox"><label for="D-28">D</label>
+          <hr id="hr-28">
+        </li>
+        <li id="question-29">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(29, 'A')" id="A-29" type="checkbox"><label for="A-29">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(29, 'B')" id="B-29" type="checkbox"><label for="B-29">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(29, 'C')" id="C-29" type="checkbox"><label for="C-29">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(29, 'D')" id="D-29" type="checkbox"><label for="D-29">D</label>
+          <hr id="hr-29">
+        </li>
+        <li id="question-30">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(30, 'A')" id="A-30" type="checkbox"><label for="A-30">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(30, 'B')" id="B-30" type="checkbox"><label for="B-30">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(30, 'C')" id="C-30" type="checkbox"><label for="C-30">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(30, 'D')" id="D-30" type="checkbox"><label for="D-30">D</label>
+          <hr id="hr-30">
+        </li>
+        <li id="question-31">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(31, 'A')" id="A-31" type="checkbox"><label for="A-31">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(31, 'B')" id="B-31" type="checkbox"><label for="B-31">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(31, 'C')" id="C-31" type="checkbox"><label for="C-31">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(31, 'D')" id="D-31" type="checkbox"><label for="D-31">D</label>
+          <hr id="hr-31">
+        </li>
+        <li id="question-32">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(32, 'A')" id="A-32" type="checkbox"><label for="A-32">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(32, 'B')" id="B-32" type="checkbox"><label for="B-32">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(32, 'C')" id="C-32" type="checkbox"><label for="C-32">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(32, 'D')" id="D-32" type="checkbox"><label for="D-32">D</label>
+          <hr id="hr-32">
+        </li>
+        <li id="question-33">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(33, 'A')" id="A-33" type="checkbox"><label for="A-33">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(33, 'B')" id="B-33" type="checkbox"><label for="B-33">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(33, 'C')" id="C-33" type="checkbox"><label for="C-33">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(33, 'D')" id="D-33" type="checkbox"><label for="D-33">D</label>
+          <hr id="hr-33">
+        </li>
+        <li id="question-34">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(34, 'A')" id="A-34" type="checkbox"><label for="A-34">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(34, 'B')" id="B-34" type="checkbox"><label for="B-34">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(34, 'C')" id="C-34" type="checkbox"><label for="C-34">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(34, 'D')" id="D-34" type="checkbox"><label for="D-34">D</label>
+          <hr id="hr-34">
+        </li>
+        <li id="question-35">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(35, 'A')" id="A-35" type="checkbox"><label for="A-35">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(35, 'B')" id="B-35" type="checkbox"><label for="B-35">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(35, 'C')" id="C-35" type="checkbox"><label for="C-35">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(35, 'D')" id="D-35" type="checkbox"><label for="D-35">D</label>
+          <hr id="hr-35">
+        </li>
+        <li id="question-36">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(36, 'A')" id="A-36" type="checkbox"><label for="A-36">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(36, 'B')" id="B-36" type="checkbox"><label for="B-36">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(36, 'C')" id="C-36" type="checkbox"><label for="C-36">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(36, 'D')" id="D-36" type="checkbox"><label for="D-36">D</label>
+          <hr id="hr-36">
+        </li>
+        <li id="question-37">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(37, 'A')" id="A-37" type="checkbox"><label for="A-37">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(37, 'B')" id="B-37" type="checkbox"><label for="B-37">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(37, 'C')" id="C-37" type="checkbox"><label for="C-37">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(37, 'D')" id="D-37" type="checkbox"><label for="D-37">D</label>
+          <hr id="hr-37">
+        </li>
+        <li id="question-38">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(38, 'A')" id="A-38" type="checkbox"><label for="A-38">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(38, 'B')" id="B-38" type="checkbox"><label for="B-38">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(38, 'C')" id="C-38" type="checkbox"><label for="C-38">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(38, 'D')" id="D-38" type="checkbox"><label for="D-38">D</label>
+          <hr id="hr-38">
+        </li>
+        <li id="question-39">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(39, 'A')" id="A-39" type="checkbox"><label for="A-39">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(39, 'B')" id="B-39" type="checkbox"><label for="B-39">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(39, 'C')" id="C-39" type="checkbox"><label for="C-39">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(39, 'D')" id="D-39" type="checkbox"><label for="D-39">D</label>
+          <hr id="hr-39">
+        </li>
+        <li id="question-40" style="padding-bottom: 21px;">
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(40, 'A')" id="A-40" type="checkbox"><label for="A-40">A</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(40, 'B')" id="B-40" type="checkbox"><label for="B-40">B</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(40, 'C')" id="C-40" type="checkbox"><label for="C-40">C</label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          <input class="checkBox" onclick="addNumber(40, 'D')" id="D-40" type="checkbox"><label for="D-40">D</label>
+          <hr id="hr-40">
+        </li>
+      </ol>
+    </div>
+    <form id="paper-info" style="position: absolute; top: -100px; left: -100px;">
+      <input type="text" id="link" name="link">
+      <button type="submit" id="submit-paper-info"></button>
+    </form>
+    <script>
+      var correct = []
+      var corrected = []
+      var answered = []
+      var numQuestions
+
+      var answers = {}
+
+      var time = 0
+      var minutesString, secondsString
+      var timeMode = "Not Started"
+      var timeInterval
+
+      var subject
+
+      var viewMode = "chooseSubject";
+
+      var doneButtonView = false;
+
+      var displayCorrectionLightBox = document.getElementById("displayCorrectionLightBox")
+      var solvedStatsLightBox = document.getElementById("solvedStatsLightBox")
+      var timeUpLightBox = document.getElementById("timeUpLightBox")
+      var background = document.getElementById("background")
+
+      var seconds = document.getElementById("seconds")
+      var minutes = document.getElementById("minutes")
+
+      function correctAllQuestions() {
+        if (subject == "Economics") {
+          maxQuestions = 30
+        } else {
+          maxQuestions = 40
+        }
+        for (var questionNumber = 1; questionNumber <= maxQuestions; questionNumber ++) {
+          if (document.getElementById(answers[questionNumber - 1] + "-" + questionNumber).checked) {
+            questionCorrect(questionNumber)
+          } else {
+            questionIncorrect(questionNumber)
+            document.getElementById(answers[questionNumber - 1] + "-" + questionNumber).checked = true
+            document.getElementById(answers[questionNumber - 1] + "-" + questionNumber).classList = "checkBoxCorrect"
+          }
+        }
+      }
+
+      function selectAll() {
+        if (subject == "Economics") {
+          var maxQuestions = 30
+        } else {
+          var maxQuestions = 40
+        }
+        var options = ["A", "B", "C", "D"]
+        for (var i = 1; i <= maxQuestions; i++) {
+          var chosenOption = options[Math.floor(Math.random() * 4)]
+          if (!document.getElementById(chosenOption + "-" + i).disabled) {
+            document.getElementById(chosenOption + "-" + i).checked = true
+          }
+          addNumber(i, chosenOption)
+        }
+      }
+
+      function startTime() {
+        if (timeMode != "Playing") {
+          timeMode = "Playing"
+          timeInterval = setInterval(function() {
+            time++;
+            if (time >= 45 * 60) {
+              clearInterval(timeInterval);
+              openTimeUpModal();
+            }
+            var minutesTime = Math.floor(time / 60);
+            var secondsTime = time % 60;
+            minutesString = minutesTime
+            secondsString = secondsTime
+            if (secondsTime < 10) {
+              secondsString = "0" + secondsTime
+            }
+            minutes.innerHTML = minutesString
+            seconds.innerHTML = secondsString
+          }, 1000);
+        }
+      }
+
+      function playButtonMouseDown(element) {
+        element.style.transform = "scale(0.8)"
+      }
+
+      function playButtonMouseUp(element) {
+        element.style.transform = "scale(1)"
+      }
+
+      function play() {
+        startTime();
+        document.getElementById("covering").style.opacity = "0"
+        setTimeout(function() {document.getElementById("covering").style.display = "none"}, 300)
+        document.getElementById("playTimer").style.opacity = "0"
+        setTimeout(function() {document.getElementById("playTimer").style.display = "none"}, 300)
+      }
+
+      function pause() {
+        pauseTime();
+        document.getElementById("covering").style.display = "block"
+        setTimeout(function() {document.getElementById("covering").style.opacity = "1"}, 10)
+        document.getElementById("playTimer").style.display = "block"
+        setTimeout(function() {document.getElementById("playTimer").style.opacity = "1"; document.getElementById("playTimer").style.transform = "scale(1.2)"}, 10)
+        setTimeout(function() {document.getElementById("playTimer").style.transform = "scale(1)"}, 200)
+      }
+
+      function pauseTime() {
+       clearInterval(timeInterval);
+       timeMode = "Paused";
+      }
+
+      function showDoneButton() {
+        document.getElementById("doneButton").style.display = "block";
+        setTimeout(function() {document.getElementById("doneButton").style.opacity = "1"}, 10)
+        if (viewMode == "Answer") {
+          document.getElementById("doneButton").innerHTML = "Correct"
+        } else if (viewMode == "Correct") {
+          document.getElementById("doneButton").innerHTML = "Close"
+        }
+        doneButtonView = true
+      }
+
+      function doneButton() {
+        document.getElementById("doneButton").style.opacity = "0";
+        setTimeout(function() {document.getElementById("doneButton").style.display = "none";}, 300);
+        doneButtonView = false
+        if (viewMode == "Answer") {
+          correctAllQuestions();
+          displayCorrection();
+          changeViewMode("Correct")
+        } else if (viewMode == "Correct") {
+          window.close()
+        }
+      }
+
+      function defineSubject() {
+        if (subject == "Economics") {
+          numQuestions = 30;
+          for (number = 31; number <= 40; number ++ ) {
+            document.getElementById("question-" + number).style.display = "none";
+          }
+        } else  {
+          numQuestions = 40;
+        }
+        time = 0;
+        minutes.innerHTML = "0"
+        seconds.innerHTML = "00"
+        changeViewMode("Answer")
+        document.getElementById("chooseSubject").style.opacity = "0";
+        document.getElementById("list").style.display = "block";
+        document.getElementById("time").style.display = "block";
+        document.getElementById("list").style.paddingLeft = (window.innerWidth - 750) / 2 + 30 + "px"
+        document.getElementById("pauseTimer").style.display = "block"
+        setTimeout(function() {document.getElementById("chooseSubject").style.display = "none";}, 300);
+        setTimeout(function() {document.getElementById("list").style.opacity = "1";}, 300);
+        setTimeout(function() {document.getElementById("time").style.opacity = "1";}, 300);
+        setTimeout(function() {document.getElementById("pauseTimer").style.opacity = "1"}, 300)
+        startTime()
+      }
+
+      function questionCorrect(number) {
+        if (!corrected.includes(number)) {
+          document.getElementById("question-" + number).style.backgroundColor = "#61f186";
+          if (!correct.includes(number)) {
+            correct.push(number)
+          }
+          corrected.push(number)
+          if (corrected.length == numQuestions && !doneButtonView) {
+            openSolvedStatsModal();
+          }
+          if (document.getElementById("A-" + number).checked) {document.getElementById("A-" + number).classList = "checkBoxCorrect"}
+          if (document.getElementById("B-" + number).checked) {document.getElementById("B-" + number).classList = "checkBoxCorrect"}
+          if (document.getElementById("C-" + number).checked) {document.getElementById("C-" + number).classList = "checkBoxCorrect"}
+          if (document.getElementById("D-" + number).checked) {document.getElementById("D-" + number).classList = "checkBoxCorrect"}
+          document.getElementById("hr-" + number).style.borderTop = "1px solid #61f186";
+        }
+      }
+
+      function getAnswers(allAnswers) {
+        answers = allAnswers;
+        answers = answers.substring(2, answers.length - 2)
+        answers = answers.split("', '")
+      }
+
+      function questionIncorrect(number) {
+        if (!corrected.includes(number)) {
+          document.getElementById("question-" + number).style.backgroundColor = "#f77276";
+          corrected.push(number)
+          if (corrected.length == numQuestions) {
+            openSolvedStatsModal();
+          }
+          if (document.getElementById("A-" + number).checked) {document.getElementById("A-" + number).classList = "checkBoxIncorrect-A"}
+          if (document.getElementById("B-" + number).checked) {document.getElementById("B-" + number).classList = "checkBoxIncorrect-B"}
+          if (document.getElementById("C-" + number).checked) {document.getElementById("C-" + number).classList = "checkBoxIncorrect-C"}
+          if (document.getElementById("D-" + number).checked) {document.getElementById("D-" + number).classList = "checkBoxIncorrect-D"}
+          document.getElementById("hr-" + number).style.borderTop = "1px solid #f77276";
+        }
+      }
+
+      function addNumber(number, option) {
+        if (document.getElementById(option + "-" + number).checked) {
+          if (option != "A") {document.getElementById('A-' + number).checked = false}
+          if (option != "B") {document.getElementById('B-' + number).checked = false}
+          if (option != "C") {document.getElementById('C-' + number).checked = false}
+          if (option != "D") {document.getElementById('D-' + number).checked = false}
+          if (!answered.includes(number)) {
+            answered.push(number)
+          }
+        } else {
+          var position = answered.indexOf(number)
+          if (position >= 0) {
+            answered.splice(position, 1);
+          }
+        }
+        if (answered.length == numQuestions && !doneButtonView) {
+          openDisplayQuestionsModal()
+        }
+      }
+
+      function displayCorrection() {
+        document.getElementById("list").style.paddingLeft = "50px"
+        setTimeout(function() {
+          for (number = 1; number <= numQuestions; number++) {
+            document.getElementById("A-" + number).disabled = true;
+            document.getElementById("B-" + number).disabled = true;
+            document.getElementById("C-" + number).disabled = true;
+            document.getElementById("D-" + number).disabled = true;
+          }
+        }, 10);
+        changeViewMode("Correct")
+        document.getElementById("time").style.opacity = "0";
+        document.getElementById("pauseTimer").style.opacity = "0"
+        setTimeout(function() {document.getElementById("time").style.display = "none";}, 300);
+        setTimeout(function() {document.getElementById("pauseTimer").style.display = "none";}, 300);
+        for (number = 1; number <= numQuestions; number++) {
+          document.getElementById("hr-" + number).style.width = "553px";
+          document.getElementById("hr-" + number).style.marginLeft = "117px";
+        }
+      }
+
+      function openDisplayQuestionsModal() {
+        displayCorrectionLightBox.style.display = "block"
+        background.style.display = "block"
+        setTimeout(function() {
+          displayCorrectionLightBox.style.opacity = "1"
+          displayCorrectionLightBox.style.transform = "scale(1.05)"
+          background.style.opacity = "0.5"
+          setTimeout(function() {
+            displayCorrectionLightBox.style.transform = "scale(1)"
+          }, 300);
+        }, 10);
+        document.documentElement.style.overflow = "hidden"
+        changeViewMode("displayQuestionsModal")
+        pauseTime()
+      }
+
+      function changeViewMode(mode) {
+        viewMode = mode
+      }
+
+      function closeDisplayQuestionsModal() {
+        displayCorrectionLightBox.style.opacity = "0"
+        background.style.opacity = "0"
+        displayCorrectionLightBox.style.transform = "scale(2)"
+        setTimeout(function() {
+          displayCorrectionLightBox.style.display = "none"
+          background.style.display = "none"
+          displayCorrectionLightBox.style.transform = "scale(0.5)"
+        }, 300);
+        document.documentElement.style.overflow = "auto"
+      }
+
+      function openTimeUpModal() {
+        timeUpLightBox.style.display = "block"
+        background.style.display = "block"
+        setTimeout(function() {
+          timeUpLightBox.style.opacity = "1"
+          timeUpLightBox.style.transform = "scale(1.05)"
+          background.style.opacity = "0.5"
+          setTimeout(function() {
+            timeUpLightBox.style.transform = "scale(1)"
+          }, 300);
+        }, 10);
+        document.documentElement.style.overflow = "hidden"
+        changeViewMode("timeUpModal")
+        pauseTime()
+      }
+
+      function closeTimeUpModal() {
+        timeUpLightBox.style.opacity = "0"
+        background.style.opacity = "0"
+        timeUpLightBox.style.transform = "scale(2)"
+        setTimeout(function() {
+          timeUpLightBox.style.display = "none"
+          background.style.display = "none"
+          timeUpLightBox.style.transform = "scale(0.5)"
+        }, 300);
+        document.documentElement.style.overflow = "auto"
+        document.getElementById("time").style.opacity = "0"
+        setTimeout(function() {document.getElementById("time").style.opacity = "0"}, 300);
+      }
+
+      function move(score) {
+        var percentage = score / numQuestions;
+        var elem = document.getElementById("myBar");
+        if (percentage == 1) {
+          elem.style.background = "#61f186"
+        } else if (percentage > .8) {
+          elem.style.background = "#FFA62C"
+        } else {
+          elem.style.background = "#FF322C"
+        }
+        var length = Math.round(percentage * 300);
+        elem.style.width = length + "px";
+      }
+
+      function changeScoreTextColor(score) {
+        var percentage = score / numQuestions;
+        if (percentage == 1) {
+          document.getElementById("scoreText").style.color = "#61F186"
+        } else if (percentage > .8) {
+          document.getElementById("scoreText").style.color = "#FFA62C"
+        } else {
+          document.getElementById("scoreText").style.color = "#FF322C"
+        }
+      }
+
+      function changeTimeTakenSolvedStatsColor() {
+        if (time <= 15 * 60) {
+          document.getElementById("timeTakenSolvedStats").style.color = "#61F186"
+        } else if (time <= 30 * 60) {
+          document.getElementById("timeTakenSolvedStats").style.color = "#FFA62C"
+        } else {
+          document.getElementById("timeTakenSolvedStats").style.color = "#FF322C"
+        }
+      }
+
+      function openSolvedStatsModal() {
+        solvedStatsLightBox.style.display = "block"
+        background.style.display = "block"
+        setTimeout(function() {
+          solvedStatsLightBox.style.opacity = "1"
+          solvedStatsLightBox.style.transform = "scale(1.05)"
+          background.style.opacity = "0.5"
+          setTimeout(function() {
+            solvedStatsLightBox.style.transform = "scale(1)"
+            move(parseInt(correct.length));
+            document.getElementById("score").style.opacity = "1";
+            document.getElementById("score").style.transform = "scale(1.2)";
+            setTimeout(function() {
+              document.getElementById("score").style.transform = "scale(1)";
+            }, 150);
+            setTimeout(function() {
+              document.getElementById("timeTakenSolvedStats").style.opacity = "1";
+              document.getElementById("timeTakenSolvedStats").style.transform = "scale(1.2)";
+                setTimeout(function() {
+                  document.getElementById("timeTakenSolvedStats").style.transform = "scale(1)";
+              }, 150);
+            }, 200);
+          }, 300);
+        }, 10);
+        document.getElementById("timeTakenSolvedStats").innerHTML = Math.floor(time / 60) + "m " + time % 60 + "s"
+        changeScoreTextColor(parseInt(correct.length));
+        changeTimeTakenSolvedStatsColor()
+        document.getElementById("score").innerHTML = correct.length
+        document.getElementById("maxScore").innerHTML = numQuestions
+        document.documentElement.style.overflow = "hidden"
+        changeViewMode("solvedStatsModal")
+      }
+
+      function closeSolvedStatsModal() {
+        solvedStatsLightBox.style.opacity = "0"
+        background.style.opacity = "0"
+        solvedStatsLightBox.style.transform = "scale(2)"
+        setTimeout(function() {
+          solvedStatsLightBox.style.display = "none"
+          background.style.display = "none"
+          solvedStatsLightBox.style.transform = "scale(0.5)"
+          document.getElementById("myBar").style.width = "0";
+          document.getElementById("score").style.opacity = "0";
+          document.getElementById("score").style.transform = "scale(0.5)";
+          document.getElementById("timeTakenSolvedStats").style.opacity = "0";
+          document.getElementById("timeTakenSolvedStats").style.transform = "scale(0.5)";
+        }, 300);
+        document.documentElement.style.overflow = "auto"
+      }
+
+      function checkLink() {
+        var search = location.search.substring(1)
+        var searchArray = search.split("&")
+        subjectCode = searchArray[0].substring(8)
+        month = searchArray[1].substring(6)
+        year = searchArray[2].substring(5)
+        paperNum = searchArray[3].substring(9)
+        subject = searchArray[4].substring(8)
+        link = searchArray[5].substring(5)
+        document.getElementById("startSubject").innerHTML = subject + " " + month + year + " P" + paperNum
+        document.getElementById("link").value = link
+        document.getElementById("submit-paper-info").click();
+      }
+
+      function onresizeFunction() {
+        document.getElementById("container").style.opacity = "1";
+        document.getElementById("displayCorrectionLightBox").style.left = (window.innerWidth - 400) / 2 + "px";
+        document.getElementById("displayCorrectionLightBox").style.top = (window.innerHeight - 200) / 2 + "px";
+        timeUpLightBox.style.left = (window.innerWidth - 400) / 2 + "px";
+        timeUpLightBox.style.top = (window.innerHeight - 200) / 2 + "px";
+        solvedStatsLightBox.style.left = (window.innerWidth - 400) / 2 + "px";
+        solvedStatsLightBox.style.top = (window.innerHeight - 300) / 2 + "px";
+        document.getElementById("playTimer").style.top = (window.innerHeight - 300 + 62) / 2 + "px";
+        document.getElementById("playTimer").style.left = (window.innerWidth - 300) / 2 + "px";
+        if (viewMode == "Answer" || viewMode == "displayQuestionsModal") {
+          document.getElementById("list").style.paddingLeft = (window.innerWidth - 750) / 2 + 30 + "px"
+        }
+      }
+
+      function onloadFunction() {
+        document.getElementById("container").style.opacity = "1";
+        displayCorrectionLightBox.style.left = (window.innerWidth - 400) / 2 + "px";
+        displayCorrectionLightBox.style.top = (window.innerHeight - 200) / 2 + "px";
+        timeUpLightBox.style.left = (window.innerWidth - 400) / 2 + "px";
+        timeUpLightBox.style.top = (window.innerHeight - 200) / 2 + "px";
+        solvedStatsLightBox.style.left = (window.innerWidth - 400) / 2 + "px";
+        solvedStatsLightBox.style.top = (window.innerHeight - 300) / 2 + "px";
+        document.getElementById("playTimer").style.top = (window.innerHeight - 300 + 62) / 2 + "px";
+        document.getElementById("playTimer").style.left = (window.innerWidth - 300) / 2 + "px";
+        if (viewMode == "Answer" || viewMode == "displayQuestionsModal") {
+          document.getElementById("list").style.paddingLeft = (window.innerWidth - 750) / 2 + 30 + "px"
+        }
+        checkLink()
+      }
+    </script>
+  </body>
+</html>

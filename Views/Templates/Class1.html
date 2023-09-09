@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class 1</title>
+</head>
+<style>
+    h1 {font-size: 40pt}
+    h2 {font-size: 32pt}
+    .collapsible {
+      background-color: #777;
+      color: white;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .active, .collapsible:hover {
+      background-color: #555;
+    }
+
+    .content {
+      padding: 0 18px;
+      max-height: 0;
+      width: 100%;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: #fff;
+    }
+
+    .content p {
+        padding-top: 18px;
+    }
+
+    .contender {
+      padding: 0 18px;
+      max-height: 0;
+      width: 100%;
+      overflow: hidden;
+      transition: max-height 0.7s ease-out;
+      background-color: #fff;
+      margin-left: 0%;
+    }
+
+    .contender p {
+        padding-top: 18px;
+    }
+
+    button {
+      text-align: center;
+    }
+
+    .footer {
+        color: #f1f1f1;
+        transition: 0.3s;
+        text-decoration: none
+    }
+
+    .footer:hover {
+        text-decoration: none;
+        color: #333
+    }
+    .confoot {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 22px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      transition: 0.3s
+    }
+
+    /* Hide the browser's default checkbox */
+    .confoot input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 25px;
+      width: 25px;
+      background-color: #eee;
+      transition: 0.3s
+    }
+
+    /* On mouse-over, add a grey background color */
+    .confoot:hover input ~ .checkmark {
+      background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .confoot input:checked ~ .checkmark {
+      background-color: red;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .confoot input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .confoot .checkmark:after {
+      left: 9px;
+      top: 5px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    .slidecontainer {
+      width: 100%;
+      transition: 0.3s
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 25px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+      transition: 0.3s
+    }
+
+    .slider:hover {
+      opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: red;
+      cursor: pointer;
+      transition: 0.3s
+    }
+
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #4CAF50;
+      cursor: pointer;
+      transition: 0.3s
+    }
+</style>
+<body onkeydown="keyDown()" onkeyup="keyUp()" onload="onloadFunction()">
+<div class="container" id="container" style="width: 100%">
+<h1 align="center" style="padding-bottom: 20px" class="title">Class 1</h1>
+<h2 align="center" style="padding-bottom: 20px" class="header">Basic HTML Tags</h2>
+<div style="box-shadow: 0px 0px 50px gray; width: 80%; margin-left: 10%">
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;!DOCTYPE&gt;</button>
+<div class="content">
+    <p style="padding-top: 18px">
+        All HTML documents must start with a <code>&lt;!DOCTYPE&gt;</code> declaration.
+        The declaration is not an HTML tag. It is an "information" to the browser about what document type to expect.
+        In HTML 5, the declaration is simple:
+        <code>&lt;!DOCTYPE html&gt;</code>
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;html&gt;</button>
+<div class="content">
+    <p>
+        The <code>&lt;html&gt;</code> tag represents the root of an HTML document.
+
+        The <code>&lt;html&gt;</code> tag is the container for all other HTML elements (except for the <code>&lt;!DOCTYPE&gt;</code> tag).
+
+        Note: You should always include the lang attribute inside the <code>&lt;html&gt;</code> tag, to declare the language of the Web page.
+        This is meant to assist search engines and browsers.
+        Example: <code>&lt;html lang="en"&gt;</code>
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;head&gt;</button>
+<div class="content">
+    <p>
+        The <code>&lt;head&gt;</code> element is a container for metadata (data about data) and is placed between the
+        <code>&lt;html&gt;</code> tag and the <code>&lt;body&gt;</code> tag.
+        Metadata is data about the HTML document. Metadata is not displayed.
+        Metadata typically define the document title, character set, styles, scripts, and other meta information.
+        The following elements can go inside the <code>&lt;head&gt;</code> element:<br />
+        <code>&lt;title&gt;</code> (required in every HTML document)<br />
+        <code>&lt;style&gt;</code><br />
+        <code>&lt;base&gt;</code><br />
+        <code>&lt;link&gt;</code><br />
+        <code>&lt;meta&gt;</code><br />
+        <code>&lt;script&gt;</code><br />
+        <code>&lt;noscript&gt;</code><br />
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;body&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;body&gt;</code> tag defines the document's body.
+        The <code>&lt;body&gt;</code> element contains all the contents of an HTML document, such as headings, paragraphs, images, hyperlinks, tables, lists, etc.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Note:</b> There can only be one <code>&lt;body&gt;</code> element in an HTML document.
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;title&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;title&gt;</code> tag defines the title of the document.
+        The <code>&lt;title&gt;</code> tag is required in all HTML documents!
+        The contents of a page title is very important for search engine optimization (SEO)!
+        The page title is used by search engine algorithms to decide the order when listing pages in search results.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Note:</b> You can NOT have more than one <code>&lt;title&gt;</code> element in an HTML document.
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;h1&gt; to &lt;h6&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> tags are used to define HTML headings.
+
+        <code>&lt;h1&gt;</code> defines the most important heading. <code>&lt;h6&gt;</code> defines the least important heading.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Note:</b> Only use one <code>&lt;h1&gt;</code> per page - this should represent the main heading/subject for the whole page.
+        Also, do not skip heading levels - start with <code>&lt;h1&gt;</code>, then use <code>&lt;h2&gt;</code>, and so on.
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;a&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;a&gt;</code> tag defines a hyperlink, which is used to link from one page to another.
+        The most important attribute of the <code>&lt;a&gt;</code> element is the href attribute, which indicates the link's destination.
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <b>Note:</b> If the <code>&lt;a&gt;</code> tag has no href attribute, it is only a placeholder for a hyperlink.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Note:</b> A linked page is normally displayed in the current browser window, unless you specify another target.
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;p&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;p&gt;</code> tag defines a paragraph.
+        Browsers automatically add a single blank line before and after each <code>&lt;p&gt;</code> element
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;table&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;table&gt;</code> tag defines an HTML table.
+        An HTML table consists of one <code>&lt;table&gt;</code> element and one or more <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>, and <code>&lt;td&gt;</code> elements.
+        <br />The <code>&lt;tr&gt;</code> element defines a table row, the <code>&lt;th&gt;</code> element defines a table header, and the <code>&lt;td&gt;</code> element defines a table cell.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Example:</b>
+    </p>
+    <h6 style="font-size: 10.5pt"><code>&lt;table&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;tr&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;th&gt;Month&lt;/th&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;th&gt;Savings&lt;/th&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;/tr&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;tr&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;td&gt;January&lt;/td&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;td&gt;$100&lt;/td&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;/tr&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;tr&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;td&gt;February&lt;/td&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;td&gt;$80&lt;/td&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;/tr&gt;</code></h6>
+    <h6 style="font-size: 10.5pt"><code>&lt;/table&gt;</code></h6>
+
+    <table border="1" align="center">
+      <tr>
+        <th>Month</th>
+        <th>Savings</th>
+      </tr>
+      <tr>
+        <td>January</td>
+        <td>$100</td>
+      </tr>
+      <tr>
+        <td>February</td>
+        <td>$80</td>
+      </tr>
+    </table>
+    <br />
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;br&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;br&gt;</code> tag inserts a single line break.
+        The <code>&lt;br&gt;</code> tag is useful for writing addresses or poems.
+        The <code>&lt;br&gt;</code> tag is an empty tag which means that it has no end tag.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Note:</b> Use the <code>&lt;br&gt;</code> tag to enter line breaks, not to add space between paragraphs.
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;button&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;button&gt;</code> tag defines a clickable button.
+        Inside a <code>&lt;button&gt;</code> element you can put text (and tags like <code>&lt;i&gt;</code>,
+        <code>&lt;strong&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;img&gt;</code>, etc.).
+        This is not possible with a button created with the <code>&lt;input&gt;</code> element!
+    </p>
+    <p style="padding-top: 0px">
+        <b>Note:</b> Always specify the type attribute for a <code>&lt;button&gt;</code> element, to tell browsers what
+        type of button it is. There are three types:
+    </p>
+    <p style="padding-top: 0px">
+        <code>&lt;button type="button"&gt;</code><br />
+        <code>&lt;button type="submit"&gt;</code><br />
+        <code>&lt;button type="reset"&gt;</code><br />
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;input&gt;</button>
+<div class="contender">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;input&gt;</code> tag specifies an input field where the user can enter data.
+        The <code>&lt;input&gt;</code> element is the most important form element.
+        The <code>&lt;input&gt;</code> element can be displayed in several ways, depending on the type attribute.
+        The different input types are as follows:
+    </p>
+    <p style="padding-top: 0px">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="button"&gt;</code></h6>
+        <input type="button" value="BUTTON">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="checkbox"&gt;</code></h6>
+        <label class="confoot" style="color: #333">CHECKBOX
+          <input type="checkbox" checked="checked">
+          <span class="checkmark"></span>
+        </label>
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="color"&gt;</code></h6>
+        <input type="color" value="#ff0000">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="date"&gt;</code></h6>
+        <input type="date">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="datetime-local"&gt;</code></h6>
+        <input type="datetime-local">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="email"&gt;</code></h6>
+        <input type="email" placeholder="Email..." onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="file"&gt;</code></h6>
+        <input type="file" accept=".jpeg,.png">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="hidden"&gt;</code></h6>
+        <input type="hidden">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="image"&gt;</code></h6>
+        <input type="image">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="month"&gt;</code></h6>
+        <input type="month">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="number"&gt;</code></h6>
+        <input type="number" placeholder="Number..." onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="password"&gt;</code></h6>
+        <input type="password" placeholder="Password..." onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="radio"&gt;</code></h6>
+        <input type="radio">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="range"&gt;</code></h6>
+        <input type="range" min="1" max="1000" value="500" class="slider" id="myRange">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="reset"&gt;</code></h6>
+        <input type="reset">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="search"&gt;</code></h6>
+        <input type="search" placeholder="Search..." onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="submit"&gt;</code></h6>
+        <input type="submit">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="tel"&gt;</code></h6>
+        <input type="tel" placeholder="Tel..." onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="text"&gt;</code></h6>
+        <input type="text" placeholder="Text..." onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="time"&gt;</code></h6>
+        <input type="time">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="url"&gt;</code></h6>
+        <input type="url" placeholder="URL..." onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)">
+        <h6 style="font-size: 10.5pt"><code>&lt;input type="week"&gt;</code></h6>
+        <input type="week">
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;b&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;b&gt;</code> tag specifies bold text without any extra importance.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Note:</b> According to the HTML5 specification, the <code>&lt;b&gt;</code> tag should be used as a LAST resort when no other
+        tag is more appropriate. The specification states that headings should be denoted with the <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code> tags,
+        emphasized text should be denoted with the <code>&lt;em&gt;</code> tag, important text should be denoted with the <code>&lt;strong&gt;</code> tag,
+        and marked/highlighted text should be denoted with the <code>&lt;mark&gt;</code> tag.
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;i&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;i&gt;</code> tag defines a part of text in <i>an alternate voice or mood</i>. The content inside is
+        typically displayed in <i>italic</i>.
+        The <code>&lt;i&gt;</code> tag is often used to indicate a technical term, a phrase from another language,
+        a thought, a ship name, etc.
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)" class="collapsible" style="text-align: center; font-size: 20pt">&lt;u&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;u&gt;</code> tag is used to <u>underline text</u>.
+    </p>
+</div>
+</div>
+<div style="padding-bottom: 50px"></div>
+</div>
+<div style="padding: 1px;width: 100%; background-color: red">
+    <h6 style="font-size: 10.5pt; text-align: center; color: #f1f1f1;">© 2021 <a class="footer" href="/">Yohaan Chokhany</a> | All Rights Reserved</h6>
+</div>
+<script>
+    var isThere = false;
+    var keysPressed = [];
+    var commandPressed = false;
+    var altPressed = true;
+    var arrowRight = false;
+    var keyH = false;
+    var importantKey;
+    if (navigator.appVersion.indexOf("Mac") != -1) {
+        importantKey = "Meta";
+    } else {
+        importantKey = "Control";
+    }
+
+    function keyDown() {
+        for (var i = 0; i < keysPressed.length; i++) {
+            if (keysPressed[i] == event.key) {
+                isThere = true;
+                break;
+            } else {
+                isThere = false;
+            }
+        }
+        if (isThere == false) {
+            keysPressed.push(event.key);
+        } else {
+            isThere = false;
+        }
+        if (keysPressed.length == 2) {
+            for (var i = 0; i < 3; i++) {
+                if (keysPressed[i] == importantKey) {
+                    commandPressed = true;
+                } else if (keysPressed[i] == "Alt") {
+                    altPressed = true;
+                } else if (keysPressed[i] == "ArrowRight") {
+                    arrowRight = true;
+                } else if (keysPressed[i] == "h") {
+                    keyH = true;
+                }
+            }
+
+            if (commandPressed == true && keyH == true) {
+                window.location.href = "/";
+            } else if (altPressed == true && arrowRight == true) {
+                window.location.href = "/class2";
+            } else {
+                commandPressed = false;
+                altPressed = false;
+                arrowLeft = false;
+                arrowRight = false;
+                keyH = false;
+            }
+        }
+    }
+
+
+    function keyUp() {
+        keysPressed.pop(event.key);
+        if (event.key == importantKey) {
+            keysPressed = []
+        }
+    }
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight){
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    }
+
+    function enlarge(x) {
+        x.style.fontSize = "25pt"
+    }
+
+    function backToNormal(x) {
+        x.style.fontSize = "20pt"
+    }
+
+    function onloadFunction() {
+        document.getElementById("container").style.opacity = "1";
+    }
+
+    function removePlaceholder(x) {
+        x.placeholder = "";
+    }
+
+    function addPlaceholder(x) {
+        if (x.type == "email") {
+            x.placeholder = "Email...";
+        } else if (x.type == "number") {
+            x.placeholder = "Number...";
+        } else if (x.type == "password") {
+            x.placeholder = "Password...";
+        } else if (x.type == "search") {
+            x.placeholder = "Search...";
+        } else if (x.type == "tel") {
+            x.placeholder = "Tel...";
+        } else if (x.type == "text") {
+            x.placeholder = "Text...";
+        } else if (x.type == "url") {
+            x.placeholder = "URL...";
+        }
+    }
+</script>
+
+</body>
+</html>

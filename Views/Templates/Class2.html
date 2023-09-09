@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class 2</title>
+</head>
+<style>
+    h1 {font-size: 40pt}
+    h2 {font-size: 32pt}
+    .collapsible {
+      background-color: #777;
+      color: white;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .active, .collapsible:hover {
+      background-color: #555;
+    }
+
+    .content {
+      padding: 0 18px;
+      max-height: 0;
+      width: 100%;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: #fff;
+    }
+
+    .content p {
+        padding-top: 18px;
+    }
+
+    button {
+      text-align: center;
+    }
+
+    .footer {
+        color: #f1f1f1;
+        transition: 0.3s;
+        text-decoration: none
+    }
+
+    .footer:hover {
+        text-decoration: none;
+        color: #333
+    }
+    .confoot {
+      display: block;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 22px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      transition: 0.3s
+    }
+
+    /* Hide the browser's default checkbox */
+    .confoot input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+
+    /* Create a custom checkbox */
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 25px;
+      width: 25px;
+      background-color: #eee;
+      transition: 0.3s
+    }
+
+    /* On mouse-over, add a grey background color */
+    .confoot:hover input ~ .checkmark {
+      background-color: #ccc;
+    }
+
+    /* When the checkbox is checked, add a blue background */
+    .confoot input:checked ~ .checkmark {
+      background-color: red;
+    }
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+    .checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+
+    /* Show the checkmark when checked */
+    .confoot input:checked ~ .checkmark:after {
+      display: block;
+    }
+
+    /* Style the checkmark/indicator */
+    .confoot .checkmark:after {
+      left: 9px;
+      top: 5px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+    .slidecontainer {
+      width: 100%;
+      transition: 0.3s
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 25px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+      transition: 0.3s
+    }
+
+    .slider:hover {
+      opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: red;
+      cursor: pointer;
+      transition: 0.3s
+    }
+
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #4CAF50;
+      cursor: pointer;
+      transition: 0.3s
+    }
+    ::-moz-selection {
+      background: #f1b5b8;
+    }
+
+    ::selection {
+      background: #f1b5b8;
+    }
+
+    .container {
+        transition: 1s
+    }
+</style>
+<body onkeyup="redirectPage()" onload="onloadFunction()" onkeydown="keyDown()">
+<div id="container" class="container" style="width: 100%">
+<h1 align="center" id="title" class="title" style="padding-bottom: 20px">Class 2</h1>
+<h2 align="center" class="header" style="padding-bottom: 20px">Basic HTML Tags</h2>
+<div style="box-shadow: 0px 0px 50px gray; width: 80%; margin-left: 10%">
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;div&gt;</button>
+<div class="content">
+    <p style="padding-top: 18px">
+        The <code>&lt;div&gt;</code> tag defines a division or a section in an HTML document.
+        The <code>&lt;div&gt;</code> tag is used as a container for HTML elements - which is then styled with CSS or manipulated with JavaScript.
+        The <code>&lt;div&gt;</code> tag is easily styled by using the class or id attribute.
+        Any sort of content can be put inside the <code>&lt;div&gt;</code> tag!
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;dl&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 0px">
+        The <code>&lt;dl&gt;</code> tag defines a description list.
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <b>Example:</b>
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <code>&lt;dl&gt;</code><br />
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;dt&gt;Coffee&lt;/dt&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;dd&gt;Black hot drink&lt;/dd&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;dt&gt;Milk&lt;/dt&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;dd&gt;White cold drink&lt;/dd&gt;</code><br /></h6>
+        <code>&lt;/dl&gt;</code>
+    </p>
+    <dl>
+        <dt>Coffee</dt>
+        <dd>Black hot drink</dd>
+        <dt>Milk</dt>
+        <dd>White cold drink</dd>
+    </dl>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;form&gt;</button>
+<div class="content">
+    <p>
+        The <code>&lt;form&gt;</code> tag is used to create an HTML form for user input.<br />
+
+        The <code>&lt;form&gt;</code> element can contain one or more of the following form elements:<br />
+
+        <code>&lt;input&gt;</code><br />
+        <code>&lt;textarea&gt;</code><br />
+        <code>&lt;button&gt;</code><br />
+        <code>&lt;select&gt;</code><br />
+        <code>&lt;option&gt;</code><br />
+        <code>&lt;optgroup&gt;</code><br />
+        <code>&lt;fieldset&gt;</code><br />
+        <code>&lt;label&gt;</code><br />
+        <code>&lt;output&gt;</code><br />
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;hr&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;hr&gt;</code> tag defines a thematic break in an HTML page (e.g. a shift of topic).
+
+        The <code>&lt;hr&gt;</code> element is most often displayed as a horizontal rule that is used to separate content (or define a change) in an HTML page.
+    </p>
+    <hr color="#333">
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;img&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;img&gt;</code> tag is used to embed an image in an HTML page.
+        Images are not technically inserted into a web page; images are linked to web pages. The <code>&lt;img&gt;</code> tag creates a holding space for the referenced image.
+        The <code>&lt;img&gt;</code> tag has two required attributes:
+        <ul style="padding-bottom: 0px">
+            <li>src - Specifies the path to the image</li>
+            <li>alt - Specifies an alternate text for the image, if the image for some reason cannot be displayed</li>
+        </ul>
+    </p>
+    <p style="padding-top: 0px">
+        <b>Note:</b> Also, always specify the width and height of an image. If width and height are not specified, the page might flicker while the image loads.
+    </p>
+    <p style="padding-bottom: 9px; padding-top: 0px">
+        <b>Tip:</b> To link an image to another document, simply nest the <code>&lt;img&gt;</code> tag inside an <code>&lt;a&gt;</code> tag.
+    </p>
+    <p style="padding-bottom: 9px; padding-top: 0px">
+        <b>Example:</b> <code>&lt;img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google"&gt;</code>
+    </p>
+    <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" style="padding-bottom: 9px; width: 20%; margin-left: 40%" align="center">
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;label&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;label&gt;</code> tag is used to label several input tags.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Example:</b>
+    </p>
+    <p style="padding-top: 0px">
+        <code>&lt;form&gt;</code>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;label for="male"&gt;Male&lt;/label&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="radio" name="gender" id="male" value="male"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;label for="female"&gt;Female&lt;/label&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="radio" name="gender" id="female" value="female"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;label for="other"&gt;Other&lt;/label&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="radio" name="gender" id="other" value="other"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="submit" value="Submit"&gt;</code></h6>
+        <code>&lt;/form&gt;</code>
+    </p>
+    <form>
+      <label style="color: #333; margin-left: 6.8%" for="male">Male</label>
+      <input type="radio" name="gender" id="male" value="male"><br>
+      <label style="color: #333; margin-left: 5%" for="female">Female</label>
+      <input type="radio" name="gender" id="female" value="female"><br>
+      <label style="color: #333; margin-left: 6.3%" for="other">Other</label>
+      <input type="radio" name="gender" id="other" value="other"><br><br>
+      <input style="margin-left: 6%" type="button" value="Submit">
+    </form>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;textarea&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;textarea&gt;</code> tag defines a multi-line text input control.
+        The <code>&lt;textarea&gt;</code> element is often used in a form, to collect user inputs like comments or reviews.
+        A text area can hold an unlimited number of characters, and the text renders in a fixed-width font (usually Courier).
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <b>Tip:</b> Always add the <code>&lt;label&gt;</code> tag for best accessibility practices!
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <code>&lt;textarea id="textarea-practice-comments" name="textarea-practice-comments" rows="4" cols="150"&gt;&lt;/textarea&gt;</code>
+    </p>
+    <p>
+        <textarea id="w3review" name="w3review" rows="4" cols="149"></textarea>
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;link&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;link&gt;</code> tag defines the relationship between the current document and an external resource.
+        The <code>&lt;link&gt;</code> tag is most often used to link to external style sheets.
+        The <code>&lt;link&gt;</code> element is an empty element, it contains attributes only.
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 9px">
+        <code>
+            &lt;link rel="stylesheet" href="HTMLTags.css"&gt;
+        </code>
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;mark&gt;</button>
+<div id="content" class="content">
+    <p style="padding-bottom: 0px">
+        The <code>&lt;mark&gt;</code> tag defines text that should be marked or highlighted.
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <b>Example:</b>
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <code>&lt;mark&gt;SIKE&lt;/mark&gt;</code>
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 9px">
+        <mark style="background-color: #00A7FC">SIKE</mark>
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;ol&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;ol&gt;</code> tag defines an ordered list. An ordered list can be numerical or alphabetical.
+        The <code>&lt;li&gt;</code> tag is used to define each list item.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Example:</b>
+    </p>
+    <p style="padding-top: 0px">
+        <h6 style="font-size: 10.5pt"><code>&lt;ol&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;li&gt;Coffee&lt;/li&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;li&gt;Tea&lt;/li&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;li&gt;Milk&lt;/li&gt;</code></h6>
+        <h6 style="font-size: 10.5pt"><code>&lt;/ol&gt;</code></h6>
+    </p>
+    <p style="padding-top: 0px">
+        <ol>
+          <li>Coffee</li>
+          <li>Tea</li>
+          <li>Milk</li>
+        </ol>
+    </p>
+    <p style="padding-top: 0px">
+        <b>Tip:</b> Use CSS to style lists.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Tip:</b> For an unordered list use the <code>&lt;ul&gt;</code> tag.
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;ul&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;ul&gt;</code> tag defines an unordered (bulleted) list.
+        Use the <code>&lt;ul&gt;</code> tag together with the <code>&lt;li&gt;</code> tag to create unordered lists.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Example:</b>
+    </p>
+    <p style="padding-top: 0px">
+        <h6 style="font-size: 10.5pt"><code>&lt;ul&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;li&gt;Coffee&lt;/li&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;li&gt;Tea&lt;/li&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;li&gt;Milk&lt;/li&gt;</code></h6>
+        <h6 style="font-size: 10.5pt"><code>&lt;/ul&gt;</code></h6>
+    </p>
+    <p style="padding-top: 0px">
+        <ul>
+          <li>Coffee</li>
+          <li>Tea</li>
+          <li>Milk</li>
+        </ul>
+    </p>
+    <p style="padding-top: 0px">
+        <b>Tip:</b> Use CSS to style lists.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Tip:</b> For an ordered list use the <code>&lt;ol&gt;</code> tag.
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;option&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;option&gt;</code> tag defines an option in a select list.
+        <code>&lt;option&gt;</code> elements go inside a <code>&lt;select&gt;</code>, <code>&lt;optgroup&gt;</code>, or <code>&lt;datalist&gt;</code> element.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Example:</b>
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <h6 style="font-size: 10.5pt; padding-bottom: 9px"><code>&lt;label for="cars"&gt;Choose a car:&lt;/label&gt;</code></h6>
+        <h6 style="font-size: 10.5pt"><code>&lt;select id="cars"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;option value="volvo"&gt;Volvo&lt;/option&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;option value="toyota"&gt;Toyota&lt;/option&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;option value="volkswagen"&gt;Volkswagen&lt;/option&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;option value="audi"&gt;Audi&lt;/option&gt;</code></h6>
+        <h6 style="font-size: 10.5pt"><code>&lt;/select&gt;</code></h6>
+    </p>
+    <p style="padding-top: 0px">
+        <label for="cars" style="font-size: 10.5pt; color: #333">Choose a car:</label>
+
+        <select id="cars">
+          <option value="volvo">Volvo</option>
+          <option value="toyota">Toyota</option>
+          <option value="volkswagen">Volkswagen</option>
+          <option value="audi">Audi</option>
+        </select>
+    </p>
+    <p style="padding-top: 0px">
+        <b>Note:</b> The <code>&lt;option&gt;</code> tag can be used without any attributes, but you usually need the value attribute, which indicates what is sent to the server on form submission.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Tip:</b> If you have a long list of options, you can group related options within the <code>&lt;optgroup&gt;</code> tag.
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;optgroup&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The &lt;optgroup&gt; tag is used to group related options in a &lt;select&gt; element (drop-down list).
+        If you have a long list of options, groups of related options are easier to handle for a user.
+    </p>
+    <p style="padding-top: 0px">
+        <b>Example:</b>
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <h6 style="font-size: 10.5pt; padding-bottom: 9px"><code>&lt;label for="cars"&gt;Choose a car:&lt;/label&gt;</code></h6>
+        <h6 style="font-size: 10.5pt"><code>&lt;select id="cars" name="cars"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;optgroup label="Japanese Cars"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;option value="nissan"&gt;Nissan&lt;/option&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;option value="toyota"&gt;Toyota&lt;/option&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;/optgroup&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;optgroup label="German Cars"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;option value="mercedes"&gt;Mercedes&lt;/option&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;option value="audi"&gt;Audi&lt;/option&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;/optgroup&gt;</code></h6>
+        <h6 style="font-size: 10.5pt"><code>&lt;/select&gt;</code></h6>
+    </p>
+    <p style="padding-top: 0px">
+        <label for="carser" style="font-size: 10.5pt; color: #333">Choose a car:</label>
+        <select  name="cars" id="carser">
+          <optgroup label="Japanese Cars">
+            <option value="toyota">Toyota</option>
+            <option value="nissan">Nissan</option>
+          </optgroup>
+          <optgroup label="German Cars">
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </optgroup>
+        </select>
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;datalist&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;datalist&gt;</code> tag specifies a list of pre-defined options for an <code>&lt;input&gt;</code> element.
+        The <code>&lt;datalist&gt;</code> tag is used to provide an "autocomplete" feature for <code>&lt;input&gt;</code> elements. Users will see a drop-down list of pre-defined options as they input data.
+        The <code>&lt;datalist&gt;</code> element's id attribute must be equal to the <code>&lt;input&gt;</code> element's list attribute (this binds them together).
+    </p>
+    <p style="padding-top: 0px">
+        <b>Example:</b>
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <h6 style="font-size: 10.5pt; padding-bottom: 9px"><code>&lt;label for="cars"&gt;Choose a car:&lt;/label&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; padding-bottom: 9px"><code>&lt;input list="cars" name="cars" id="cars"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt"><code>&lt;datalist id="cars"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;option value="nissan"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;option value="toyota"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;option value="mercedes"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;option value="audi"&gt;</code></h6>
+        <h6 style="font-size: 10.5pt"><code>&lt;/datalist&gt;</code></h6>
+    </p>
+    <p style="padding-top: 0px">
+        <label for="carsersyfoo" style="font-size: 10.5pt; color: #333">Choose a car:</label>
+        <input list="carsersyfoot" name="cars" id="carsersyfoo">
+        <datalist id="carsersyfoot">
+            <option value="Toyota">
+            <option value="Nissan">
+            <option value="Mercedes">
+            <option value="Audi">
+        </datalist>
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;em&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;em&gt;</code> tag is used to define emphasized text. The content inside is typically displayed in italic.
+        A screen reader will pronounce the words in <code>&lt;em&gt;</code> with an <em>emphasis</em>, using <em>verbal stress</em>.
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;strong&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The <code>&lt;strong&gt;</code> tag is used to define text with strong importance. The content inside is typically displayed in <strong>bold</strong>.
+    </p>
+</div>
+</div>
+<div style="padding-bottom: 50px"></div>
+</div>
+<div style="padding: 1px;width: 100%; background-color: red">
+    <h6 style="font-size: 10.5pt; text-align: center; color: #f1f1f1;">© 2021 <a class="footer" href="/">Yohaan Chokhany</a> | All Rights Reserved</h6>
+</div>
+<script>
+    var commandPressed = false;
+    var altPressed = true;
+    var importantKey;
+    if (navigator.appVersion.indexOf("Mac") != -1) {
+        importantKey = "Meta";
+    } else {
+        importantKey = "Control";
+    }
+    function keyDown() {
+        if (commandPressed == true) {
+            if (event.key == "h") {
+                window.location.href = "/";
+            }
+            if (event.key == "Alt") {
+                altPressed = true;
+            }
+        } else if (altPressed == true) {
+            if (event.keyCode == 39) {
+                window.location.href = "/class3";
+            } else if (event.keyCode == 37) {
+                window.location.href = "/class1";
+            }
+            if (event.key == importantKey) {
+                commandPressed = true;
+            }
+        } else {
+            if (event.key == importantKey) {
+                commandPressed = true;
+            }
+            if (event.key == "Alt") {
+                altPressed = true;
+            }
+        }
+    }
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight){
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    }
+
+    function enlarge(x) {
+        x.style.fontSize = "25pt"
+    }
+
+    function backToNormal(x) {
+        x.style.fontSize = "20pt"
+    }
+
+    function redirectPage() {
+        if (event.key == importantKey) {
+            commandPressed = false;
+        } else if (event.key == "Alt") {
+            altPressed = false;
+        }
+    }
+
+    function onloadFunction() {
+        document.getElementById("container").style.opacity = "1";\
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Engine</title>
+    <style>
+        #ddg-tick {
+            background-color: #f1f1f1;
+            transition: 0.3s
+        }
+        #ddg-tick:hover {
+            background-color: #aaa
+        }
+        #duckduckgo:hover #ddg-tick{
+            background-color: #aaa
+        }
+        table, td, th {font-family: Helvetica Neue, Arial, Sans-Serif}
+        input[type=text]{
+            height: 40px;
+            width: 60%;
+            position: absolute;
+            left: 20%;
+            border: none;
+            outline: none;
+            border-radius: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            box-shadow: 0px 0px 10px 0px #aaa;
+        }
+        .settings {
+            width: 100%;
+            opacity: 0;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            transition: 0.3s;
+        }
+        .history {
+            width: 100%;
+            opacity: 0;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+            transition: 0.3s;
+        }
+        .button{
+            background-color: red;
+            color: #f1f1f1;
+            font-family: Helvetica Neue, Arial, Sans-Serif;
+            font-weight: 300;
+            font-size: 12pt;
+            border: none;
+            width: 120px;
+            height: 40px;
+            transition: background-color 0.3s;
+            cursor:pointer;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        }
+        .buttonList{
+            background-color: #f1f1f1;
+            color: black;
+            font-family: Helvetica Neue, Arial, Sans-Serif;
+            font-weight: 300;
+            font-size: 12pt;
+            border: none;
+            width: 120px;
+            height: 40px;
+            transition: background-color 0.3s;
+            cursor:pointer;
+        }
+        .button:hover {
+            background-color: #333
+        }
+        .buttonList:hover {
+            background-color: #AAA
+        }
+        .button:focus {
+            border: none;
+            outline:none
+        }
+        .hideButtons{
+            height: 0px;
+            background-color: red;
+            overflow-y: hidden;
+            transition: height 0.3s;
+            width: 120px;
+            box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
+            position: relative
+        }
+        .backgroundDark{
+            background-color: #333
+        }
+        .historyLink {
+            background-color: transparent;
+            width: 100%;
+            color: #333;
+            padding: 10px;
+            text-align: center;
+            transition: 0.3s;
+            cursor: pointer
+        }
+        .historyLink:hover {
+            background-color: #333;
+            color: #f1f1f1;
+            width: 100%;
+            padding: 10px;
+            text-align: center
+        }
+        h1 {
+            font-size: 30pt
+        }
+    </style>
+</head>
+<body onload="onloadFunction()" onkeypress="onkeypressFunction()" onresize="onresizeFunction()">
+    <div id="container" class="container">
+        <span style="font-size: 25pt; cursor: pointer; position: absolute; top: 72px; right: 10px" onclick="transitionOutSettings()" class="material-icons">settings</span>
+        <span style="font-size: 25pt; cursor: pointer; position: absolute; top: 72px; left: 10px" onclick="transitionOutHistory()" class="material-icons">history</span>
+        <input title="Search" spellcheck="false" id="searchBar" type="text" placeholder="Search Google or type a URL" onfocus="this.placeholder = ''" onfocusout="addPlaceholder(this)" autocomplete="off">
+    </div>
+    <div id="settings" class="settings">
+        <span style="font-size: 25pt; cursor: pointer; position: absolute; top: 72px; right: 10px" onclick="transitionInSettings()" class="material-icons">close</span>
+        <table width="80%" style="margin-left: 10%">
+            <tr>
+                <td style="vertical-align: top" colspan="3">
+                    <h1 align="center" style="color: #333; padding-top: 100px">Settings</h1>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 33%; vertical-align: top">
+                    <h3 align="center" style="color: #333; padding-top: 20px">Search Engine</h3>
+                    <button title="Choose Search Engine" id="searchEngineButton" class="button" onclick="toggle(this, 'searchEngineOptions')" style="margin-top: 10px">Google</button>
+                    <div id="searchEngineOptions" class="hideButtons">
+                        <button title="Google" class="buttonList" id="google" onclick="changeChosenEngine('Google')">Google<span class="material-icons" style="position: absolute; top: 7px; right: 2px">done</span></button>
+                        <button title="Bing" class="buttonList" id="bing" onclick="changeChosenEngine('Bing')">Bing</button>
+                        <button title="Yahoo" class="buttonList" id="yahoo" onclick="changeChosenEngine('Yahoo')">Yahoo</button>
+                        <button title="DuckDuckGo" class="buttonList" id="duckduckgo" onclick="changeChosenEngine('DuckDuckGo')">DuckDuckGo</button>
+                    </div>
+                </td>
+                <td style="width: 33%; vertical-align: top">
+                    <h3 align="center" style="color: #333; padding-top: 20px">Language</h3>
+                    <button title="Choose Language" id="langButton" class="button" onclick="toggle(this, 'langOptions')" style="margin-top: 10px">English</button>
+                    <div id="langOptions" class="hideButtons">
+                        <button title="English" class="buttonList" id="english" onclick="changeChosenLanguage('English')">English<span class='material-icons' style='position: absolute; top: 7px; right: 2px'>done</span></button>
+                        <button title="Hindi" class="buttonList" id="hindi" onclick="changeChosenLanguage('Hindi')">Hindi</button>
+                        <button title="French" class="buttonList" id="french" onclick="changeChosenLanguage('French')">French</button>
+                        <button title="Spanish" class="buttonList" id="spanish" onclick="changeChosenLanguage('Spanish')">Spanish</button>
+                    </div>
+                </td>
+                <td style="width: 33%; vertical-align: top">
+                    <h3 align="center" style="color: #333; padding-top: 20px">Category</h3>
+                    <button title="Choose Category" id="categoryButton" class="button" onclick="toggle(this, 'categoryOptions')" style="margin-top: 10px; font-family: Helvetica Neue, Arial, Sans-Serif">All</button>
+                    <div id="categoryOptions" class="hideButtons">
+                        <button title="All" class="buttonList" id="all" onclick="changeChosenCategory('All')">All</button>
+                        <button title="Images" class="buttonList" id="images" onclick="changeChosenCategory('Images')">Images</button>
+                        <button title="Videos" class="buttonList" id="videos" onclick="changeChosenCategory('Videos')">Videos</button>
+                        <button title="News" class="buttonList" id="news" onclick="changeChosenCategory('News')">News</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 50px;">
+                    <h3 align="center" style="color: #333; padding-top: 0px">New Tab</h3>
+                    <div title="Open in New Tab" onclick="changeChosenNewTab()" id="newTabButton" style="padding: 5px;cursor: pointer; transition: background-color 0.3s; width: 80px; height: 40px; background-color: red"><div title="Open in New Tab" id="newTabToggle" style="border: none; border-width: 0px; height: 30px; transition: margin-left 0.3s; width: 30px; margin-left: 0px; background-color: #f1f1f1;"></div></div>
+                </td>
+                <td style="padding-top: 50px;">
+                    <button title="Clear History" id="clearHistoryButton" class="button" onclick="clearHistory()" style="margin-top: 10px; font-family: Helvetica Neue, Arial, Sans-Serif">Clear History</button>
+                </td>
+                <td style="padding-top: 50px;">
+                    <button title="Restore Default" id="restoreSettingsButton" class="button" onclick="restoreDefaultSettings()" style="margin-top: 10px; font-family: Helvetica Neue, Arial, Sans-Serif; width: 200px">Restore Default Settings</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="history" class="history">
+        <span style="font-size: 25pt; cursor: pointer; position: absolute; top: 72px; right: 10px" onclick="transitionInHistory()" class="material-icons">close</span>
+        <table width="100%" style="margin-top: 62px; height: 85%" id="historyTable">
+            <tr>
+                <td style="vertical-align: center">
+                    <h1 align="center" style="color: #333; padding-top: 40px;">History</h1>
+                </td>
+            <tr>
+                <td style="vertical-align: top; height: 80%" id="historyContent">
+                    <div class="historyLink" onclick="clickHistory('1', this.innerHTML)" id="history1"></div>
+                    <div class="historyLink" onclick="clickHistory('2', this.innerHTML)" id="history2"></div>
+                    <div class="historyLink" onclick="clickHistory('3', this.innerHTML)" id="history3"></div>
+                    <div class="historyLink" onclick="clickHistory('4', this.innerHTML)" id="history4"></div>
+                    <div class="historyLink" onclick="clickHistory('5', this.innerHTML)" id="history5"></div>
+                    <div class="historyLink" onclick="clickHistory('6', this.innerHTML)" id="history6"></div>
+                    <div class="historyLink" onclick="clickHistory('7', this.innerHTML)" id="history7"></div>
+                    <div class="historyLink" onclick="clickHistory('8', this.innerHTML)" id="history8"></div>
+                    <div class="historyLink" onclick="clickHistory('9', this.innerHTML)" id="history9"></div>
+                    <div class="historyLink" onclick="clickHistory('10', this.innerHTML)" id="history10"></div>
+                    <h5 align="center" id="noHistory" style="display: none; font-size: 15px;">Your browsing history appears here</h5>
+                </td>
+            </tr>
+            </tr>
+        </table>
+    </div>
+    <div style="position: absolute; bottom: 0; width: 100%; background-color: red">
+        <h6 style="font-size: 100%; text-align: center; color: #f1f1f1;">© 2021 <a class="footer" href="/">Yohaan Chokhany</a> | All Rights Reserved</h6>
+    </div>
+</body>
+<script>
+    var link = "";
+    var placeholderSearchBar = "Search Google or category a URL";
+
+    var searchEngineOptions = document.getElementById("searchEngineOptions");
+    var searchEngineButton = document.getElementById("searchEngineButton");
+
+    var langOptions = document.getElementById("langOptions");
+    var langButton = document.getElementById("langButton");
+
+    var categoryOptions = document.getElementById("categoryOptions");
+    var categoryButton = document.getElementById("categoryButton");
+
+    var newTabButton = document.getElementById("newTabButton");
+    var newTabToggle = document.getElementById("newTabToggle");
+
+    var clearHistoryButton = document.getElementById("clearHistoryButton");
+    var restoreSettingsButton = document.getElementById("restoreSettingsButton");
+
+    var searchBar = document.getElementById("searchBar");
+
+    var google = document.getElementById("google");
+    var yahoo = document.getElementById("yahoo");
+    var bing = document.getElementById("bing");
+    var duckduckgo = document.getElementById("duckduckgo");
+
+    var english = document.getElementById("english");
+    var french = document.getElementById("french");
+    var hindi = document.getElementById("hindi");
+    var spanish = document.getElementById("spanish");
+
+    var all = document.getElementById("all");
+    var images = document.getElementById("images");
+    var videos = document.getElementById("videos");
+    var news = document.getElementById("news");
+
+
+    var history1 = "";
+    var history2 = "";
+    var history3 = "";
+    var history4 = "";
+    var history5 = "";
+    var history6 = "";
+    var history7 = "";
+    var history8 = "";
+    var history9 = "";
+    var history10 = "";
+
+    var historyLink1 = document.getElementById("history1");
+    var historyLink2 = document.getElementById("history2");
+    var historyLink3 = document.getElementById("history3");
+    var historyLink4 = document.getElementById("history4");
+    var historyLink5 = document.getElementById("history5");
+    var historyLink6 = document.getElementById("history6");
+    var historyLink7 = document.getElementById("history7");
+    var historyLink8 = document.getElementById("history8");
+    var historyLink9 = document.getElementById("history9");
+    var historyLink10 = document.getElementById("history10");
+
+    var cookie = document.cookie;
+
+    if (cookie == "") {
+        setCookie("searchEngine", "Google", 365);
+        setCookie("language", "English", 365);
+        setCookie("category", "All", 365);
+        setCookie("newTab", "Yes", 365);
+        setCookie("history1", "", 365);
+        setCookie("history2", "", 365);
+        setCookie("history3", "", 365);
+        setCookie("history4", "", 365);
+        setCookie("history5", "", 365);
+        setCookie("history6", "", 365);
+        setCookie("history7", "", 365);
+        setCookie("history8", "", 365);
+        setCookie("history9", "", 365);
+        setCookie("history10", "", 365);
+    } else {
+        chosenEngine = getCookie("searchEngine");
+        chosenLanguage = getCookie("language");
+        chosenCategory = getCookie("category");
+        chosenNewTab = getCookie("newTab");
+        history1 = getCookie("history1").replace(/ /g, "%20");
+        history2 = getCookie("history2").replace(/ /g, "%20");
+        history3 = getCookie("history3").replace(/ /g, "%20");
+        history4 = getCookie("history4").replace(/ /g, "%20");
+        history5 = getCookie("history5").replace(/ /g, "%20");
+        history6 = getCookie("history6").replace(/ /g, "%20");
+        history7 = getCookie("history7").replace(/ /g, "%20");
+        history8 = getCookie("history8").replace(/ /g, "%20");
+        history9 = getCookie("history9").replace(/ /g, "%20");
+        history10 = getCookie("history10").replace(/ /g, "%20");
+        changeChosenEngine(chosenEngine);
+        changeChosenLanguage(chosenLanguage);
+        changeChosenCategory(chosenCategory);
+        getChosenNewTab();
+    }
+    function addPlaceholder(x) {
+        x.placeholder = placeholderSearchBar
+    }
+
+    function toggle(x, options) {
+        if (options == "searchEngineOptions") {
+            if (searchEngineOptions.style.height == '0px') {
+                searchEngineOptions.style.height = '160px';
+                langOptions.style.height = "0px";
+                langButton.classList.remove("backgroundDark");
+                categoryOptions.style.height = "0px";
+                categoryButton.classList.remove("backgroundDark");
+                x.classList.add("backgroundDark");
+            } else {
+                searchEngineOptions.style.height = "0px";
+                x.classList.remove("backgroundDark");
+            }
+        } else if (options == "langOptions") {
+            if (langOptions.style.height == "0px") {
+                langOptions.style.height = "160px";
+                searchEngineOptions.style.height = "0px";
+                searchEngineButton.classList.remove("backgroundDark");
+                categoryOptions.style.height = "0px";
+                categoryButton.classList.remove("backgroundDark");
+                x.classList.add("backgroundDark");
+            } else {
+                langOptions.style.height = "0px";
+                x.classList.remove("backgroundDark");
+            }
+        } else if (options == "categoryOptions") {
+            if (categoryOptions.style.height == "0px") {
+                categoryOptions.style.height = "160px";
+                searchEngineOptions.style.height = "0px";
+                searchEngineButton.classList.remove("backgroundDark");
+                langOptions.style.height = "0px";
+                langButton.classList.remove("backgroundDark");
+                x.classList.add("backgroundDark");
+            } else {
+                categoryOptions.style.height = "0px";
+                x.classList.remove("backgroundDark");
+            }
+        }
+    }
+
+    var valid = false;
+    var searchStart = false;
+    var searchEnd = false;
+    function redirectPage() {
+        var searchValue = searchBar.value;
+        if (searchValue != "") {
+            if (searchValue.substring(0, 8) == "https://" || searchValue.substring(0, 7) == "http://" || searchValue.substring(0, 10) == "localhost:") {
+                searchStart = true;
+            } else {
+                searchStart = false;
+            }
+            if (searchValue.includes(".") && searchValue.indexOf(".") != searchValue.length - 1 && searchValue.includes(" ") == false || searchValue.substring(0, 10) == "localhost:" && searchValue.includes(" ") == false) {
+                searchEnd = true;
+            } else {
+                searchEnd = false;
+            }
+            if (searchStart == true && searchEnd == true) {
+                link = searchValue;
+            } else if (searchEnd == true && searchStart == false) {
+                link = "https://" + searchValue;
+            } else if (searchEnd == false && searchStart == false) {
+                if (chosenEngine == "Google") {
+                    if (chosenCategory == "All") {
+                        link = "https://www.google.com/search?q=" + searchValue;
+                    } else if (chosenCategory == "Images") {
+                        link = "https://www.google.com/search?q=" + searchValue + "&tbm=isch";
+                    } else if (chosenCategory == "Videos") {
+                        link = "https://www.youtube.com/results?search_query=" + searchValue;
+                    } else if (chosenCategory == "News") {
+                        link = "https://news.google.com/search?q=" + searchValue;
+                    }
+                } else if (chosenEngine == "Bing") {
+                    if (chosenCategory == "All") {
+                        link = "https://www.bing.com/search?q=" + searchValue;
+                    } else if (chosenCategory == "Images") {
+                        link = "https://www.bing.com/images/search?q=" + searchValue;
+                    } else if (chosenCategory == "Videos") {
+                        link = "https://www.bing.com/videos/search?q=" + searchValue;
+                    } else if (chosenCategory == "News") {
+                        link = "https://www.bing.com/news/search?q=" + searchValue;
+                    }
+                } else if (chosenEngine == "Yahoo") {
+                    if (chosenCategory == "All") {
+                        link = "https://search.yahoo.com/search?p=" + searchValue;
+                    } else if (chosenCategory == "Images") {
+                        link = "https://images.search.yahoo.com/search/images?p=" + searchValue;
+                    } else if (chosenCategory == "Videos") {
+                        link = "https://video.search.yahoo.com/search/video?p=" + searchValue;
+                    } else if (chosenCategory == "News") {
+                        link = "https://news.search.yahoo.com/search?p=" + searchValue;
+                    }
+                } else if (chosenEngine == "DuckDuckGo") {
+                    if (chosenCategory == "All") {
+                        link = "https://www.duckduckgo.com/?q=" + searchValue;
+                    } else if (chosenCategory == "Images") {
+                        link = "https://www.duckduckgo.com/?q=" + searchValue + "&ia=images&iax=images";
+                    } else if (chosenCategory == "Videos") {
+                        link = "https://www.duckduckgo.com/?q=" + searchValue + "&iax=videos&ia=videos";
+                    } else if (chosenCategory == "News") {
+                        link = "https://www.duckduckgo.com/?q=" + searchValue + "&iar=news&ia=news";
+                    }
+                }
+            }
+            if (chosenNewTab == "Yes") {
+                window.open(link);
+            } else {
+                window.location.href = link;
+            }
+            history10 = history9;
+            history10.title = history9;
+            history9 = history8;
+            history9.title = history8;
+            history8 = history7;
+            history8.title = history7;
+            history7 = history6;
+            history7.title = history6;
+            history6 = history5;
+            history6.title = history5;
+            history5 = history4;
+            history5.title = history4;
+            history4 = history3;
+            history4.title = history3;
+            history3 = history2;
+            history3.title = history2;
+            history2 = history1;
+            history2.title = history1;
+            history1 = link;
+            history1.title = link;
+            setCookie("history1", history1, 365);
+            setCookie("history2", history2, 365);
+            setCookie("history3", history3, 365);
+            setCookie("history4", history4, 365);
+            setCookie("history5", history5, 365);
+            setCookie("history6", history6, 365);
+            setCookie("history7", history7, 365);
+            setCookie("history8", history8, 365);
+            setCookie("history9", history9, 365);
+            setCookie("history10", history10, 365);
+        } else {
+            alert("Input field cannot be blank");
+        }
+        searchBar.value = "";
+    }
+
+
+    function changePlaceholder() {
+        if (chosenLanguage == "English") {
+            if (chosenCategory == "All") {
+                placeholderSearchBar = "Search " + chosenEngine + " or type a URL";
+            } else if (chosenCategory == "Images") {
+                placeholderSearchBar = "Search " + chosenEngine + " Images or type a URL";
+            } else if (chosenCategory == "Videos") {
+                if (chosenEngine == "Google") {
+                    placeholderSearchBar = "Search Youtube or type a URL";
+                } else {
+                    placeholderSearchBar = "Search " + chosenEngine + " Videos or type a URL";
+                }
+            } else if (chosenCategory == "News") {
+                placeholderSearchBar = "Search " + chosenEngine + " News or type a URL";
+            }
+        } else if (chosenLanguage == "Hindi") {
+            placeholderSearchBar = chosenEngine + " पर खोज करें या कोई युआरएल टाइप करें";
+            if (chosenCategory == "All") {
+                placeholderSearchBar = chosenEngine + " पर खोज करें या कोई युआरएल टाइप करें";
+            } else if (chosenCategory == "Images") {
+                placeholderSearchBar = chosenEngine + " तस्वीरें पर खोज करें या कोई युआरएल टाइप करें";
+            } else if (chosenCategory == "Videos") {
+                if (chosenEngine == "Google") {
+                    placeholderSearchBar = "Youtube पर खोज करें या कोई युआरएल टाइप करें";
+                } else {
+                    placeholderSearchBar = chosenEngine + " चित्रमुद्रण पर खोज करें या कोई युआरएल टाइप करें";
+                }
+            } else if (chosenCategory == "News") {
+                placeholderSearchBar = chosenEngine + " समाचार पर खोज करें या कोई युआरएल टाइप करें";
+            }
+        } else if (chosenLanguage == "French") {
+            if (chosenCategory == "All") {
+                placeholderSearchBar = "Effectuez une recherche sur " + chosenEngine + " ou saisissez une URL";
+            } else if (chosenCategory == "Images") {
+                placeholderSearchBar = "Effectuez une recherche sur " + chosenEngine + " Images ou saisissez une URL";
+            } else if (chosenCategory == "Videos") {
+                if (chosenEngine == "Google") {
+                    placeholderSearchBar = "Effectuez une recherche sur Youtube ou saisissez une URL";
+                } else {
+                    placeholderSearchBar = "Effectuez une recherche sur " + chosenEngine + " Vidéos ou saisissez une URL";
+                }
+            } else if (chosenCategory == "News") {
+                placeholderSearchBar = "Effectuez une recherche sur " + chosenEngine + " Nouvelles ou saisissez une URL";
+            }
+        } else if (chosenLanguage == "Spanish") {
+            if (chosenCategory == "All") {
+                placeholderSearchBar = "Buscar en " + chosenEngine + " o escribir una URL";
+            } else if (chosenCategory == "Images") {
+                placeholderSearchBar = "Buscar en " + chosenEngine + " Imagenes o escribir una URL";
+            } else if (chosenCategory == "Videos") {
+                if (chosenEngine == "Google") {
+                    placeholderSearchBar = "Buscar en Youtube o escribir una URL";
+                } else {
+                    placeholderSearchBar = "Buscar en " + chosenEngine + " Videos o escribir una URL";
+                }
+            } else if (chosenCategory == "News") {
+                placeholderSearchBar = "Buscar en " + chosenEngine + " Noticias o escribir una URL";
+            }
+        }
+        searchBar.placeholder = placeholderSearchBar;
+    }
+
+
+    function changeChosenEngine(engine) {
+        setCookie("searchEngine", engine, 365);
+        chosenEngine = engine;
+        if (chosenEngine == "Google") {
+            google.innerHTML = "Google<span class='material-icons' style='position: absolute; top: 7px; right: 2px'>done</span>";
+            bing.innerHTML = "Bing";
+            yahoo.innerHTML = "Yahoo";
+            duckduckgo.innerHTML = "DuckDuckGo";
+        } else if (chosenEngine == "Bing") {
+            google.innerHTML = "Google";
+            bing.innerHTML = "Bing<span class='material-icons' style='position: absolute; top: 47px; right: 2px'>done</span>";
+            yahoo.innerHTML = "Yahoo";
+            duckduckgo.innerHTML = "DuckDuckGo";
+        } else if (chosenEngine == "Yahoo") {
+            google.innerHTML = "Google";
+            bing.innerHTML = "Bing";
+            yahoo.innerHTML = "Yahoo<span class='material-icons' style='position: absolute; top: 87px; right: 2px'>done</span>";
+            duckduckgo.innerHTML = "DuckDuckGo";
+        } else if (chosenEngine == "DuckDuckGo") {
+            google.innerHTML = "Google";
+            bing.innerHTML = "Bing";
+            yahoo.innerHTML = "Yahoo";
+            duckduckgo.innerHTML = "DuckDuckGo<span id='ddg-tick' class='material-icons' style='position: absolute; top: 127px; right: 2px'>done</span>";
+        }
+        changePlaceholder();
+        searchEngineButton.innerHTML = chosenEngine;
+        searchEngineButton.classList.remove("backgroundDark");
+        searchEngineOptions.style.height = "0";
+    }
+
+
+    function getChosenNewTab() {
+        if (chosenNewTab == "No") {
+            newTabToggle.style.marginLeft = "0px";
+            newTabButton.style.backgroundColor = "#ccc";
+        } else {
+            newTabToggle.style.marginLeft = "40px";
+            newTabButton.style.backgroundColor = "red";
+        }
+    }
+
+
+    function changeChosenNewTab() {
+        if (chosenNewTab == "No") {
+            chosenNewTab = "Yes";
+            newTabToggle.style.marginLeft = "40px";
+            newTabButton.style.backgroundColor = "red";
+            setCookie("newTab", "Yes", 365);
+            newTabToggle.title = "Open in New Tab";
+            newTabButton.title = "Open in New Tab";
+        } else {
+            chosenNewTab = "No";
+            newTabToggle.style.marginLeft = "0px";
+            newTabButton.style.backgroundColor = "#ccc";
+            setCookie("newTab", "No", 365);
+            newTabToggle.title = "Open in Current Tab";
+            newTabButton.title = "Open in Current Tab";
+        }
+        langOptions.style.height = "0px";
+        langButton.classList.remove("backgroundDark");
+        searchEngineOptions.style.height = "0px";
+        searchEngineButton.classList.remove("backgroundDark");
+        categoryOptions.style.height = "0px";
+        categoryButton.classList.remove("backgroundDark");
+    }
+
+
+    function clickHistory(number, value) {
+        if (value != "") {
+            if (chosenNewTab == "No") {
+                if (number == "1") {
+                    window.location.href = history1;
+                } else if (number == "2") {
+                    window.location.href = history2;
+                } else if (number == "3") {
+                    window.location.href = history3;
+                } else if (number == "4") {
+                    window.location.href = history4;
+                } else if (number == "5") {
+                    window.location.href = history5;
+                } else if (number == "6") {
+                    window.location.href = history6;
+                } else if (number == "7") {
+                    window.location.href = history7;
+                } else if (number == "8") {
+                    window.location.href = history8;
+                } else if (number == "9") {
+                    window.location.href = history9;
+                } else if (number == "10") {
+                    window.location.href = history10;
+                }
+            } else {
+                if (number == "1") {
+                    window.open(history1);
+                } else if (number == '2') {
+                    window.open(history2);
+                } else if (number == '3') {
+                    window.open(history3);
+                } else if (number == '4') {
+                    window.open(history4);
+                } else if (number == '5') {
+                    window.open(history5);
+                } else if (number == '6') {
+                    window.open(history6);
+                } else if (number == '7') {
+                    window.open(history7);
+                } else if (number == '8') {
+                    window.open(history8);
+                } else if (number == '9') {
+                    window.open(history9);
+                } else if (number == '10') {
+                    window.open(history10);
+                }
+            }
+        }
+    }
+
+
+    function changeChosenLanguage(language) {
+        setCookie("language", language, 365);
+        chosenLanguage = language;
+        if (chosenLanguage == "English") {
+            english.innerHTML = "English<span class='material-icons' style='position: absolute; top: 7px; right: 2px'>done</span>";
+            hindi.innerHTML = "Hindi";
+            french.innerHTML = "French";
+            spanish.innerHTML = "Spanish";
+        } else if (chosenLanguage == "Hindi") {
+            english.innerHTML = "English";
+            hindi.innerHTML = "Hindi<span class='material-icons' style='position: absolute; top: 47px; right: 2px'>done</span>";
+            french.innerHTML = "French";
+            spanish.innerHTML = "Spanish";
+        } else if (chosenLanguage == "French") {
+            english.innerHTML = "English";
+            hindi.innerHTML = "Hindi";
+            french.innerHTML = "French<span class='material-icons' style='position: absolute; top: 87px; right: 2px'>done</span>";
+            spanish.innerHTML = "Spanish";
+        } else if (chosenLanguage == "Spanish") {
+            english.innerHTML = "English";
+            hindi.innerHTML = "Hindi";
+            french.innerHTML = "French";
+            spanish.innerHTML = "Spanish<span class='material-icons' style='position: absolute; top: 127px; right: 2px'>done</span>";
+        }
+        langButton.innerHTML = chosenLanguage;
+        changePlaceholder();
+        langButton.classList.remove("backgroundDark");
+        langOptions.style.height = "0";
+    }
+
+
+    function changeChosenCategory(category) {
+        setCookie("category", category, 365);
+        chosenCategory = category;
+        if (chosenCategory == "All") {
+            all.innerHTML = "All<span class='material-icons' style='position: absolute; top: 7px; right: 2px'>done</span>";
+            images.innerHTML = "Images";
+            videos.innerHTML = "Videos";
+            news.innerHTML = "News";
+        } else if (chosenCategory == "Images") {
+            all.innerHTML = "All";
+            images.innerHTML = "Images<span class='material-icons' style='position: absolute; top: 47px; right: 2px'>done</span>";
+            videos.innerHTML = "Videos";
+            news.innerHTML = "News";
+        } else if (chosenCategory == "Videos") {
+            all.innerHTML = "All";
+            images.innerHTML = "Images";
+            videos.innerHTML = "Videos<span class='material-icons' style='position: absolute; top: 87px; right: 2px'>done</span>";
+            news.innerHTML = "News";
+        } else if (chosenCategory == "News") {
+            all.innerHTML = "All";
+            images.innerHTML = "Images";
+            videos.innerHTML = "Videos";
+            news.innerHTML = "News<span class='material-icons' style='position: absolute; top: 127px; right: 2px'>done</span>";
+        }
+        changePlaceholder();
+        categoryButton.innerHTML = chosenCategory;
+        categoryButton.classList.remove("backgroundDark");
+        categoryOptions.style.height = "0";
+    }
+
+
+    function onkeypressFunction() {
+        if (event.key == "Enter" && document.activeElement.id == "searchBar") {
+            redirectPage();
+        }
+    }
+
+
+    function transitionOutSettings() {
+        document.getElementById("container").style.transition = "0.3s";
+        document.getElementById("container").style.opacity = "0";
+        document.getElementById("settings").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("container").style.display = "none";
+        }, 300)
+        setTimeout(function() {
+            document.getElementById("settings").style.opacity = "1";
+        }, 100)
+        langOptions.style.height = "0px";
+        langButton.classList.remove("backgroundDark");
+        searchEngineOptions.style.height = "0px";
+        searchEngineButton.classList.remove("backgroundDark");
+        categoryOptions.style.height = "0px";
+        categoryButton.classList.remove("backgroundDark");
+    }
+
+
+    function transitionInSettings() {
+        document.getElementById("settings").style.opacity = "0";
+        document.getElementById("container").style.opacity = "1";
+        setTimeout(function() {
+            document.getElementById("settings").style.display = "none";
+        }, 300)
+        setTimeout(function() {\
+            document.getElementById("container").style.display = "block";
+        }, 100)
+    }
+
+
+    function transitionOutHistory() {
+        document.getElementById("container").style.transition = "0.3s";
+        document.getElementById("container").style.opacity = "0";
+        document.getElementById("history").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("container").style.display = "none";
+        }, 300)
+        setTimeout(function() {
+            document.getElementById("history").style.opacity = "1";
+        }, 100)
+        if (history1 == "") {
+            historyLink1.style.display = "none";
+        } else {
+            historyLink1.style.display = "block";
+            historyLink1.innerHTML = history1;
+            historyLink1.title = history1;
+        }
+        if (history2 == "") {
+            historyLink2.style.display = "none";
+        } else {
+            historyLink2.style.display = "block";
+            historyLink2.innerHTML = history2;
+            historyLink2.title = history2;
+        }
+        if (history3 == "") {
+            historyLink3.style.display = "none";
+        } else {
+            historyLink3.style.display = "block";
+            historyLink3.innerHTML = history3;
+            historyLink3.title = history3;
+        }
+        if (history4 == "") {
+            historyLink4.style.display = "none";
+        } else {
+            historyLink4.style.display = "block";
+            historyLink4.innerHTML = history4;
+            historyLink4.title = history4;
+        }
+        if (history5 == "") {
+            historyLink5.style.display = "none";
+        } else {
+            historyLink5.style.display = "block";
+            historyLink5.innerHTML = history5;
+            historyLink5.title = history5;
+        }
+        if (history6 == "") {
+            historyLink6.style.display = "none";
+        } else {
+            historyLink6.style.display = "block";
+            historyLink6.innerHTML = history6;
+            historyLink6.title = history6;
+        }
+        if (history7 == "") {
+            historyLink7.style.display = "none";
+        } else {
+            historyLink7.style.display = "block";
+            historyLink7.innerHTML = history7;
+            historyLink7.title = history7;
+        }
+        if (history8 == "") {
+            historyLink8.style.display = "none";
+        } else {
+            historyLink8.style.display = "block";
+            historyLink8.innerHTML = history8;
+            historyLink8.title = history8;
+        }
+        if (history9 == "") {
+            historyLink9.style.display = "none";
+        } else {
+            historyLink9.style.display = "block";
+            historyLink9.innerHTML = history9;
+            historyLink9.title = history9;
+        }
+        if (history10 == "") {
+            historyLink10.style.display = "none";
+        } else {
+            historyLink10.style.display = "block";
+            historyLink10.innerHTML = history10;
+            historyLink10.title = history10;
+        }
+        if (history1 == "") {
+            document.getElementById("noHistory").style.display = "block";
+            document.getElementById("historyContent").style.verticalAlign = "";
+        } else {
+            document.getElementById("noHistory").style.display = "none";
+            document.getElementById("historyContent").style.verticalAlign = "top";
+        }
+    }
+
+
+    function transitionInHistory() {
+        document.getElementById("history").style.opacity = "0";
+        document.getElementById("container").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("history").style.display = "none";
+        }, 300)
+        setTimeout(function() {
+            document.getElementById("container").style.opacity = "1";
+        }, 100)
+    }
+
+
+    function changeButton(x) {
+        if (x.checkValidity()) {
+            document.getElementById("searchButton").type = "button";
+            valid = true;
+        } else {
+            document.getElementById("searchButton").type = "submit";
+            valid = false;
+        }
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
+    function deleteCookies() {
+        document.cookie = "history1=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "history2=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "history3=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "history4=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "history5=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "history6=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "history7=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "history8=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "history9=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "history10=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "searchEngine=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "language=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "category=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "newTab=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+
+    function restoreDefaultSettings() {
+        changeChosenEngine("Google");
+        changeChosenLanguage("English");
+        changeChosenCategory("All");
+        chosenNewTab = "No";
+        changeChosenNewTab();
+        transitionInSettings();
+    }
+
+    function clearHistory() {
+        setCookie("history1", "", 365);
+        setCookie("history2", "", 365);
+        setCookie("history3", "", 365);
+        setCookie("history4", "", 365);
+        setCookie("history5", "", 365);
+        setCookie("history6", "", 365);
+        setCookie("history7", "", 365);
+        setCookie("history8", "", 365);
+        setCookie("history9", "", 365);
+        setCookie("history10", "", 365);
+        history1 = "";
+        history2 = "";
+        history3 = "";
+        history4 = "";
+        history5 = "";
+        history6 = "";
+        history7 = "";
+        history8 = "";
+        history9 = "";
+        history10 = "";
+        document.getElementById("settings").style.opacity = "0";
+        document.getElementById("history").style.display = "block";
+        setTimeout(function() {
+            document.getElementById("settings").style.display = "none";
+        }, 300)
+        setTimeout(function() {
+            document.getElementById("history").style.opacity = "1";
+        }, 100)
+        if (history1 == "") {
+            historyLink1.style.display = "none";
+        } else {
+            historyLink1.style.display = "block";
+            historyLink1.innerHTML = history1;
+        }
+        if (history2 == "") {
+            historyLink2.style.display = "none";
+        } else {
+            historyLink2.style.display = "block";
+            historyLink2.innerHTML = history2;
+        }
+        if (history3 == "") {
+            historyLink3.style.display = "none";
+        } else {
+            historyLink3.style.display = "block";
+            historyLink3.innerHTML = history3;
+        }
+        if (history4 == "") {
+            historyLink4.style.display = "none";
+        } else {
+            historyLink4.style.display = "block";
+            historyLink4.innerHTML = history4;
+        }
+        if (history5 == "") {
+            historyLink5.style.display = "none";
+        } else {
+            historyLink5.style.display = "block";
+            historyLink5.innerHTML = history5;
+        }
+        if (history6 == "") {
+            historyLink6.style.display = "none";
+        } else {
+            historyLink6.style.display = "block";
+            historyLink6.innerHTML = history6;
+        }
+        if (history7 == "") {
+            historyLink7.style.display = "none";
+        } else {
+            historyLink7.style.display = "block";
+            historyLink7.innerHTML = history7;
+        }
+        if (history8 == "") {
+            historyLink8.style.display = "none";
+        } else {
+            historyLink8.style.display = "block";
+            historyLink8.innerHTML = history8;
+        }
+        if (history9 == "") {
+            historyLink9.style.display = "none";
+        } else {
+            historyLink9.style.display = "block";
+            historyLink9.innerHTML = history9;
+        }
+        if (history10 == "") {
+            historyLink10.style.display = "none";
+        } else {
+            historyLink10.style.display = "block";
+            historyLink10.innerHTML = history10;
+        }
+        if (history1 == "") {
+            document.getElementById("noHistory").style.display = "block";
+            document.getElementById("historyContent").style.verticalAlign = "";
+        } else {
+            document.getElementById("noHistory").style.display = "none";
+            document.getElementById("historyContent").style.verticalAlign = "";
+        }
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function onloadFunction() {
+        document.getElementById("container").style.opacity = "1";
+        var height = window.innerHeight;
+        var width = window.innerWidth * 0.8 / 3;
+        var margintop = (((height - 40) / 2) / height) * 100;
+        var marginLeft = (((width - 120) / 2) / width) * 100;
+        var marginLeftNewTab = (((width - 90) / 2) / width) * 100;
+        var marginLeftRestoreSettings = (((width - 200) / 2) / width) * 100;
+        searchBar.style.top = margintop + "%";
+        searchEngineButton.style.marginLeft = marginLeft + "%";
+        searchEngineOptions.style.marginLeft = marginLeft + "%";
+        searchEngineOptions.style.height = "0px";
+        langButton.style.marginLeft = marginLeft + "%";
+        langOptions.style.marginLeft = marginLeft + "%";
+        langOptions.style.height = "0px";
+        categoryButton.style.marginLeft = marginLeft + "%";
+        categoryOptions.style.marginLeft = marginLeft + "%";
+        categoryOptions.style.height = "0px";
+        clearHistoryButton.style.marginLeft = marginLeft + "%";
+        newTabButton.style.marginLeft = marginLeftNewTab + "%";
+        document.getElementById("historyTable").style.height = height - 62 - 35 + "px";
+        restoreSettingsButton.style.marginLeft = marginLeftRestoreSettings + "%";
+    }
+
+    function onresizeFunction() {
+        var height = window.innerHeight;
+        var width = window.innerWidth * 0.8 / 3;
+        var margintop = (((height - 40) / 2) / height) * 100;
+        var marginLeft = (((width - 120) / 2) / width) * 100;
+        var marginLeftNewTab = (((width - 90) / 2) / width) * 100;
+        var marginLeftRestoreSettings = (((width - 200) / 2) / width) * 100;
+        searchBar.style.top = margintop + "%";
+        searchEngineButton.style.marginLeft = marginLeft + "%";
+        searchEngineOptions.style.marginLeft = marginLeft + "%";
+        langButton.style.marginLeft = marginLeft + "%";
+        langOptions.style.marginLeft = marginLeft + "%";
+        categoryButton.style.marginLeft = marginLeft + "%";
+        categoryOptions.style.marginLeft = marginLeft + "%";
+        clearHistoryButton.style.marginLeft = marginLeft + "%";
+        newTabButton.style.marginLeft = marginLeftNewTab + "%";
+        document.getElementById("historyTable").style.height = height - 62 - 35 + "px";
+        restoreSettingsButton.style.marginLeft = marginLeftRestoreSettings + "%";
+    }
+</script>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>To Do List</title>
+<style>
+body {
+  margin: 0;
+  min-width: 250px;
+}
+
+/* Include the padding and border in an element's total width and height */
+* {
+  box-sizing: border-box;
+}
+
+/* Remove margins and padding from the list */
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+input:focus, button:focus {
+  outline: none
+}
+
+/* Style the list items */
+ul li {
+  font-family: Karla;
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  list-style-type: none;
+  background: #eee;
+  font-size: 18px;
+  transition: 0.2s;
+
+  /* make the list items unselectable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+ul li:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+ul li:hover {
+  background: #ddd;
+}
+
+/* When clicked on, add a background color and strike out text */
+ul li.checked {
+  background: #888;
+  color: #fff;
+  text-decoration: line-through;
+}
+
+/* Add a "checked" mark when clicked on */
+ul li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 14px;
+  left: 18px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+/* Style the close button */
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 11px 8px 12px 8px;
+  transition: 0.3s;
+}
+
+.close:hover {
+  background-color: red;
+  color: white;
+}
+.close::before {
+  content: 'clear'
+}
+
+/* Style the headers */
+.headers {
+  font-family: Karla;
+  color: white;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  padding: 40px 0px
+}
+
+/* Clear floats after the headers */
+.headers:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the input */
+#myInput {
+  margin: 0;
+  border: none;
+  font-family: Karla;
+  border-radius: 0;
+  width: 300px;
+  padding: 10px;
+  float: left;
+  font-size: 16px;
+  color: black;
+  background: transparent;
+  padding-left: 3px;
+}
+
+/* Style the "Add" button */
+.addBtn {
+  height: 37px;
+  width: 100px;
+  background: #d9d9d9;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  font-family: Karla;
+  transition: 0.3s;
+  border-radius: 0;
+  border: none;
+}
+
+.addBtn:hover {
+  background-color: #bbb;
+}
+
+#myInputPlaceholder::before {
+  content: 'Title'
+}
+
+.inputPlaceholderBlank {
+  font-family: Karla;
+  font-size: 16px;
+  position: absolute;
+  transition: font-size 0.2s ease-in-out, bottom 0.2s ease-in-out, top 0.2s ease-in-out, color 0.2s ease-in-out, left 0.2s ease-in-out;
+  color: black;
+  cursor: text
+}
+
+.inputPlaceholderFilled {
+  font-family: Karla;
+  font-size: 9pt;
+  position: absolute;
+  bottom: 138px;
+  left: 53px;
+  transition: color 0.2s ease-in-out;
+  color: black;
+  cursor: text
+}
+
+#myInputPlaceholder[class*=inputPlaceholderBlank] {
+  top: 10px;
+  left: 3px;
+}
+
+#myInputPlaceholder[class*=inputPlaceholderFilled] {
+  top: -4px;
+  left: 1px;
+}
+
+#myInput:focus ~ #myInputPlaceholder[class*=inputPlaceholderBlank], #myInput:focus ~ #myInputPlaceholder[class*=inputPlaceholderFilled] {
+  font-size: 9pt;
+  color: red;
+  top: -4px;
+  left: 1px;
+}
+
+#myInputUnderline {
+  height: 2px;
+  background: #ddd;
+  position: absolute;
+  top: 35px;
+  left: 0px;
+  width: 300px;
+}
+
+#myInputFocusUnderline {
+  width: 0px;
+  height: 2px;
+  background: red;
+  position: absolute;
+  transition: width 0.2s ease-in-out, left 0.2s ease-in-out, background-color 0.2s ease-in-out;
+  top: 35px;
+  left: 150px;
+}
+
+#myInput:focus ~ #myInputFocusUnderline {
+  width: 300px;
+  left: 0px;
+}
+</style>
+</head>
+<body onload="onLoad()">
+
+<div id="myDIV" class="headers">
+  <div id="myDiv-myDiv" style="position: relative">
+    <input oninput="onInput()" onkeydown="if (event.key == 'Enter') {newElement()}" type="text" id="myInput" autofocus>
+    <div id="myInputPlaceholder" class="inputPlaceholderBlank" onclick="document.getElementById('myInput').focus()"></div>
+    <div id="myInputUnderline"></div>
+    <div id="myInputFocusUnderline"></div>
+    <button onclick="newElement()" class="addBtn">Add</button>
+  </div>
+</div>
+
+<ul id="myUL">
+</ul>
+
+<script>
+var todoList = []
+
+var close = document.getElementsByClassName("close");
+
+var list = document.querySelector('ul');
+list.addEventListener('click', function(ev) {
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+  }
+}, false);
+
+function newElement() {
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  todoList.unshift(inputValue)
+  setCookie("todo", todoList, 1000)
+  li.appendChild(t);
+  if (inputValue == '') {
+
+  } else {
+    document.getElementById("myUL").innerHTML = "<li>" + inputValue + "<span class='close material-icons'></span></li>" + document.getElementById('myUL').innerHTML
+  }
+  document.getElementById("myInput").value = "";
+  document.getElementById("myInput").blur()
+  document.getElementById("myInputPlaceholder").classList = "inputPlaceholderBlank"
+  setTimeout(function() {document.getElementById('myInput').focus()}, 300)
+  var span = document.createElement("SPAN");
+  span.className = "close";
+  span.classList.add("material-icons")
+  li.appendChild(span);
+  span.onclick = function() {
+    var div = this.parentElement;
+    div.style.opacity = "0"
+    var value = div.innerHTML.replace('<span class="close material-icons"></span>', '')
+    var num = todoList.indexOf(value)
+    todoList.splice(num, 1)
+    alert(todoList)
+    for (var i = 0; i < todoList.length; i++) {
+      if (todoList[i] == "") {
+        todoList.splice(i, 1)
+      }
+    }
+    setCookie("todo", todoList, 1000)
+    setTimeout(function() {div.remove()}, 300);
+  }
+}
+
+function onLoad() {
+  todoList = getCookie("todo").split(',')
+  for (var i = 0; i < todoList.length; i++) {
+    if (todoList[i] == "") {
+      todoList.splice(i, 1)
+    } else {
+      addFromCookies(todoList[i], i + 1)
+    }
+  }
+}
+
+function setCookie(cname, cvalue, exdays) {
+  var d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  var expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+function addFromCookies(inputValue, num) {
+  var li = document.createElement("li");
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
+  if (inputValue === '') {
+
+  } else {
+    document.getElementById("myUL").appendChild(li);
+  }
+
+  document.getElementById("myInput").value = "";
+
+  var span = document.createElement("SPAN");
+  span.className = "close";
+  span.classList.add("material-icons")
+  li.appendChild(span);
+
+  span.onclick = function() {
+    var div = this.parentElement;
+    div.style.opacity = "0"
+    var value = div.innerHTML.replace('<span class="close material-icons"></span>', '')
+    var num = todoList.indexOf(value)
+    todoList.splice(num, 1)
+    for (var i = 0; i < todoList.length; i++) {
+      if (todoList[i] == "") {
+        todoList.splice(i, 1)
+      }
+    }
+    setCookie("todo", todoList, 1000)
+    setTimeout(function() {div.remove()}, 300);
+  }
+}
+
+function onInput() {
+  if (document.getElementById('myInput').value == "") {
+    document.getElementById("myInputPlaceholder").classList = "inputPlaceholderBlank"
+  } else {
+    document.getElementById("myInputPlaceholder").classList = "inputPlaceholderFilled"
+  }
+}
+</script>
+
+</body>
+</html>

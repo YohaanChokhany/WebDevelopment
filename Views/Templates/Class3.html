@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class 3</title>
+    <style>::-moz-selection {
+      background: #f1b5b8;
+    }
+
+    ::selection {
+      background: #f1b5b8;
+    }
+
+    td, table, tr {font-size: 10.5pt; color: #333; font-weight: 100; padding-left: 0px}
+
+    .continue, .continue:focus {background-color: red; color: white; padding: 15px; transition: 0.3s;text-align: center; text-decoration: none}
+
+    .continue:hover {background-color: #333; color: white; text-decoration: none}
+
+    a:hover {text-decoration: none}
+
+    a code:hover {text-decoration: none; color: #f1f1f1; background-color: #333}
+
+    code {transition: 0.3s}
+
+    .butt {transition: 0.3s; border-radius: 3px; background-color: #AAA; border-color: #AAA;}
+
+    .butt:hover {background-color: red; border-color: red; border-radius: 3px; color: white}
+
+    h1 {font-size: 40pt}
+    h2 {font-size: 32pt}
+    .collapsible {
+      background-color: #777;
+      color: white;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 15px;
+      transition: 0.3s;
+    }
+
+    .active, .collapsible:hover {
+      background-color: #555;
+    }
+
+    .content {
+      padding: 0 18px;
+      max-height: 0;
+      width: 100%;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+      background-color: #fff;
+    }
+
+    .content p {
+        padding-top: 18px;
+    }
+
+    button {
+      text-align: center;
+    }
+
+    .footer {
+        color: #f1f1f1;
+        transition: 0.3s;
+        text-decoration: none
+    }
+
+    .footer:hover {
+        text-decoration: none;
+        color: #333
+    }
+    td {
+        padding: 10px
+    }
+
+    .container {
+        opacity: 0;
+        transition: 1s
+    }
+    </style>
+</head>
+<body onkeyup="redirectPage()" onload="onloadFunction()" onresize="onresizeFunction()" onkeydown="keyDown()">
+<div style="position: absolute; top: 0" id="top"></div>
+<div id="container" class="container" style="width: 100%">
+<h1 id="title" align="center" class="title" style="padding-bottom: 20px;">Class 3</h1>
+<h2 align="center" style="padding-bottom: 20px" class="header">Basic HTML Tags</h2>
+<div style="box-shadow: 0px 0px 50px gray; width: 80%; margin-left: 10%">
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;ol&gt;</button>
+<div class="content">
+    <p style="padding-top: 18px; text-align: center">
+        <code>&lt;ol type="1|a|A|i|I"&gt;</code>
+    </p>
+    <table align="center">
+        <tr>
+            <td style="width: 20%">
+                <ol style="padding-bottom: 0px" type="1">
+                  <li>Coffee</li>
+                  <li>Tea</li>
+                  <li>Milk</li>
+                </ol>
+            </td>
+            <td>
+                <ol style="padding-bottom: 0px" type="a">
+                  <li>Coffee</li>
+                  <li>Tea</li>
+                  <li>Milk</li>
+                </ol>
+            </td>
+            <td>
+                <ol style="padding-bottom: 0px" type="A">
+                  <li>Coffee</li>
+                  <li>Tea</li>
+                  <li>Milk</li>
+                </ol>
+            </td>
+            <td>
+                <ol style="padding-bottom: 0px" type="i">
+                  <li>Coffee</li>
+                  <li>Tea</li>
+                  <li>Milk</li>
+                </ol>
+            </td>
+            <td>
+                <ol style="padding-bottom: 0px" type="I">
+                  <li>Coffee</li>
+                  <li>Tea</li>
+                  <li>Milk</li>
+                </ol>
+            </td>
+        </tr>
+    </table>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">&lt;fieldset&gt;</button>
+<div class="content">
+    <p style="padding-bottom: 0px">
+        The <code>&lt;fieldset&gt;</code> tag is used to group related elements in a form.
+        The <code>&lt;fieldset&gt;</code> tag draws a box around the related elements.
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <b>Example:</b>
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <h6 style="font-size: 10.5pt"><code>&lt;form&gt;</code></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;fieldset&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;legend&gt;Personalia:&lt;/legend&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;label for="fname"&gt;First name:&lt;/label&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;input type="text" id="fname" name="fname"&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;label for="lname"&gt;Last name:&lt;/label&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;input type="text" id="lname" name="lname"&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;label for="email"&gt;Email:&lt;/label&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;input type="email" id="email" name="email"&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;label for="birthday"&gt;Birthday:&lt;/label&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;input type="date" id="birthday" name="birthday"&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 40px"><code>&lt;input type="submit" value="Submit"&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;/fieldset&gt;</code><br /></h6>
+        <h6 style="font-size: 10.5pt"><code>&lt;/form&gt;</code><br /></h6>
+    </p>
+</div>
+</div>
+<h2 align="center" style="padding-top: 20px; padding-bottom: 20px" class="header">Basic HTML Attributes</h2>
+<div style="box-shadow: 0px 0px 50px gray; width: 80%; margin-left: 10%">
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">title</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The title attribute specifies extra information about an element.
+        The information is most often shown as a tooltip text when the mouse moves over the element.
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <strong>Example:</strong>
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 0px">
+        <code>&lt;button title="Click me to die of poop" type="button"&gt;Click Me&lt;/button&gt;</code>
+    </p>
+    <button title="Click me to die of poop" type="button" style="margin-bottom: 9px">Click Me</button>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">alt</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The alt attribute provides alternative information for an image if a user for some reason cannot view it (because of slow connection, an error in the src attribute, or if the user uses a screen reader).
+    </p>
+    <p style="padding-top: 0px">
+        <strong>Note:</strong> The alt attribute is required for the <code>&lt;img&gt;</code> element.
+    </p>
+    <p style="padding-bottom: 9px; padding-top: 0px">
+        <strong>Note:</strong> For <code>&lt;input&gt;</code> elements, the alt attribute can only be used with <code>&lt;input type="image"&gt;</code>.
+    </p>
+    <p style="padding-bottom: 9px; padding-top: 0px">
+        <strong>Tip:</strong> To create a tooltip for an image, use the title attribute!
+    </p>
+    <p style="padding-bottom: 9px; padding-top: 0px">
+        <b>Example:</b> <code>&lt;img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google"&gt;</code>
+    </p>
+    <button onclick="changeSource()" style="margin-bottom: 9px; width: 7%; margin-left: 46.5%">Click Me</button><br />
+    <img id="google-image" src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" style="padding-bottom: 9px; margin-left: 40%; font-size: 20pt; color: #333; border-color: transparent; outline: none; margin-bottom: 9px" align="center">
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">autocomplete</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The autocomplete attribute specifies whether a form or an input field should have autocomplete on or off.
+        Autocomplete allows the browser to predict the value. When a user starts to type in a field, the browser should display options to fill in the field, based on earlier typed values.
+    </p>
+    <p style="padding-top: 0px">
+        <strong>Note:</strong> The autocomplete attribute works with the following <code>&lt;input&gt;</code> types: text, search, url, tel, email, password, datepickers, range, and color.
+    </p>
+    <p style="padding-bottom: 9px; padding-top: 0px">
+        <strong>Tip:</strong> It is possible to have autocomplete "on" for the form, and "off" for specific input fields, or vice versa.
+    </p>
+    <p style="padding-bottom: 9px; padding-top: 0px">
+        <b>Example:</b></code>
+    </p>
+    <table align="center">
+        <tr>
+            <td width="50%">
+                <h6 style="font-size: 10.5pt"><code>&lt;form autocomplete="on"&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code>First name: &lt;input type="text" name="fname"&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code>Last name: &lt;input type="text" name="lname"&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;E-mail: &lt;input type="email" name="email"&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code>&lt;/form&gt;</code></h6>
+            </td>
+            <td width="50%">
+                <form autocomplete="on" style="align: right">
+                    <h4 align="right">First name: <input type="text" name="fname"><br><br /></h4>
+                    <h4 align="right">Last name: <input type="text" name="lname"><br><br /></h4>
+                    <h4 align="right">E-mail: <input type="email" name="email"><br><br /></h4>
+                </form>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h6 style="font-size: 10.5pt"><code>&lt;form autocomplete="on"&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code>First name: &lt;input type="text" name="fname"&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code>Last name: &lt;input type="text" name="lname"&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;E-mail: &lt;input type="email" autocomplete="off" name="email"&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code>&lt;/form&gt;</code></h6>
+            </td>
+            <td>
+                <form autocomplete="on" style="align: right">
+                    <h4 align="right">First name: <input type="text" name="fname"><br><br /></h4>
+                    <h4 align="right">Last name: <input type="text" name="lname"><br><br /></h4>
+                    <h4 align="right">E-mail: <input type="email" name="email" autocomplete="off"><br><br /></h4>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">autofocus</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The autofocus attribute is a boolean attribute.
+        When present, it specifies that the element should automatically get focus when the page loads.
+    </p>
+    <p style="padding-bottom: 9px; padding-top: 0px">
+        The autofocus attribute can be used on the following elements:
+    </p>
+    <p style="padding-bottom: 9px; padding-top: 0px">
+        <a href="/button-autofocus-attribute"><h6 style="font-size: 10.5pt"><code>&lt;button&gt;</code></h6></a>
+        <a href="/input-autofocus-attribute"><h6 style="font-size: 10.5pt"><code>&lt;input&gt;</code></h6></a>
+        <a href="/textarea-autofocus-attribute"><h6 style="font-size: 10.5pt"><code>&lt;textarea&gt;</code></h6></a>
+    </p>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">checked</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The checked attribute is a boolean attribute.
+        When present, it specifies that an <code>&lt;input&gt;</code> element should be pre-selected (checked) when the page loads.
+        The checked attribute can be used with <code>&lt;input type="checkbox"&gt;</code> and <code>&lt;input type="radio"&gt;</code>.
+        The checked attribute can also be set after the page load, with a JavaScript.
+    </p>
+    <p style="padding-bottom: 9px; padding-top: 0px">
+        The checked attribute can only be used on the <code>&lt;input type="checkbox"&gt;</code> tag.
+    </p>
+    <table align="center" style="padding-bottom: 9px; padding-top: 0px">
+        <tr>
+            <td style="width: 50%">
+                <h6 style="font-size: 10.5pt"><code>&lt;form&gt;</code></h6>
+                  <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="checkbox" id="vehicle1" value="Bike"&gt;</code></h6>
+                  <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;label for="vehicle1"&gt; I have a bike&lt;/label&gt;</code></h6>
+                  <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="checkbox" id="vehicle2" value="Car"&gt;</code></h6>
+                  <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;label for="vehicle2"&gt; I have a car&lt;/label&gt;</code></h6>
+                  <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="checkbox" id="vehicle3" value="Boat" checked&gt;</code></h6>
+                  <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;label for="vehicle3"&gt; I have a boat&lt;/label&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code>&lt;/form&gt;</code></h6>
+            </td>
+            <td style="width: 50%; text-align: right">
+                <form>
+                  <input align="right" type="checkbox" id="vehicle1" value="Bike">
+                  <label style="color: #333;" for="vehicle1"> I have a bike</label><br>
+                  <input type="checkbox" id="vehicle2" value="Car">
+                  <label style="color: #333" for="vehicle2"> I have a car</label><br>
+                  <input type="checkbox" id="vehicle3" value="Boat" checked>
+                  <label style="color: #333" for="vehicle3"> I have a boat</label><br>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">contenteditable</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The contenteditable attribute specifies whether the content of an element is editable or not.
+    </p>
+    <p style="padding-bottom: 9px; padding-top: 0px">
+        <strong>Note:</strong> When the contenteditable attribute is not set on an element, the element will inherit it from its parent.
+    </p>
+    <p style="padding-bottom: 9px; padding-top: 0px">
+        <strong>Note:</strong> The default value is true.
+    </p>
+    <a class="continue" href="#top" onclick="contenteditable()">Toggle the contenteditability of the title</a>
+    <div style="padding: 15px"></div>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">placeholder</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The placeholder attribute specifies a short hint that describes the expected value of a input field / textarea.
+        The short hint is displayed in the field before the user enters a value.
+    </p>
+    <table align="center" style="padding-bottom: 9px; padding-top: 0px">
+        <tr>
+            <td style="width: 50%">
+                <h6 style="font-size: 10.5pt"><code>&lt;form&gt;</code></h6>
+                  <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="text" id="search-bar" placeholder="Search..."&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code>&lt;/form&gt;</code></h6>
+            </td>
+            <td style="width: 50%; text-align: right">
+                <form>
+                  <input align="right" type="text" id="search-bar" placeholder="Search..." onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">required</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The required attribute is a boolean attribute.
+        When present, it specifies that the element must be filled out before submitting the form.
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 9px">
+        <strong>Note:</strong> The default value of this attribute is false
+    </p>
+    <table align="center" style="padding-bottom: 9px; padding-top: 0px">
+        <tr>
+            <td style="width: 70%">
+                <h6 style="font-size: 10.5pt"><code>&lt;form&gt;</code></h6>
+                  <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="text" id="search-bar2" placeholder="Search..." required&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code>&lt;/form&gt;</code></h6>
+            </td>
+            <td style="width: 40%; text-align: right">
+                <form>
+                    <input align="right" type="text" id="search-bar2" placeholder="Search..." required onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)" oninput="changeButton(this, 'requiredSubmit')">
+                    <button id="requiredSubmit" type="submit" style="align: right; color: #333">Submit</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">spellcheck</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The spellcheck attribute specifies whether the element is to have its spelling and grammar checked or not.
+        The following can be spellchecked:
+        <ul>
+            <li>Text values in input elements (not password)</li>
+            <li>Text in <code>&lt;textarea&gt;</code> elements</li>
+            <li>Text in editable elements</li>
+        </ul>
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 9px">
+        <strong>Note:</strong> The default value of this attribute is true
+    </p>
+    <table align="center" style="padding-bottom: 9px; padding-top: 0px">
+        <tr>
+            <td style="width: 70%">
+                <h6 style="font-size: 10.5pt"><code>&lt;form&gt;</code></h6>
+                  <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="text" id="search-bar3" placeholder="Search..." spellcheck="true"&gt;</code></h6>
+                  <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="text" id="search-bar4" placeholder="Search..." spellcheck="false"&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code>&lt;/form&gt;</code></h6>
+            </td>
+            <td style="width: 40%; text-align: right">
+                <form style="padding-top: 10px">
+                    <input align="right" type="text" id="search-bar3" placeholder="Search..." spellcheck="true" onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)">
+                    <input align="right" type="text" id="search-bar4" placeholder="Search..." spellcheck="false" onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)">
+                </form>
+            </td>
+        </tr>
+    </table>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">href</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        For <code>&lt;a&gt;</code> and <code>&lt;area&gt;</code>  elements, the href attribute specifies the URL of the page the link goes to.
+        For <code>&lt;base&gt;</code>  elements, the href attribute specifies the base URL for all relative URLs on a page.
+        For <code>&lt;link&gt;</code>  elements, the href attribute specifies the location (URL) of the external resource (most often a style sheet file).
+    </p>
+    <h6 style="font-size: 10.5pt"><code>&lt;a href="/"&gt;Home&lt;/a&gt;</code></h6>
+    <div style="padding: 15px"></div>
+    <a class="continue" href="/">Home</a>
+    <div style="padding: 15px"></div>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">disabled</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The disabled attribute is a boolean attribute.
+        When present, it specifies that the element should be disabled.
+        A disabled element is unusable.
+        The disabled attribute can be set to keep a user from using the element until some other condition has been met (like selecting a checkbox, etc.). Then, a JavaScript could remove the disabled value, and make the element usable.
+    </p>
+    <h6 style="font-size: 10.5pt"><code>&lt;form&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="text" placeholder="Type Here..."&gt;</code></h6>
+    <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;button id="submit" type="submit" disabled&gt;Submit&lt;/button&gt;</code></h6>
+    <h6 style="font-size: 10.5pt"><code>&lt;/form&gt;</code></h6>
+    <form>
+      <input type="text" placeholder="Type Here..." oninput="disable(this)" onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)">
+      <button id="submit" type="button" disabled style="cursor: not-allowed">Submit</button>
+    </form>
+    <div style="padding: 15px"></div>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">id</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The id attribute specifies a unique id for an HTML element (the value must be unique within the HTML document).
+        The id attribute is most used to point to a style in a style sheet, and by JavaScript (via the HTML DOM) to manipulate the element with the specific id.
+    </p>
+    <table align="center" style="padding-bottom: 9px; padding-top: 0px; width: 100%">
+        <tr>
+            <td style="width: 70%">
+                <h6 style="font-size: 10.5pt"><code>&lt;p id="idAttribute"&gt;Click the button below for a surprise&lt;/p&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code>&lt;button onclick="changeText()" id="idAttribute"&gt;Click Me&lt;/button&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code>&lt;script&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code>function changeText() {</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code>document.getElementById("idAttribute").innerHTML = !SURPRISE!;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code>}</code></h6>
+                <h6 style="font-size: 10.5pt"><code>&lt;/script&gt;</code></h6>
+            </td>
+            <td style="width: 40%; text-align: right">
+                <p id="idAttribute">Click the button below for a surprise</p>
+                <button onclick="changeText()">Click Me</button>
+            </td>
+        </tr>
+    </table>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">mailto</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        The following can be used to send a customized email:
+    </p>
+    <table>
+        <tr>
+            <td>mailto:name@email.com</td>
+            <td>e-mail recipient address</td>
+        </tr>
+        <tr>
+            <td>cc=name@email.com</td>
+            <td>carbon copy e-mail address</td>
+        </tr>
+        <tr>
+            <td>bcc=name@email.com</td>
+            <td>blind carbon copy e-mail address</td>
+        </tr>
+        <tr>
+            <td>subject=subject text</td>
+            <td>subject of e-mail</td>
+        </tr>
+        <tr>
+            <td>body=body text</td>
+            <td>body of email</td>
+        </tr>
+        <tr>
+            <td>?</td>
+            <td>first parameter delimiter</td>
+        </tr>
+        <tr>
+            <td>&</td>
+            <td>other parameters delimiter</td>
+        </tr>
+    </table>
+    <p style="padding-top: 0px; padding-bottom: 9px">
+        You can send an email with the <code>&lt;a&gt;</code> tag in the following way
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 9px">
+        <strong>Example:</strong>
+        <h6 align="center" style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;a href="mailto:yohaanchokhany@gmail.com?cc=naavah21@gmail.com&bcc=rittikachokhany@gmail.com&subject=!surprise!&body=!surprise!"&gt;Click Me&lt;/a&gt;</code></h6>
+    </p>
+    <a class="continue" href="mailto:yohaanchokhany@gmail.com?cc=naavah21@gmail.com&bcc=rittikachokhany@gmail.com&subject=SAAIRASEERETH&body=Foot Dab Foot">Click Me</a>
+    <div style="padding: 15px"></div>
+</div>
+<button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">tel</button>
+<div class="content">
+    <p style="padding-bottom: 9px">
+        You can call a number with a button in the following way
+    </p>
+    <p style="padding-top: 0px; padding-bottom: 9px">
+        <strong>Example:</strong>
+        <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;a href="tel:+919833290597"&gt;Click Me&lt;/a&gt;</code></h6>
+    </p>
+    <a class="continue" href="tel:+919833290597">Click Me</a>
+    <div style="padding: 15px"></div>
+</div>
+</div>
+
+<div style="padding-bottom: 50px"></div>
+</div>
+<div style="padding: 1px;width: 100%; background-color: red">
+    <h6 style="font-size: 10.5pt; text-align: center; color: #f1f1f1;">© 2021 <a class="footer" href="/">Yohaan Chokhany</a> | All Rights Reserved</h6>
+</div>
+<script>
+    var commandPressed = false;
+    var altPressed = true;
+    var importantKey;
+    if (navigator.appVersion.indexOf("Mac") != -1) {
+        importantKey = "Meta";
+    } else {
+        importantKey = "Control";
+    }
+    function keyDown() {
+        if (commandPressed == true) {
+            if (event.key == "h") {
+                window.location.href = "/";
+            }
+            if (event.key == "Alt") {
+                altPressed = true;
+            }
+        } else if (altPressed == true) {
+            if (event.keyCode == 39) {
+                window.location.href = "/class4";
+            } else if (event.keyCode == 37) {
+                window.location.href = "/class2";
+            }
+            if (event.key == importantKey) {
+                commandPressed = true;
+            }
+        } else {
+            if (event.key == importantKey) {
+                commandPressed = true;
+            }
+            if (event.key == "Alt") {
+                altPressed = true;
+            }
+        }
+    }
+
+
+    function changeButton(x, id) {
+        var button = document.getElementById(id);
+        if (x.value == "") {
+            button.type = "submit";
+        } else {
+            button.type = "button";
+        }
+    }
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.maxHeight){
+          content.style.maxHeight = null;
+        } else {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    }
+
+    function enlarge(x) {
+        x.style.fontSize = "25pt";
+    }
+
+    function backToNormal(x) {
+        x.style.fontSize = "20pt";
+    }
+    var edit = 0;
+    function contenteditable() {
+        if (edit == 0) {
+            document.getElementById("title").contentEditable = "true";
+            document.getElementById("title").innerHTML = "Click Here to Edit";
+            document.getElementById("title").focus();
+            edit = 1;
+        } else {
+            document.getElementById("title").contentEditable = "false";
+            document.getElementById("title").innerHTML = "Class 3";
+            edit = 0;
+        }
+    }
+
+    var idText = "normal";
+    function changeText() {
+        var idElement = document.getElementById("idAttribute");
+        if (idText == "normal") {
+            idText = "changed";
+            idElement.innerHTML = "FOOT";
+        } else {
+            idText = "normal";
+            idElement.innerHTML = "Click the button below for a surprise";
+        }
+    }
+
+    function disable(x) {
+        if (x.value == "") {
+            document.getElementById("submit").disabled = true;
+            document.getElementById("submit").style.cursor = "not-allowed";
+        } else {
+            document.getElementById("submit").disabled = false;
+            document.getElementById("submit").style.cursor = "pointer";
+        }
+    }
+
+    function redirectPage() {
+        if (event.key == importantKey) {
+            commandPressed = false;
+        } else if (event.key == "Alt") {
+            altPressed = false;
+        }
+    }
+
+    var googleImage = document.getElementById("google-image");
+    function onloadFunction() {
+        document.getElementById("container").style.opacity = "1";
+        googleImage.width = window.innerWidth * 0.16;
+        googleImage.height = googleImage.width / 2.6;
+    }
+
+    function onresizeFunction() {
+        googleImage.width = window.innerWidth * 0.16;
+        googleImage.height = googleImage.width / 2.6;
+    }
+
+    var alt = false;
+    function changeSource() {
+        if (alt == false) {
+            googleImage.src = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92d.png";
+            alt = true;
+        } else {
+            googleImage.src = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png";
+            alt = false;
+        }
+    }
+
+    function removePlaceholder(x) {
+        x.placeholder = "";
+    }
+
+    function addPlaceholder(x) {
+        x.placeholder = "Search...";
+    }
+</script>
+</body>
+</html>

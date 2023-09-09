@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Women's Day Countdown</title>
+    <style>
+        h1 {font-size: 7vw; text-align: center}
+        .container {transition: 1s; opacity: 0}
+    </style>
+</head>
+<body onload="onloadFunction()" onresize="resizeFunction()" onkeydown="keyDown()" onkeyup="keyUp()">
+    <div id="container" class="container">
+        <div id="birthday-count">
+            <h1 id="bday-count"></h1>
+        </div>
+        <p id="demo"></p>
+    </div>
+    <div style="position: absolute; left: 0; bottom: 0; width: 100%; background-color: red">
+        <h6 style="font-size: 100%; text-align: center; color: #f1f1f1; padding: 0px">© 2021 <a class="footer" href="/">Yohaan Chokhany</a> | All Rights Reserved</h6>
+    </div>
+    <script>
+        var commandPressed = false;
+        var importantKey;
+        if (navigator.appVersion.indexOf("Mac") != -1) {
+            importantKey = "Meta";
+        } else {
+            importantKey = "Control";
+        }
+        function keyDown() {
+            if (commandPressed == true) {
+                if (event.key == "h") {
+                    window.location.href = "/";
+                }
+            } else {
+                if (event.key == importantKey) {
+                    commandPressed = true;
+                }
+            }
+        }
+
+        function keyUp() {
+            if (event.key == importantKey) {
+                commandPressed = false;
+            }
+        }
+
+        var bdayCount = document.getElementById("bday-count");
+        var birthdayCount = document.getElementById("birthday-count");
+        function onloadFunction() {
+            setTimeout(function() {
+                document.getElementById("container").style.opacity = "1";
+            }, 1000);
+            setTimeout(function() {
+                var height = window.innerHeight - 95;
+                var titleHeight = birthdayCount.offsetHeight;
+                var alignHeight = (height - titleHeight) / 2;
+                birthdayCount.style.marginTop = alignHeight + "px";
+            }, 1050);
+            var month = new Date().getMonth();
+            var date = new Date().getDate();
+            var year = new Date().getFullYear();
+            if (month < 3) {
+                startBday(year);
+            } else if (month == 3) {
+                if (date <= 8) {
+                    startBday(year);
+                } else {
+                    startBday(year + 1);
+                }
+            } else {
+                startBday(year + 1);
+            }
+        }
+
+        function startBday(year) {
+            var countDownDate = new Date("Mar 8, " + year + " 00:00:00").getTime();
+
+            var x = setInterval(function() {
+
+                var now = new Date().getTime();
+
+                var distance = countDownDate - now;
+
+                years = Math.floor(distance / (1000 * 60 * 60 * 24 * 365));
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                if (days == 0) {
+                    if (hours == 0) {
+                        if (minutes == 0) {
+                            bdayCount.innerHTML = seconds + "s";
+                        } else {
+                            if (seconds != 0) {
+                                bdayCount.innerHTML = minutes + "m " + seconds + "s";
+                            } else {
+                                bdayCount.innerHTML = minutes + "m";
+                            }
+                        }
+                    } else {
+                        if (seconds != 0) {
+                            bdayCount.innerHTML = hours + "h " + minutes + "m " + seconds + "s";
+                        } else {
+                            bdayCount.innerHTML = hours + "h " + minutes + "m";
+                        }
+                    }
+                } else {
+                    if (seconds != 0) {
+                        bdayCount.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s";
+                    } else {
+                        bdayCount.innerHTML = days + "d " + hours + "h " + minutes + "m";
+                    }
+                }
+
+                var nowTime = new Date("Mar 8, " + year + " 00:00:00").getTime();
+
+                if (distance < 1) {
+                    document.title = "HAPPY WOMEN'S DAY!!";
+                    var nextDay = new Date().getTime();
+                    bdayCount.innerHTML = "HAPPY WOMEN'S DAY!!";
+                    confetti.particleSpeed = 3;
+                    confetti.frameInterval = 20;
+                    confetti.alpha = 1.0;
+                    confetti.gradient = false;
+                    confetti.start();
+                    dayLength = 1000 * 60 * 60 * 24;
+                    if (nextDay - nowTime >= dayLength) {
+                        clearInterval(x);
+                        startBday(year + 1);
+                        document.title = "Women's Day Countdown";
+                        confetti.stop();
+                    } else {
+                        bdayCount.innerHTML = "HAPPY WOMEN'S DAY!!";
+                    }
+                }
+            }, 1000);
+        }
+
+        function resizeFunction() {
+            var resizeHeight = window.innerHeight - 95;
+            var resizeTitleHeight = birthdayCount.offsetHeight;
+            var resizeAlignHeight = (resizeHeight - resizeTitleHeight) / 2;
+            birthdayCount.style.marginTop = resizeAlignHeight + "px";
+        }
+    </script>
+</body>
+</html>

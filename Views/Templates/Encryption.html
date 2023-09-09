@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Encryption</title>
+  <style>
+    textarea {font-family: Marvel; font-size: 15pt; resize: none; width: 100%;background-color: transparent}
+    .buttonEncryption {width: 100%; padding: 10px; border: none;font-family: Marvel; font-size: 20pt; cursor: pointer; background-color: red; color: #f1f1f1; transition: 0.3s}
+    .buttonEncryption:focus {outline:none; background-color: red}
+    .buttonEncryption:hover {background-color: #333; transition: 1s}
+    textarea:focus {outline: none}
+  </style>
+</head>
+<body onload="onloadFunction()">
+<div id="container" class="container" style="width: 80%; margin-left: 10%">
+<h1 align="center">Encryption</h1>
+<textarea spellcheck="false" style="border-width: 1px; border-style: solid; border-color: red" id="myInput" oninput="inputFunction(this)" autocomplete="off" rows="5" autofocus onfocus="document.getElementById('answer').innerHTML = ''"></textarea>
+
+<button class="buttonEncryption" onclick="clearFunction()">Clear</button>
+<button class="buttonEncryption" onclick="enterFunction()">Enter</button>
+
+<p id="answer"></p>
+<p id="demo"></p>
+</div>
+<div style="position: absolute; bottom: 0; width: 100%; background-color: red">
+    <h6 style="font-size: 100%; text-align: center; color: #f1f1f1;">© 2021 <a class="footer" href="/">Yohaan Chokhany</a> | All Rights Reserved</h6>
+</div>
+<script>
+var allCharacters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '!', "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "=", '_', '+', ']', '[', "{", "}", "|", "'", '"', ",", ".", "<", ">", "/", "?", ":", ";"];
+var possibleCharacters = [];
+var encryptionKey = {a:"", b:"", c:"", d:"", e:"", f:"", g:"", h:"", i:"", j:"", k:"", l:"", m:"", n:"", o:"", p:"", q:"", r:"", s:"", t:"", u:"", v:"", w:"", x:"", y:"", z:"", A:"", B:"", C:"", D:"", E:"", F:"", G:"", H:"", I:"", J:"", K:"", L:"", M:"", N:"", O:"", P:"", Q:"", R:"", S:"", T:"", U:"", V:"", W:"", X:"", Y:"", Z:""}
+document.getElementById("demo").innerHTML = encryptionKey.a;
+
+
+
+var value = '';
+var answer = "";
+
+function clearFunction() {
+  value = '';
+  answer = "";
+  document.getElementById('myInput').value = '';
+  document.getElementById('answer').innerHTML = '';
+}
+
+function inputFunction(x) {
+  value = x.value;
+}
+
+function enterFunction() {
+  possibleCharacters = allCharacters;
+  allCharacters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '!', "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "=", '_', '+', ']', '[', "{", "}", "|", "'", '"', ",", ".", "<", ">", "/", "?", ":", ";"];
+  answer = value;
+  if (value.includes("a")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.a = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/a/g, encryptionKey.a);
+    document.getElementById("demo").innerHTML = math.Random + ", ";
+  }
+  if (value.includes("b")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.b = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/b/g, encryptionKey.b);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("c")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.c = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/c/g, encryptionKey.c);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("d")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.d = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/d/g, encryptionKey.d);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("e")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.e = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/e/g, encryptionKey.e);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("f")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.f = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/f/g, encryptionKey.f);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("g")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.g = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/g/g, encryptionKey.g);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("h")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.h = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/h/g, encryptionKey.h);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("i")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.i = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/i/g, encryptionKey.i);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("j")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.j = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/j/g, encryptionKey.j);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("k")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.k = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/k/g, encryptionKey.k);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("l")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.l = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/l/g, encryptionKey.l);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("m")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.m = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/m/g, encryptionKey.m);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("n")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.n = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/n/g, encryptionKey.n);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("o")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.o = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/o/g, encryptionKey.o);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("p")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.p = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/p/g, encryptionKey.p);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("q")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.q = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/q/g, encryptionKey.q);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("r")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.r = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/r/g, encryptionKey.r);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("s")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.s = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/s/g, encryptionKey.s);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("t")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.t = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/t/g, encryptionKey.t);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("u")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.u = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/u/g, encryptionKey.u);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("v")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.v = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/v/g, encryptionKey.v);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("w")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.w = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/w/g, encryptionKey.w);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("x")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.x = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/x/g, encryptionKey.x);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("y")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.y = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/y/g, encryptionKey.y);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  if (value.includes("z")) {
+    var mathRandom = Math.floor(Math.random() * possibleCharacters.length);
+    encryptionKey.z = possibleCharacters[mathRandom];
+    possibleCharacters.splice(mathRandom, 1);
+    answer = answer.replace(/z/g, encryptionKey.z);
+    document.getElementById("demo").innerHTML += math.Random + ", ";
+  }
+  document.getElementById("answer").innerHTML = answer;
+  document.getElementById("demo").innerHTML += "<br />" + allCharacters + "<br />" + possibleCharacters;
+}
+
+function onloadFunction() {
+  document.getElementById("container").style.opacity = "1";
+}
+</script>
+</body>
+</html>

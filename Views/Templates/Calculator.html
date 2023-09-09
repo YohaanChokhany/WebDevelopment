@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href = "https://fonts.googleapis.com/icon?family=Material+Icons" rel = "stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla">
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <style>
+        td {margin: 0px;}
+
+        .calculator {
+            position: absolute;
+            height: 60%;
+            top: 20%;
+            width: 40%;
+            left: 30%;
+            padding: 0px;
+            background-color: red;
+            box-shadow: 0px 0px 1000px 50px #333
+        }
+
+        .shadow{
+            box-shadow: 0px 0px 100px #333;
+        }
+
+        .output {
+            height: 28.6%;
+            padding: 0px;
+            width: 100%;
+            background-color: #ddd;
+            font-family: Karla;
+        }
+
+        .row {
+            margin-top: 0px;
+            height: 14.29%;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        .numberButton, .inputButton, .zeroButton, .symbol {
+            width: 100%;
+            height: 100%;
+            background-color: red;
+            border: none;
+            color: #f1f1f1;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            display: inline-block;
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .numberButton:hover, .inputButton:hover, .zeroButton:hover, .symbol:hover {
+            background-color: #333;
+        }
+        td {width: 25%}
+
+        #outputString {
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: right;
+            font-size: 25pt
+        }
+
+        @media screen and (max-width: 700px) {
+            .calculator {
+                width: 100%;
+                left: 0
+            }
+        }
+
+        button {
+          font-size: 20pt;
+          font-family: Karla;
+          padding: 0px;
+          margin: 0px;
+        }
+        button:focus {
+          outline: none;
+        }
+    </style>
+</head>
+<body onkeydown="keyDown();" onkeyup="keyUp()" onload="onloadFunction()">
+    <div id="container" class="container">
+        <table id="calculator" class="calculator">
+            <tr id="output" class="output"><td title="Answer" id="outputString" colspan="5" class="output"></td></tr>
+            <tr id="row1" class="row" style="margin-left: -1px">
+                <td><button title="Backspace" id="clear" onclick="removeChar()" class="inputButton"><span class="material-icons">backspace</span></button>
+                <td><button title="Clear" id="changeSign" onclick="deleteAll()" class="inputButton" style="position: relative; left: 0">C</button>
+                //Percent doesn't work yet.
+                <td><button title="Percent" id="percent" class="inputButton" style="font-family: Merienda; font-size: 15pt; position: relative; left: 0">%</button>
+                <td><button title="Divide" id="divide" onclick="addSymbol('divide')" class="symbol">&#247;</button>
+            </tr>
+            <tr id="row2" class="row">
+                <td><button title="Seven" id="seven" onclick="addNumber(7)" class="numberButton">7</button>
+                <td><button title="Eight" id="eight" onclick="addNumber(8)" class="numberButton">8</button>
+                <td><button title="Nine" id="nine" onclick="addNumber(9)" class="numberButton">9</button>
+                <td><button title="Multiply" id="multiply" onclick="addSymbol('multiply')" class="symbol">&#215;</button>
+            </tr>
+            <tr id="row3" class="row">
+                <td><button title="Four" id="four" onclick="addNumber(4)" class="numberButton">4</button>
+                <td><button title="Five" id="five" onclick="addNumber(5)" class="numberButton">5</button>
+                <td><button title="Six" id="six" onclick="addNumber(6)" class="numberButton">6</button>
+                <td><button title="Subtract" id="subtract" onclick="addSymbol('subtract')" class="symbol">-</button>
+            </tr>
+            <tr id="row4" class="row">
+                <td><button title="One" id="one" onclick="addNumber(1)" class="numberButton">1</button>
+                <td><button title="Two" id="two" onclick="addNumber(2)" class="numberButton">2</button>
+                <td><button title="Three" id="three" onclick="addNumber(3)" class="numberButton">3</button>
+                <td><button title="Add" id="add" onclick="addSymbol('add')" class="symbol">+</button>
+            </tr>
+            <tr id="row5" class="row">
+                <td><button onclick="addNumber('ans')" id="ans" title="Answer" class="numberButton">Ans</button></td>
+                <td><button title="Zero" id="zero" onclick="addNumber(0)" class="numberButton" style="width: 100%; height: 100%">0</button>
+                <td><button id="decimal" title="Decimal" onclick="addNumber('.')" class="numberButton">.</button>
+                <td><button id="equal" title="Solve Sum" onclick="solveSum()" class="symbol">=</button>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var formula = "";
+        var formulaString = "";
+
+        var equal = document.getElementById("equal");
+
+        var outputString = document.getElementById("outputString");
+
+        var answer = "";
+        var isAnswer = false;
+
+        function addNumber(number) {
+            if (isAnswer == true) {
+                outputString.innerHTML = "";
+                formula = "";
+                formulaString = "";
+                isAnswer = false;
+            }
+            if (number == ".") {
+                if (formulaString.charAt(formulaString.length - 1) != ".") {
+                    if (formulaString.charAt(formulaString.length - 1) == " " || formulaString.charAt(formulaString.length - 1) == "") {
+                        outputString.innerHTML += "0.";
+                        formula += "0.";
+                        formulaString += "0.";
+                    } else {
+                        outputString.innerHTML += number;
+                        formula += number;
+                        formulaString += number;
+                    }
+                }
+            } else if (number == "ans") {
+                if (formulaString.charAt(formulaString.length - 1) == " " || formulaString.charAt(formulaString.length - 1) == "") {
+                    outputString.innerHTML += answer;
+                    formula += answer;
+                    formulaString += answer;
+                }
+            } else if (number == 0) {
+                if (formulaString.charAt(formulaString.length - 1) != " " && formulaString.charAt(formulaString.length - 1) != "") {
+                    outputString.innerHTML += "0";
+                    formula += "0";
+                    formulaString += "0";
+                }
+            } else {
+                outputString.innerHTML += number;
+                formula += number;
+                formulaString += number;
+            }
+        }
+
+        function addSymbol(symbol) {
+            if (formula != "") {
+                if (formula.charAt(formula.length - 1) == " ") {
+                    removeChar();
+                }
+                if (symbol == "add") {
+                    formula += " + ";
+                    formulaString += " + ";
+                    outputString.innerHTML += " + ";
+                } else if (symbol == "subtract") {
+                    formula += " - ";
+                    formulaString += " - ";
+                    outputString.innerHTML += " - ";
+                } else if (symbol == "divide") {
+                    formula += " / ";
+                    formulaString += " &#247; ";
+                    outputString.innerHTML += " &#247; ";
+                } else if (symbol == "multiply") {
+                    formula += " * ";
+                    formulaString += " &#215; ";
+                    outputString.innerHTML += " &#215; ";
+                }
+            } else if (isAnswer == true) {
+                if (symbol == "add") {
+                    formula += " + ";
+                    formulaString += " + ";
+                    outputString.innerHTML += " + ";
+                } else if (symbol == "subtract") {
+                    formula += " - ";
+                    formulaString += " - ";
+                    outputString.innerHTML += " - ";
+                } else if (symbol == "divide") {
+                    formula += " / ";
+                    formulaString += " &#247; ";
+                    outputString.innerHTML += " &#247; ";
+                } else if (symbol == "multiply") {
+                    formula += " * ";
+                    formulaString += " &#215; ";
+                    outputString.innerHTML += " &#215; ";
+                }
+            }
+            isAnswer = false;
+        }
+
+        function removeChar() {
+            if (formulaString.charAt(formulaString.length - 1) == " ") {
+                if (formulaString.charAt(formulaString.length - 2) == ";") {
+                    var tempFormula = formulaString.substring(0, formulaString.length - 8)
+                } else {
+                    var tempFormula = formulaString.substring(0, formulaString.length - 3)
+                }
+            } else {
+                var tempFormula = formulaString.substring(0, formulaString.length - 1);
+            }
+            formulaString = tempFormula;
+            formula = tempFormula;
+            outputString.innerHTML = formulaString;
+        }
+
+        function deleteAll() {
+            formulaString = "";
+            formula = "";
+            outputString.innerHTML = "";
+            isAnswer = false;
+        }
+
+        function solveSum() {
+            var numbers = formulaString.split(" ");
+            if (numbers[numbers.length - 1] == "") {
+                numbers.pop();
+                numbers.pop();
+            }
+            while (numbers.length > 1) {
+                var numbersNumber = 1;
+                for (var i = 1; i < numbers.length; i+=2) {
+                    if (numbers[i] == "&#215;") {
+                        numbersNumber = i;
+                        break;
+                    } else if (numbers[i] == "&#247;") {
+                        numbersNumber = i;
+                        break;
+                    } else if (i == numbers.length - 2) {
+                        numbersNumber = 1;
+                        break;
+                    }
+                }
+                var num1 = parseFloat(numbers[numbersNumber - 1]);
+                var num2 = parseFloat(numbers[numbersNumber + 1]);
+                if (numbers[numbersNumber] == "&#215;") {
+                    answer = (num1 * num2);
+                    answer = answer.toString();
+                    numbers.splice(numbersNumber, numbersNumber);
+                    numbers.splice(numbersNumber, numbersNumber);
+                    numbers[numbersNumber - 1] = answer;
+                    formulaString = answer;
+                    formula = answer;
+                    outputString.innerHTML = answer;
+                    isAnswer = true;
+                } else if (numbers[numbersNumber] == "&#247;") {
+                    answer = (num1 / num2);
+                    answer = answer.toString();
+                    numbers.splice(numbersNumber, numbersNumber);
+                    numbers.splice(numbersNumber, numbersNumber);
+                    numbers[numbersNumber - 1] = answer;
+                    formulaString = answer;
+                    formula = answer;
+                    outputString.innerHTML = answer;
+                    isAnswer = true;
+                } else if (numbers[numbersNumber] == "+") {
+                    answer = (num1 + num2);
+                    answer = answer.toString();
+                    numbers.splice(numbersNumber, numbersNumber);
+                    numbers.splice(numbersNumber, numbersNumber);
+                    numbers[numbersNumber - 1] = answer;
+                    formulaString = answer;
+                    formula = answer;
+                    outputString.innerHTML = answer;
+                    isAnswer = true;
+                } else if (numbers[numbersNumber] == "-") {
+                    answer = (num1 - num2);
+                    answer = answer.toString();
+                    numbers.splice(numbersNumber, numbersNumber);
+                    numbers.splice(numbersNumber, numbersNumber);
+                    numbers[numbersNumber - 1] = answer;
+                    formulaString = answer;
+                    formula = answer;
+                    outputString.innerHTML = answer;
+                    isAnswer = true;
+                }
+            }
+            if (numbers.length == 1) {
+                answer = formulaString.toString();
+            }
+        }
+
+        var isThere = false;
+        var keysPressed = [];
+        var commandPressed = false;
+        var keyBackspace = false;
+        var importantKey;
+        if (navigator.appVersion.indexOf("Mac") != -1) {
+            importantKey = "Meta";
+        } else {
+            importantKey = "Control";
+        }
+
+        function keyDown() {
+            if (event.key == "1" || event.key == "2" || event.key == "3" || event.key == "4" || event.key == "5" || event.key == "6" || event.key == "7" || event.key == "8" || event.key == "9" || event.key == "0") {
+                addNumber(event.key);
+            } else if (event.key == "+") {
+                addSymbol('add');
+            } else if (event.key == "/") {
+                addSymbol('divide');
+            } else if (event.key == "*" || event.key == "x") {
+                addSymbol('multiply');
+            } else if (event.key == "-") {
+                addSymbol('subtract');
+            } else if (event.key == "=") {
+                solveSum();
+            } else if (event.key == "Backspace") {
+                removeChar();
+            } else if (event.key == ".") {
+                addNumber('.')
+            } else if (event.key == "Enter") {
+                equal.focus();
+            }
+
+            for (var i = 0; i < keysPressed.length; i++) {
+                if (keysPressed[i] == event.key) {
+                    isThere = true;
+                    break;
+                } else {
+                    isThere = false;
+                }
+            }
+            if (isThere == false) {
+                keysPressed.push(event.key);
+            } else {
+                isThere = false;
+            }
+            if (keysPressed.length == 2) {
+                for (var i = 0; i < 3; i++) {
+                    if (keysPressed[i] == importantKey) {
+                        commandPressed = true;
+                    } else if (keysPressed[i] == "Backspace") {
+                        keyBackspace = true;
+                    }
+                }
+
+                if (commandPressed == true && keyBackspace == true) {
+                    deleteAll();
+                }
+                commandPressed = false;
+                keyBackspace = false;
+            }
+        }
+
+        function keyUp() {
+            keysPressed.pop(event.key);
+            if (event.key == importantKey) {
+                keysPressed = []
+            }
+        }
+    </script>
+</body>
+</html>

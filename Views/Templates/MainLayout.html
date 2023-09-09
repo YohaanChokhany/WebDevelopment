@@ -1,0 +1,509 @@
+$def with (page)
+$var css: static/css/bootstrap.min.css static/css/bootstrap-material-design.min.css static/css/swag.css static/css/ripples.min.css
+$var js: static/js/jquery-3.1.0.min.js static/js/bootstrap.min.js static/js/material.min.js static/js/ripples.min.js static/js/script.js static/js/confetti.js
+
+<html lang="en">
+<head>
+    <link rel="icon" href="static/images/Favicon.png">
+    <meta charset="UTF-8">
+    $if self.css:
+        $for style in self.css.split():
+            <link rel="stylesheet" href="$style">
+    <style>
+        .custom-button {
+            cursor: pointer;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: Marvel;
+            font-size: 20pt;
+            width: 200px;
+            height: 45px;
+            position: relative;
+            border: solid #bbb 2px;
+            color: #bbb;
+            z-index: 1;
+            transition: all 0.5s ease-in-out;
+            border-radius: 5px;
+            margin: 5px;
+            overflow: hidden;
+            background-color: #f1f1f1;
+        }
+        .custom-button:before {
+          content: "";
+          position: absolute;
+          left: 50%;
+          top: 0;
+          height: 100%;
+          width: 0%;
+          background: red;
+          border-radius: 23px;
+          transition: all 0.5s ease-in-out;
+          z-index: -1;
+        }
+        .custom-button:hover:before {
+          width: 120%;
+          left: -10%;
+        }
+        .custom-button:hover {
+          color: #f1f1f1;
+          border-color: red;
+        }
+
+        @font-face {
+          font-family: 'Marvel';
+          font-style: normal;
+          src: local('Marvel'), local('Marvel-Regular'), url(static/fonts/Marvel.woff2) format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+        }
+
+        @font-face {
+          font-family: 'Material Icons';
+          font-style: normal;
+          src: url(static/fonts/Material_Icons.woff2) format('woff2');
+        }
+
+        .material-icons {
+          font-family: 'Material Icons';
+          font-weight: normal;
+          font-style: normal;
+          font-size: 20pt;
+          line-height: 1;
+          letter-spacing: normal;
+          text-transform: none;
+          display: inline-block;
+          white-space: nowrap;
+          word-wrap: normal;
+          direction: ltr;
+          -webkit-font-feature-settings: 'liga';
+          -webkit-font-smoothing: antialiased;
+        }
+
+        .icon-button {
+            font-size: 15pt;
+            position: fixed;
+            cursor: pointer;
+            color: #333;
+            transition: 0.3s;
+            padding: 10px;
+        }
+
+        .icon-button:hover {
+            background-color: #333;
+            color: #f1f1f1;
+        }
+
+        .button-holder {
+            overflow-x: hidden;
+        }
+
+        input[type=color] {
+            height: 25px;
+            width: 25px;
+            -webkit-appearance: none;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s
+        }
+
+        input[type="color"]::-webkit-color-swatch-wrapper {
+          padding: 0;
+        }
+
+        input[type="color"]::-webkit-color-swatch {
+          border: none;
+        }
+
+        .container {opacity: 0; outline: 0; transition: 1s; margin-left: 0; margin-top: 0px; margin-bottom: 0px; padding-left: 0px; padding-right: 0px; width: 100%; border: none}
+
+        code {
+            line-height: 1.6
+        }
+        ::-moz-selection {
+            color; #333;
+            background-color: #f1b5b8
+        }
+        :disabled {
+            color: #c5c5c5;
+            background-color: #ebebeb;
+            border-style: solid;
+            border-width: 1px;
+            border-radius: 2px
+        }
+        label {text-color: #333}
+
+        ::selection{
+            color: #333;
+            background-color: #f1b5b8;
+        }
+
+        ::-webkit-scrollbar {
+          width: 0px;
+          height: 0px;
+        }
+        h1 {font-size: 6vw}
+        h2 {font-size: 5.5vw}
+        html{overflow: auto; scroll-behavior: smooth; overscroll-behavior: none; background-color: #f1f1f1; padding: 0px;}
+        a {color: #00A7FC}
+        a:active {text-decoration: none;
+                  color: #333333;}
+        a:hover {text-decoration: none;
+                 color: #00A7FC;}
+
+        p {word-wrap: break-word;}
+
+        .classes {background-color: #ff0000; transition: 0.3s}
+
+        .classes:hover {
+          background-color: #333333
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            transition: .3s;
+            z-index: 100;
+        }
+
+        .dropdown-content {
+            overflow-y: hidden;
+            height: 0px;
+            opacity: 0;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            transition: .3s;
+            min-width: 100.5px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            height: 44px;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s;
+            font-family: Helvetica Neue, Helvetica, Sans-Serif;
+            font-weight: 200;
+        }
+
+        .dropdown-content a:hover {background-color: #AAA; text-decoration: none; color: #000}
+
+        .dropdown:hover .dropdown-content {
+            height: 176px;
+            opacity: 1;
+        }
+
+        .dropdown:focus .dropdown-content {
+            height: 176px;
+            opacity: 1;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: #333333;
+        }
+
+
+
+
+        .dropdown-howTo {
+            position: relative;
+            display: inline-block;
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        .dropdown-content-howTo {
+            overflow-y: hidden;
+            height: 0px;
+            opacity: 0;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            transition: 0.3s;
+            min-width: 100.5px;
+        }
+
+        .dropdown-content-howTo a {
+            color: black;
+            height: 44px;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s;
+            font-family: Helvetica Neue, Helvetica, Sans-Serif;
+            font-weight: 200;
+        }
+
+        .dropdown-content-howTo a:hover {background-color: #AAA; text-decoration: none; color: #000}
+
+        .dropdown-howTo:hover .dropdown-content-howTo {
+            height: 132px;
+            opacity: 1;
+        }
+
+        .dropdown-howTo:hover .dropbtn-howTo {
+            background-color: #333;
+        }
+
+
+
+
+        .dropdown-pastPaper {
+            position: relative;
+            display: inline-block;
+            transition: 0.3s;
+            z-index: 100;
+        }
+
+        .dropdown-content-pastPaper {
+            overflow-y: hidden;
+            height: 0px;
+            opacity: 0;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            transition: 0.3s;
+            min-width: 100.5px;
+        }
+
+        .dropdown-content-pastPaper a {
+            color: black;
+            height: 44px;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s;
+            font-family: Helvetica Neue, Helvetica, Sans-Serif;
+            font-weight: 200;
+        }
+
+        .dropdown-content-pastPaper a:hover {background-color: #AAA; text-decoration: none; color: #000}
+
+        .dropdown-pastPaper:hover .dropdown-content-pastPaper {
+            height: 176px;
+            opacity: 1;
+        }
+
+        .dropdown-pastPaper:hover .dropbtn-pastPaper {
+            background-color: #333;
+        }
+
+
+        .footer {
+            color: #f1f1f1;
+            transition: 0.3s;
+            text-decoration: none
+        }
+
+        .footer:hover {
+            text-decoration: none;
+            color: #333
+        }
+
+        a {
+            cursor: pointer
+        }
+
+        a:focus {
+            text-decoration: none;
+            color: #333
+        }
+
+        .dropbtn:focus {
+            background-color: red
+        }
+
+        .dropbtn-howTo:focus {
+            background-color: red
+        }
+
+        .dropbtn-pastPaper:focus {
+            background-color: red
+        }
+
+        body {padding: 0px; }
+
+        .topnav {
+          overflow: hidden;
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 100;
+          width: 100%;
+          transition: 0.3s;
+          background-color: red;
+          box-shadow: 0px 0px 100px 10px #444
+        }
+
+        .topnav .header {
+          float: left;
+          color: #fff;
+          text-align: center;
+          padding: 12px 20px;
+          text-decoration: none;
+          font-size: 27px;
+          cursor: pointer;
+          transition: 0.3s;
+          font-family: Helvetica Neue, Helvetica, Sans-Serif
+        }
+
+        .topnav a {
+            float: left;
+            color: #fff;
+            text-align: center;
+            padding: 19px 20px;
+            text-decoration: none;
+            font-size: 17px;
+            font-weight: 100;
+            transition: 0.3s;
+            font-family: Helvetica Neue, Helvetica, Sans-Serif;
+            font-weight: 200;
+        }
+
+        .icon-button:active {
+            transform: scale(0.8)
+        }
+
+
+        .dropbtn, .dropbtn-howTo, .dropbtn-pastPaper {
+            background-color: #ff0000;
+            color: #f1f1f1;
+            vertical-align: center;
+            font-size: 17px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            padding: 19px 20px;
+            z-index: 100;
+            font-family: Helvetica Neue, Helvetica, Sans-Serif;
+            font-weight: 200;
+        }
+
+        .topnav a:hover {
+          background-color: #333;
+          color: #fff;
+          text-decoration: none
+        }
+
+        .topnav a:focus {
+            outline: none;
+            text-decoration: none;
+            color: #fff;
+            background-color: #333
+        }
+
+        .title {
+            font-family: Helvetica Neue, Helvetica, Sans-Serif;
+            font-weight: 300;
+            padding-top: 20px;
+        }
+
+        .header {
+            font-family: Helvetica Neue, Helvetica, Sans-Serif;
+        }
+
+        .fullscreenBtn {
+            background-color: red;
+            padding: 19px 20px;
+            font-family: Helvetica Neue, Helvetica, Sans-Serif;
+            font-weight: 100;
+            transition: 0.3s;
+            border: none;
+            outline: none;
+            color: #f1f1f1;
+            float: right;
+        }
+        .fullscreenBtn:hover {
+            background-color: #333
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="topNav" class="topnav">
+            <a id="headerNavBarLink" href="/" class="header">Yohaan Chokhany</a>
+            <a id="classesNavBarLink">Classes</a>
+
+            <a id="contactNavBarLink" href="/try-it-yourself">Try It Yourself</a>
+            <a id="aboutNavBarLink" href="/about-us">About Us</a>
+            <a id="searchEngineNavBarLink" href="/search-engine">Search Engine</a>
+            <a id="pastPaperNavBarLink">School</a>
+            <a style="float: right;" id="next-class" href="/next-class">Next Class &#8594</a>
+        </div>
+        <div class="dropdown" style="margin-left: 244.5px; position: fixed">
+            <button class="dropbtn" id="dropButton" style="min-width: 100.5px; align: center; font-weight: 200">Classes</button>
+            <div class="dropdown-content" style="width: 40px">
+                <a style="text-align: center; z-index: 100; font-weight: 200" href="/class1">Class 1</a>
+                <a style="text-align: center; z-index: 100; font-weight: 200" href="/class2">Class 2</a>
+                <a style="text-align: center; z-index: 100; font-weight: 200" href="/class3">Class 3</a>
+                <a style="text-align: center; z-index: 100; font-weight: 200" href="/class4">Class 4</a>
+            </div>
+        </div>
+        <div class="dropdown-howTo" style="margin-left: 842px; position: fixed;">
+            <button class="dropbtn-howTo" id="dropButtonHowTo" style="min-width: 120px; align: center; font-weight: 200">How To</button>
+            <div class="dropdown-content-howTo" style="width: 120px">
+                <a style="text-align: center; z-index: 100; font-weight: 200" href="/css-buttons">CSS Buttons</a>
+                <a style="text-align: center; z-index: 100; font-weight: 200" href="/encryption">Encryption</a>
+                <a style="text-align: center; z-index: 100; font-weight: 200" href="/todo">To-Do List</a>
+            </div>
+        </div>
+        <div class="dropdown-pastPaper" style="margin-left: 722px; position: fixed;">
+            <button class="dropbtn-pastPaper" id="dropButtonPastPaper" style="min-width: 120px; align: center; font-weight: 200">School</button>
+            <div class="dropdown-content-pastPaper" style="width: 120px">
+                <a style="text-align: center; z-index: 100; font-weight: 200" href="/random-past-paper">Random Paper</a>
+                <a style="text-align: center; z-index: 100; font-weight: 200" href="/choose-past-paper">Choose Paper</a>
+                <a style="text-align: center; z-index: 100; font-weight: 200" href="/mcq">MCQ</a>
+                <a style="text-align: center; z-index: 100; font-weight: 200" href="/calculator">Calculator</a>
+            </div>
+        </div>
+
+
+        <br /><br /><br />
+        $:page
+    </div>
+
+    $if self.js:
+        $for scripts in self.js.split():
+            <script src="$scripts"></script>
+
+    <script>
+        function() {
+            $("#dropdown").click(function(){
+                document.getElementById("myDropdown").classList.toggle("show");
+            });
+        });
+
+        function toggleDropDown() {
+          if (document.getElementById("myDropdown").style.display == "none") {
+            document.getElementById("myDropdown").style.display = "block";
+          } else {
+            document.getElementById("myDropdown").style.display = "none";
+          }
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+
+        function onloadFunction() {
+            var dropButton = document.getElementById("dropButton");
+            height = document.getElementById("brand").height;
+            dropButton.height = height + "px";
+            document.body.style.opacity = "1";
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Nova%20Mono' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto%20Mono' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=VT323' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Cutive%20Mono' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <title>Try it Yourself</title>
+    <style>
+        body {background-color: #fff}
+        textarea {
+          font-family: "Nova Mono";
+          font-size: 10pt;
+        }
+
+        ::-webkit-scrollbar {
+          width: 10px;
+          transition: 0.3s
+        }
+        ::-webkit-scrollbar-track {
+          background: white;
+          transition: 0.3s
+        }
+        ::-webkit-scrollbar-thumb {
+          background: #aaa;
+          border-radius: 0px;
+          transition: 0.3s
+        }
+
+
+
+
+        ::-webkit-scrollbar:hover {
+          width: 10px;
+        }
+        ::-webkit-scrollbar-track:hover {
+          background: white;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+          background: gray;
+        }
+
+
+
+        div ::-webkit-scrollbar {
+          width: 10px;
+          transition: 0.3s
+        }
+        div ::-webkit-scrollbar-track {
+          background: white;
+          transition: 0.3s
+        }
+        div ::-webkit-scrollbar-thumb {
+          background: #aaa;
+          border-radius: 0px;
+          transition: 0.3s
+        }
+
+
+
+        div ::-webkit-scrollbar:hover {
+          width: 10px;
+          cursor: default;
+        }
+        div ::-webkit-scrollbar-track:hover {
+          background: white;
+          cursor: default
+        }
+        div ::-webkit-scrollbar-thumb:hover {
+          background: gray;
+          border-radius: 0px
+        }
+
+        .footer {
+            color: #f1f1f1;
+            transition: 0.3s;
+            text-decoration: none
+        }
+
+        .footer:hover {
+            text-decoration: none;
+            color: #333
+        }
+
+        .content {
+            position: absolute;
+            height: 80%;
+            top: 132px;
+            overflow: scroll;
+            background-color: white;
+            outline: none;
+            border: none;
+            padding: 10px;
+            box-shadow: 0px 0px 5px #999;
+            overflow-x: auto;
+        }
+        #topBar {
+            height: 40px;
+            position: absolute;
+            background-color: #fff;
+            border: none;
+            left: 20px;
+            box-shadow: 0px 0px 5px #999;
+        }
+        .fontFamilyButton {
+            font-size: 12pt;
+            position: relative;
+            display: inline-block;
+            width: 150px;
+            height: 100%;
+            top: 0px;
+            background-color: #fff;
+            border-radius: 5px;
+            transition: 0.3s;
+            border: none;
+        }
+        .fontFamilyButton:hover {
+            background-color: #f1f1f1;
+            box-shadow: 0px 0px 5px #999;
+        }
+        .options {
+            position: absolute;
+            z-index: 1;
+            height: 0px;
+            width: 150px;
+            transition: 0.3s;
+            overflow-y: hidden;
+            border-radius: 5px;
+            box-shadow: 0px 0px 5px #999;
+        }
+        .options button {
+            height: 40px;
+            font-size: 12pt;
+            text-align: center;
+            transition: 0.3s;
+            background-color: #fff;
+            border: none;
+            width: 100%;
+        }
+        .options button:hover {
+            background-color: #f1f1f1;
+        }
+        .selected {
+            font-size: 12pt;
+            position: relative;
+            display: inline-block;
+            width: 150px;
+            height: 100%;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            transition: 0.3s;
+            border: none;
+            box-shadow: 0px 0px 5px #999;
+        }
+        .selected:hover {
+            background-color: #eee;
+        }
+        .fontSizeButton {
+            font-size: 12pt;
+            position: absolute;
+            left: 152px;
+            top: 0px;
+            width: 50px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 5px;
+            transition: 0.3s;
+            border: none;
+            font-family: "Nova Mono";
+        }
+        .fontSizeButton:hover {
+            background-color: #f1f1f1;
+            box-shadow: 0px 0px 5px #999;
+        }
+        .fontFamilyOptionsOption {
+            font-family: "Nova Mono";
+        }
+        .fullScreenButton {
+            font-size: 12pt;
+            position: fixed;
+            right: 20px;
+            top: 132px;
+            width: 50px;
+            height: 40px;
+            background-color: #fff;
+            border-radius: 5px;
+            transition: 0.3s;
+            border: none;
+            font-family: "Nova Mono";
+        }
+        .fullScreenButton:hover {
+            background-color: #f1f1f1;
+            box-shadow: 0px 0px 50px #999;
+        }
+        .fullScreenButton:active {
+            box-shadow: 0px 0px 5px #999;
+        }
+        #drag {
+            position: absolute;
+            top: 132px;
+            width: 20px;
+            left: 673px;
+            cursor: ew-resize
+        }
+    </style>
+</head>
+<body onload="onloadFunction(); implementCode()" onresize="onresizeFunction()" onkeyup="keyUp()" onkeydown="keyDown()">
+    <div class="container" id="container">
+        <div id="topBar">
+            <button onclick="toggleFontFamily()" id="fontFamily" class="fontFamilyButton"></button><div class="options" id="fontFamilyOptions">
+                <button style="font-family: 'Nova Mono'" onclick="changeFontFamily('Nova Mono')">Nova Mono</button>
+                <button style="font-family: 'Roboto Mono'" onclick="changeFontFamily('Roboto Mono')">Roboto Mono</button>
+                <button style="font-family: 'VT323'" onclick="changeFontFamily('VT323')">VT323</button>
+                <button style="font-family: 'Cutive Mono'" onclick="changeFontFamily('Cutive Mono')">Cutive Mono</button>
+            </div><button onclick="toggleFontSize()" id="fontSize" class="fontSizeButton"></button>
+            <div class="options" id="fontSizeOptions" style="width: 50px; left: 152px;">
+                <button class="fontFamilyOptionsOption" onclick="changeFontSize('10pt')">10pt</button>
+                <button class="fontFamilyOptionsOption" onclick="changeFontSize('11pt')">11pt</button>
+                <button class="fontFamilyOptionsOption" onclick="changeFontSize('12pt')">12pt</button>
+                <button class="fontFamilyOptionsOption" onclick="changeFontSize('13pt')">13pt</button>
+                <button class="fontFamilyOptionsOption" onclick="changeFontSize('14pt')">14pt</button>
+                <button class="fontFamilyOptionsOption" onclick="changeFontSize('15pt')">15pt</button>
+                <button class="fontFamilyOptionsOption" onclick="changeFontSize('16pt')">16pt</button>
+                <button class="fontFamilyOptionsOption" onclick="changeFontSize('17pt')">17pt</button>
+                <button class="fontFamilyOptionsOption" onclick="changeFontSize('18pt')">18pt</button>
+                <button class="fontFamilyOptionsOption" onclick="changeFontSize('19pt')">19pt</button>
+                <button class="fontFamilyOptionsOption" onclick="changeFontSize('20pt')">20pt</button>
+            </div>
+        </div>
+        <textarea onmousemove="dragOtherElementsMouseMove()" spellcheck="false" oninput="implementCode()" id="code" contenteditable="true" style="left: 20px; resize: none" class="content"></textarea>
+        <div onmousemove="dragOtherElementsMouseMove()" id="implementation" style="position: absolute;right: 20px" class="content">
+            <button onclick="toggleFullScreen(this)" id="fullScreen" class="fullScreenButton"><span class="material-icons">fullscreen</span></button>
+        </div>
+        <div id="drag" onmousemove="continueDrag();" onmousedown="startDrag()"></div>
+    </div>
+    <div id="footerBox" style="position: absolute; bottom: 0; width: 100%; background-color: red">
+        <h6 id="footerHTML" style="font-size: 10.5pt; text-align: center; color: #f1f1f1;">© 2021 <a class="footer" href="/">Yohaan Chokhany</a> | All Rights Reserved</h6>
+    </div>
+<script>
+    var fontFamilyButton = document.getElementById("fontFamily");
+    var fontFamilyOptions = document.getElementById("fontFamilyOptions");
+    var fontFamilyVisible = false;
+    var chosenFontFamily;
+    var fontSizeButton = document.getElementById("fontSize");
+    var fontSizeOptions = document.getElementById("fontSizeOptions");
+    var fontSizeVisible = false;
+    var chosenFontSize;
+    var fullScreen = document.getElementById("fullScreen");
+    var isFullScreen = false;
+
+    var code = document.getElementById("code");
+    var implementation = document.getElementById("implementation");
+    var drag = document.getElementById("drag");
+    var topBar = document.getElementById("topBar");
+    var title = document.getElementById("title");
+    var footerBox = document.getElementById("footerBox");
+    var footerHTML = document.getElementById("footerHTML");
+    var footerHTML = document.getElementById("footerHTML");
+
+    var isThere = false;
+    var keysPressed = [];
+    var commandPressed = false;
+    var keyBackspace = false;
+    var keyShift = false;
+    var importantKey, isTagInput;
+    if (navigator.appVersion.indexOf("Mac") != -1) {
+        importantKey = "Meta";
+    } else {
+        importantKey = "Control";
+    }
+
+    window.onclick = function(event) {
+        if (fontFamilyVisible) {
+            if (event.target == code || event.target == implementation || event.target == document.body || event.target == topBar || event.target == footerBox || event.target == footerHTML || event.target == topNav) {
+                toggleFontFamily();
+            }
+        }
+        if (fontSizeVisible) {
+            if (event.target == code || event.target == implementation || event.target == document.body || event.target == topBar || event.target == footerBox || event.target == footerHTML || event.target == topNav) {
+                toggleFontSize();
+            }
+        }
+    }
+
+    function keyDown() {
+        for (var i = 0; i < keysPressed.length; i++) {
+            if (keysPressed[i] == event.key) {
+                isThere = true;
+                break;
+            } else {
+                isThere = false;
+            }
+        }
+        if (isThere == false) {
+            keysPressed.push(event.key);
+        } else {
+            isThere = false;
+        }
+        for (var i = 0; i < 3; i++) {
+            if (keysPressed[i] == importantKey) {
+                commandPressed = true;
+            } else if (keysPressed[i] == "Backspace") {
+                keyBackspace = true;
+            } else if (keysPressed[i] == "Shift") {
+                keyShift = true;
+            }
+        }
+    }
+
+
+    function keyUp() {
+        keysPressed.pop(event.key);
+        if (event.key == importantKey) {
+            keysPressed = [];
+            commandPressed = false;
+        }
+        if (event.key == "Backspace") {
+            keyBackspace = false;
+        }
+        if (event.key == "Shift") {
+            keyShift = false;
+        }
+    }
+
+    function implementCode() {
+        document.getElementById("implementation").innerHTML = '<button onclick="toggleFullScreen(this)" id="fullScreen" class="fullScreenButton"><span class="material-icons">fullscreen</span></button>' + document.getElementById("code").value;
+    }
+    var sEnter;
+    code.onkeydown = function(e){
+        if (e.key == "(" || e.key == ")" && this.value.substring(this.selectionStart, this.selectionStart + 1) == ")" || e.key == "'" || e.key == '"' || e.key == "Tab" || e.key == "{" || e.key == "}" && this.value.substring(this.selectionStart, this.selectionStart + 1) == "}" || e.key == "<" || e.key == "[" || e.key == ">" && this.value.substring(this.selectionStart, this.selectionStart + 1) == ">" || e.key == "]" && this.value.substring(this.selectionStart, this.selectionStart + 1) == "]"){
+            e.preventDefault();
+            keyFunction(this, e.key);
+        } else if (e.key == "Backspace" && this.selectionStart == this.selectionEnd) {
+            if (commandPressed == false) {
+                if (this.value.substring(this.selectionStart - 1, this.selectionStart + 1) == "{}" || this.value.substring(this.selectionStart - 1, this.selectionStart + 1) == "<>" || this.value.substring(this.selectionStart - 1, this.selectionStart + 1) == "[]" || this.value.substring(this.selectionStart - 1, this.selectionStart + 1) == "()" || this.value.substring(this.selectionStart - 1, this.selectionStart + 1) == "''" || this.value.substring(this.selectionStart - 1, this.selectionStart + 1) == '""') {
+                    e.preventDefault();
+                    backspaceFunction(this)
+                }
+            }
+        } else if (e.key == "Enter" && keyShift == true && keysPressed.length <= 2) {
+            e.preventDefault();
+            shiftNewLine(this);
+        } else if (e.key == "Enter" && this.value.substring(this.selectionStart - 1, this.selectionStart + 2) == "></") {
+            e.preventDefault();
+            var s = this.selectionStart;
+            var spaces =  getNumberOfSpaces(this);
+            var finalSpaceNumber = spaces[0];
+            var spaceString = spaces[1];
+            this.value = this.value.substring(0, s) + "\n  " + spaceString + "\n" + spaceString + this.value.substring(this.selectionEnd);
+            this.selectionEnd = s + 3 + finalSpaceNumber;
+        } else if (e.key == "Enter" && this.value.substring(this.selectionStart - 1, this.selectionStart + 1) == "{}") {
+            e.preventDefault();
+            var s = this.selectionStart;
+            var spaces =  getNumberOfSpaces(this);
+            var finalSpaceNumber = spaces[0];
+            var spaceString = spaces[1];
+            this.value = this.value.substring(0, s) + "\n  " + spaceString + "\n" + spaceString + this.value.substring(this.selectionEnd);
+            this.selectionEnd = s + 3 + finalSpaceNumber;
+        } else if (commandPressed == false && e.keyCode >= 48 && e.keyCode <= 57 || commandPressed == false && e.keyCode >= 65 && e.keyCode <= 90) {
+            tagString = checkTagInput(this, e);
+            if (isTagInput) {
+                changeTagEnding(this, e, tagString);
+            }
+        } else if (e.key == "Enter" && this.value.indexOf("\n") != -1) {
+            e.preventDefault();
+            var s = this.selectionStart;
+            var spaceFunctionResult = getNumberOfSpaces(this);
+            var finalSpaceNumber = spaceFunctionResult[0];
+            var spaceString = spaceFunctionResult[1];
+            this.value = this.value.substring(0, s) + "\n" + spaceString + this.value.substring(s);
+            this.selectionEnd = s + finalSpaceNumber + 1;
+        }
+        implementCode();
+    }
+
+    function shiftNewLine(element) {
+        var s = element.selectionStart;
+        var spaces = getNumberOfSpaces(element);
+        var finalSpaceNumber = spaces[0];
+        var spaceString = spaces[1];
+        var currentPosition = s;
+        var character = "";
+        while (true) {
+            character = element.value.substring(currentPosition, currentPosition + 1);
+            if (character == "\n") {
+                break;
+            }
+            currentPosition++;
+        }
+        var differenceSelectionStart = currentPosition - s;
+        element.value = element.value.substring(0, currentPosition) + "\n" + spaceString + element.value.substring(currentPosition);
+        element.selectionEnd = s + differenceSelectionStart + finalSpaceNumber + 1;
+    }
+
+    function getNumberOfSpaces(element) {
+        if (element.value.indexOf("\n") != -1) {
+            var numberOfSpaces = 0;;
+            var s = element.selectionStart;
+            var currentPosition = s;
+            var character = "";
+            var spaceString = "";
+            while (true) {
+                character = element.value.substring(currentPosition - 1, currentPosition);
+                if (character == "\n") {
+                    break;
+                }
+                currentPosition --;
+                if (currentPosition < 0) {
+                    break;
+                }
+            }
+            while (true) {
+                if (element.value.substring(currentPosition, currentPosition + 1) == " ") {
+                    numberOfSpaces++;
+                    currentPosition++;
+                } else {
+                    if (numberOfSpaces % 2 != 0) {
+                        numberOfSpaces - 1;
+                    }
+                    break;
+                }
+            }
+            var finalSpaceNumber = numberOfSpaces
+            while (numberOfSpaces > 0) {
+                spaceString += " ";
+                numberOfSpaces--;
+            }
+            return [finalSpaceNumber, spaceString];
+        } else {
+            return [0, ""]
+        }
+    }
+
+    function keyFunction(element, key) {
+        var s = element.selectionStart;
+        if (key == "Tab"){
+            if (element.selectionStart == element.selectionEnd) {
+                element.value = element.value.substring(0,element.selectionStart) + "  " + element.value.substring(element.selectionEnd);
+                element.selectionEnd = s+2;
+            } else {
+                var selection = element.value.substring(element.selectionStart, element.selectionEnd);
+                var end = element.selectionEnd;
+                var currentPosition = s;
+                var character = "";
+                while(true) {
+                    character = element.value.substring(currentPosition - 1, currentPosition);
+                    if (character == "\n") {
+                        break;
+                    }
+                    currentPosition--;
+                    if (currentPosition < 0) {
+                        break
+                    }
+                }
+                element.value = element.value.substring(0, currentPosition) + "  " + element.value.substring(currentPosition);
+                if (selection.indexOf("\n") != -1) {
+                    var currentPosition = s;
+                    var counter = 0;
+                    var character = "";
+                    while (currentPosition <= end) {
+                        character = element.value.substring(currentPosition, currentPosition + 1);
+                        if (character == "\n") {
+                            element.value = element.value.substring(0, currentPosition + 1) + "  " + element.value.substring(currentPosition + 1);
+                            counter ++;
+                        }
+                        currentPosition++;
+                    }
+                    element.selectionStart = s + 2;
+                    element.selectionEnd = end + counter * 2 + 2
+                } else {
+                    element.selectionStart = s + 2;
+                    element.selectionEnd = s + selection.length + 2
+                }
+            }
+        } else if (key == "{") {
+            element.value = element.value.substring(0, element.selectionStart) + "{}" + element.value.substring(element.selectionEnd);
+            element.selectionEnd = s+1;
+        } else if (key == "<") {
+            element.value = element.value.substring(0, element.selectionStart) + "<>" + element.value.substring(element.selectionEnd);
+            element.selectionEnd = s+1;
+        } else if (key == "[") {
+            element.value = element.value.substring(0, element.selectionStart) + "[]" + element.value.substring(element.selectionEnd);
+            element.selectionEnd = s+1;
+        } else if (key == "}" || key == "]" || key == ")") {
+            element.selectionStart = s+1;
+        } else if (key == "'") {
+            if (element.selectionStart == element.selectionEnd) {
+                if (element.value.substring(s, s + 1) !== "'") {
+                    element.value = element.value.substring(0, element.selectionStart) + key + key + element.value.substring(element.selectionEnd);
+                    element.selectionEnd = s+1;
+                } else {
+                    element.selectionStart = s+1;
+                }
+            } else {
+                var s2 = element.selectionEnd;
+                element.value = element.value.substring(0, s) + "'" + element.value.substring(s, s2) + "'" + element.value.substring(s2);
+                element.selectionStart = s + 1;
+                element.selectionEnd = s2 + 1
+            }
+        } else if (key == '"') {
+            if (element.selectionStart == element.selectionEnd) {
+                if (element.value.substring(s, s + 1) !== '"') {
+                    element.value = element.value.substring(0, element.selectionStart) + key + key + element.value.substring(element.selectionEnd);
+                    element.selectionEnd = s+1;
+                } else {
+                    element.selectionStart = s+1;
+                }
+            } else {
+                var s2 = element.selectionEnd;
+                element.value = element.value.substring(0, s) + '"' + element.value.substring(s, s2) + '"' + element.value.substring(s2);
+                element.selectionStart = s + 1;
+                element.selectionEnd = s2 + 1
+            }
+        } else if (key == '(') {
+            element.value = element.value.substring(0, s) + "()" + element.value.substring(s);
+            element.selectionEnd = s+1
+        } else if (key == ">") {
+            var character, character2 = "";
+            var currentPosition = s;
+            var inTag = false;
+            while (true) {
+                character = element.value.substring(currentPosition - 1, currentPosition);
+                character2 = element.value.substring(currentPosition - 2, currentPosition);
+                if (character == ">" || character2 == "</" || character == "\n" || currentPosition <= 0) {
+                    break
+                } else if (character == "<") {
+                    inTag = true;
+                    break;
+                }
+                currentPosition--
+            }
+            if (inTag) {
+                var string = "";
+                while (true) {
+                    character = element.value.substring(currentPosition, currentPosition + 1);
+                    if (character.match(/[a-z]/i) || character == "1" || character == "2" || character == "3" || character == "4" || character == "5" || character == "6") {
+                        string += character;
+                    } else {
+                        break;
+                    }
+                    currentPosition++;
+                }
+                currentPosition = s + 1;
+                var alreadyClosed = "";
+                while (true) {
+                    character = element.value.substring(currentPosition, currentPosition + 2);
+                    if (character == "</") {
+                        currentPosition += 2;
+                        break;
+                    } else if (currentPosition > element.value.length) {
+                        alreadyClosed = "false";
+                        break
+                    }
+                    currentPosition++;
+                }
+                if (alreadyClosed == "") {
+                    var string2 = "";
+                    while(true) {
+                        character = element.value.substring(currentPosition, currentPosition + 1);
+                        if (character.match(/[a-z]/i) || character == "1" || character == "2" || character == "3" || character == "4" || character == "5" || character == "6") {
+                            string2 += character;
+                        } else {
+                            if (string2 == string) {
+                                alreadyClosed = "true";
+                            } else {
+                                alreadyClosed = "false"
+                            }
+                            break;
+                        }
+                        currentPosition++;
+                    }
+                }
+                if (alreadyClosed == "false" && string != "" && string != "area" && string != "base" && string != "br" && string != "col" && string != "command" && string != "embed" && string != "hr" && string != "img" && string != "input" && string != "keygen" && string != "link" && string != "meta" && string != "param" && string != "source" && string != "track" && string != "wbr") {
+                    element.value = element.value.substring(0, s + 1) + "</" + string + ">" + element.value.substring(s + 1);
+                }
+            }
+            element.selectionStart = s + 1;
+            element.selectionEnd = s + 1;
+        }
+    }
+
+    function backspaceFunction(element) {
+        var s = element.selectionStart;
+        var value = element.value.substring(0, s - 1) + element.value.substring(s + 1);
+        element.value = value;
+        element.selectionEnd = s - 1;
+    }
+
+    function checkTagInput(element, event) {
+        var s = element.selectionStart;
+        var currentPosition = s;
+        var character = "";
+        var string = event.key;
+        while (true) {
+            character = element.value.substring(currentPosition - 1, currentPosition);
+            if (character == "<") {
+                startPoint = currentPosition;
+                isTagInput = true;
+                break;
+            } else if (character == " " || currentPosition == 0 || character == ">" || character == "\n" || character == "/") {
+                isTagInput = false;
+                break;
+            }
+            currentPosition --;
+        }
+        if (isTagInput) {
+            currentPosition = startPoint;
+            while (true) {
+                character = element.value.substring(currentPosition, currentPosition + 1);
+                if (character == ">" || character == " ") {
+                    return string;
+                } else {
+                    string = element.value.substring(startPoint, s) + event.key + element.value.substring(s, currentPosition + 1);
+                }
+                currentPosition++;
+            }
+        } else {
+            return string
+        }
+    }
+
+    function changeTagEnding(element, event, string) {
+
+    }
+
+    if (typeof(Storage) !== "undefined") {
+      var fontFamily = localStorage.getItem("fontFamily");
+      var fontSize = localStorage.getItem("fontSize");
+      if (fontFamily == null) {
+        localStorage.setItem("fontFamily", "Nova Mono");
+        changeFontFamily("Nova Mono");
+      } else {
+        var storedFontFamily = localStorage.getItem("fontFamily");
+        changeFontFamily(storedFontFamily);
+      }
+      if (fontSize == null) {
+        localStorage.setItem("fontSize", "12pt");
+        changeFontSize("12pt");
+      } else {
+        var storedFontSize = localStorage.getItem("fontSize");
+        changeFontSize(storedFontSize);
+      }
+    } else {
+      document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+    }
+
+    function toggleFontFamily() {
+        if (!fontFamilyVisible) {
+            fontFamilyOptions.style.height = "160px";
+            fontFamilyButton.classList.add = "selected";
+            fontFamilyButton.classList.remove = "fontFamilyButton";
+            fontFamilyVisible = true;
+            if (fontSizeVisible) {
+                toggleFontSize();
+            }
+        } else {
+            fontFamilyOptions.style.height = "0px";
+            fontFamilyButton.classList.remove = "selected";
+            fontFamilyButton.classList.add = "fontFamilyButton";
+            fontFamilyVisible = false;
+        }
+    }
+
+    function toggleFontSize() {
+        if (!fontSizeVisible) {
+            fontSizeOptions.style.height = "440px";
+            fontSizeButton.classList.add = "selected";
+            fontSizeButton.classList.remove = "fontSizeButton";
+            fontSizeVisible = true;
+            if (fontFamilyVisible) {
+                toggleFontFamily();
+            }
+        } else {
+            fontSizeOptions.style.height = "0px";
+            fontSizeButton.classList.remove = "selected";
+            fontSizeButton.classList.add = "fontSizeButton";
+            fontSizeVisible = false;
+        }
+    }
+
+    function changeFontFamily(whichFontFamily) {
+        chosenFontFamily = whichFontFamily;
+        fontFamilyButton.innerHTML = whichFontFamily;
+        fontFamilyButton.style.fontFamily = whichFontFamily;
+        code.style.fontFamily = whichFontFamily;
+        fontSizeButton.style.fontFamily = whichFontFamily;
+        var fontFamilyOptionsOptions = document.getElementsByClassName("fontFamilyOptionsOption");
+        var i;
+        for (i = 0; i < fontFamilyOptionsOptions.length; i++) {
+        fontFamilyOptionsOptions[i].style.fontFamily = whichFontFamily;
+        }
+        fontFamilyVisible = true;
+        toggleFontFamily();
+        localStorage.setItem("fontFamily", whichFontFamily);
+    }
+
+    function changeFontSize(whichFontSize) {
+        chosenFontSize = whichFontSize;
+        fontSizeButton.innerHTML = whichFontSize;
+        code.style.fontSize = whichFontSize;
+        fontSizeVisible = true;
+        toggleFontSize();
+        localStorage.setItem("fontSize", whichFontSize);
+    }
+
+    function toggleFullScreen(x) {
+        if (isFullScreen) {
+            document.exitFullscreen();
+            isFullScreen = false;
+            x.innerHTML = '<span class="material-icons">fullscreen</span>';
+            x.style.top = '132px';
+            x.style.right = '20px';
+        } else {
+            implementation.requestFullscreen();
+            isFullScreen = true;
+            x.innerHTML = '<span class="material-icons">fullscreen_exit</span>';
+            x.style.top = '20px';
+            x.style.right = '20px';
+        }
+    }
+
+    var mouseX;
+    var dragLeft;
+    var mousePressed
+    function startDrag() {
+        mouseX = event.clientX;
+        mousePressed = true;
+        this.onmouseup = function() {mousePressed = false;}
+    }
+
+    function continueDrag() {
+        if (mousePressed) {
+            dragLeft = dragLeft + (event.clientX - mouseX);
+            mouseX = event.clientX;
+            if (dragLeft - 20 >= 50 && window.innerWidth - dragLeft - 40 >= 50) {
+                drag.style.left = dragLeft + "px";
+                code.style.width = dragLeft - 20 + "px";
+                implementation.style.width = window.innerWidth - dragLeft - 40 + "px";
+                implementation.style.left = dragLeft + 20 + "px";
+                code.blur();
+                implementation.blur();
+                fullScreen.blur();
+            }
+
+            if (dragLeft - 20 <= 55) {
+                drag.style.cursor = "e-resize";
+            } else if (window.innerWidth - dragLeft - 40 <= 55) {
+                drag.style.cursor = "w-resize";
+            } else {
+                drag.style.cursor = "ew-resize";
+            }
+        }
+    }
+
+    function dragOtherElementsMouseMove() {
+        if (mousePressed) {
+            continueDrag();
+        }
+    }
+
+    function onresizeFunction() {
+        var contents = document.getElementsByClassName("content");
+        var count = contents.length;
+        var height = window.innerHeight;
+        var width = window.innerWidth;
+        for (var i = 0; i < count; i++) {
+            contents[i].style.height = height - 187 + "px";
+            contents[i].style.top = "132px";
+            contents[i].style.width = (width / 2) - 30 + "px";
+        }
+        implementation.style.height = height - 187 + "px";
+        implementation.style.left = (width / 2) + 10 + "px";
+        implementation.style.width = (width / 2) - 30 + "px";
+        drag.style.left = (width / 2) - 10 + "px";
+        dragLeft = (width / 2) - 10;
+        drag.style.height = height - 187 + "px";
+        topBar.style.top = "82px";
+        topBar.style.width = width - 40 + "px";
+    }
+
+    function onloadFunction() {
+        document.getElementById("container").style.opacity = "1";
+        var contents = document.getElementsByClassName("content");
+        var topBar = document.getElementById("topBar");
+        var count = contents.length;
+        var height = window.innerHeight;
+        var width = window.innerWidth;
+        for (var i = 0; i < count; i++) {
+            contents[i].style.height = height - 187 + "px";
+            contents[i].style.width = (width / 2) - 30 + "px";
+        }
+        drag.style.height = height - 187 + "px";
+        drag.style.left = (width / 2) - 10 + "px";
+        dragLeft = (width / 2) - 10;
+        topBar.style.top = "82px";
+        topBar.style.width = width - 40 + "px";
+        implementation.style.height = height - 187 + "px";
+        implementation.style.width = (width / 2) - 30 + "px";
+        implementation.style.left = (width / 2) + 10 + "px";
+        implementCode();
+        code.value = "<!DOCTYPE html>\n<html>\n  \n</html>";
+        code.focus();
+        code.selectionEnd = 25;
+    }
+</script>
+</body>
+</html>

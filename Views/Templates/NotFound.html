@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+
+<head>
+    <title>Not Found</title>
+</head>
+
+<style>
+    .error {font-family: Roboto, sans-serif;
+            font-weight: 900;
+            font-size: 15vw;
+            margin-top: -10px}
+    .thin {font-weight: 100;
+           text-transform: uppercase;}
+    .button {width: 25%;
+             padding-top: 7.5px;
+             padding-bottom: 7.5px;
+             padding-left: 2.5px;
+             padding-right: 2.5px;}
+
+    .footerFoot {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: red
+    }
+</style>
+
+<body onkeydown="keyDown()" onkeyup='redirectPage()' onload="onloadFunction()" onresize="onresizePixel()">
+<div id="container" class="container">
+<div id="notFound" style="text-align: center; position: fixed">
+    <h1 id="title" class="error">404</h1>
+    <h1 style="font-size: 3vw; font-family: Helvetica Neue, Helvetica, Sans-Serif">This is Awkward</h1><br />
+    <p style="font-size: 1.2vw; font-family: Helvetica Neue, Helvetica, Sans-Serif; font-weight: 200">Something has gone wrong. Its possible the internet is broken or the world is ending.</p>
+    <p style="font-size: 1.2vw; font-family: Helvetica Neue, Helvetica, Sans-Serif; font-weight: 200">Either way, we're investigating the cause.</p>
+    <h2 style="font-family: Helvetica Neue, Helvetica, Sans-Serif; font-weight: 200; font-size: 2vw" class="thin">Your Options</h2>
+    <a href="/" style="background-color: red; font-size: 1vw" class="btn btn-raised btn-info waves-effect button">Home</a>&nbsp;or&nbsp;<a href="/punch-a-moose" style="background-color: red; font-size: 1vw" class="btn btn-raised btn-info waves-effect button">Punch a Moose</a>
+</div>
+</div>
+<div style="padding: 18px"></div>
+<div class="footerFoot">
+    <h6 style="font-size: 10.5pt; text-align: center; color: #f1f1f1;">© 2021 <a class="footer" href="/">Yohaan Chokhany</a> | All Rights Reserved</h6>
+</div>
+<script>
+    var commandPressed = false;
+    var importantKey;
+    if (navigator.appVersion.indexOf("Mac") != -1) {
+        importantKey = "Meta";
+    } else {
+        importantKey = "Control";
+    }
+    function keyDown() {
+        if (commandPressed == true) {
+            if (event.key == "h") {
+                window.location.href = "/";
+            }
+        } else {
+            if (event.key == importantKey) {
+                commandPressed = true;
+            }
+        }
+    }
+
+
+    function onloadFunction() {
+        document.getElementById("container").style.opacity = "1";
+        var notFound = document.getElementById("notFound");
+        var height = notFound.offsetHeight;
+        var width = notFound.offsetWidth;
+        notFound.style.top = (window.innerHeight - height) / 2;
+        notFound.style.left = (window.innerWidth - width) / 2;
+    }
+
+    function onresizePixel() {
+        var notFound = document.getElementById("notFound");
+        var height = notFound.offsetHeight;
+        var width = notFound.offsetWidth;
+        notFound.style.top = (window.innerHeight - height) / 2;
+        notFound.style.left = (window.innerWidth - width) / 2;
+    }
+
+    function redirectPage() {
+        if (event.key == importantKey) {
+            commandPressed = false;
+        }
+    }
+</script>
+</body>

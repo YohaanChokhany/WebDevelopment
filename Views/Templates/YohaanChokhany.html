@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Yohaan Chokhany</title>
+    <style>
+
+        body {transition: 1s;}
+
+        h3 {font-size: 1.8vw}
+
+        .underline {
+            width: 0px;
+            height: 3px;
+            background-color: red;
+            transition: 0.5s;
+            margin-left: 50%;
+            margin-bottom: 10px;
+            margin-top: -5px
+        }
+
+        .fixed-bg {
+          background-image: url("static/images/YohaanChokhanyBackground.JPG");
+          height: 100%;
+          width: 100%;
+          left: 0%;
+          position: absolute;
+          background-attachment: fixed;
+          background-position: center top;
+          margin-top: -50px;
+          padding-top: 0px;
+          background-blend-mode: darken;
+          background-repeat: no-repeat;
+          background-size: cover;
+        }
+
+        .myProgress {
+          width: 100%;
+          background-color: #ddd;
+          margin-bottom: -30px;
+        }
+
+        .myBar {
+          width: 0%;
+          height: 30px;
+          text-align: left;
+          background-color: #ddd;
+          padding-left: 5px;
+          line-height: 30px;
+          color: white;
+          transition: 1s;
+        }
+    </style>
+</head>
+<body style="overflow-x: hidden" onload="onloadFunction()" onscroll="scrollingAnimation()" onresize="scrollingAnimation()" onkeydown="keyDown()" onkeyup="keyUp()">
+<div id="container" class="container" style="padding: 0px">
+<div id="fixed-bg" class="fixed-bg"></div>
+<div style="height: 100%"></div>
+<h1 style="font-size: 61pt" align="center">Yohaan Chokhany</h1>
+<div align="center" id="underline-name" class="underline"></div>
+<h2 style="font-size: 30.5pt" align="center">Founder & CEO</h2>
+<div align="center" id="underline-position" class="underline"></div>
+<table width="50%" align="center">
+    <tr>
+        <td width="50%">
+            <button style="cursor: default; padding-bottom: 0px; font-weight: 100; font-size: 1.8vw; width: 50%; margin-left: 25%; text-align: center; background-color: transparent; border: none">Age</button>
+            <div align="center" id="underline-age" class="underline" style="margin-top: 5px"></div>
+            <p align="center" id="age-content"></p>
+        </td>
+        <td width="50%">
+            <button id="birthday-countdown" style="padding-bottom: 0px; font-size: 1.8vw; width: 50%; font-weight: 100; margin-left: 25%; text-align: center; background-color: transparent; border: none" onclick="window.location.href = '/bday-countdown'" onmouseover="bdayHover()" onmouseout="bdayUnhover()">Birthday</button>
+            <div align="center" id="underline-bday" class="underline" style="margin-top: 5px"></div>
+            <p align="center" onclick="window.location.href = '/bday-countdown'" onmouseover="bdayHover()" onmouseout="bdayUnhover()" style="cursor: pointer">28th April 2005</p>
+        </td>
+    </tr>
+    <tr>
+        <td width="50%" colspan="2">
+            <h3 align="center" style="padding-bottom: 0px">About</h3>
+            <div align="center" id="underline-about" class="underline"></div>
+            <p id="about-content" align="center" spellcheck="false" style="text-align: justify">
+                Yohaan is a 10th Grade Student, studying at Podar International School.
+                He lives at Mumbai, India.
+                He is a national level Indian tennis player.
+                He has won two national championships and has come Runner-up in five more.
+                During the COVID-19 pandemic in Summer 2020, he developed his coding skills.
+                He has created numerous unpublished websites, including a social media messaging website and one website development course to teach his younger sister the delight of website development.
+                He has also delved into the realm of Game Development, recreating retro games like Pong & Legend of Zelda and more contemporary ones like Angry Birds and Pokémon.
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td width="50%" colspan="2">
+            <h3 align="center" style="padding-bottom: 0px">Programming Languages</h3>
+            <div align="center" id="underline-skills" class="underline"></div>
+            <div class="myProgress">
+                <div id="JavaScript" class="myBar"></div>
+            </div>
+            <h6 style="position: relative; right: 10px; font-size: 10.5pt; text-align: right">JavaScript</h6>
+            <div class="myProgress">
+                <div id="Python" class="myBar"></div>
+            </div>
+            <h6 style="position: relative; right: 10px; font-size: 10.5pt; text-align: right">Python</h6>
+            <div class="myProgress">
+                <div id="HTML" class="myBar"></div>
+            </div>
+            <h6 style="position: relative; right: 10px; font-size: 10.5pt; text-align: right">HTML</h6>
+            <div class="myProgress">
+                <div id="CSS" class="myBar"></div>
+            </div>
+            <h6 style="position: relative; right: 10px; font-size: 10.5pt; text-align: right">CSS</h6>
+            <div class="myProgress">
+                <div id="Lua" class="myBar"></div>
+            </div>
+            <h6 style="position: relative; right: 10px; font-size: 10.5pt; text-align: right">Lua</h6>
+        </td>
+    </tr>
+</table>
+<div style="padding: 25px"></div>
+</div>
+<div style="padding: 1px;width: 100%; background-color: red">
+    <h6 style="font-size: 10.5pt; text-align: center; color: #f1f1f1;">© 2021 <a class="footer" href="/">Yohaan Chokhany</a> | All Rights Reserved</h6>
+</div>
+
+<script>
+    var commandPressed = false;
+    var importantKey;
+    if (navigator.appVersion.indexOf("Mac") != -1) {
+        importantKey = "Meta";
+    } else {
+        importantKey = "Control";
+    }
+    function keyDown() {
+        if (commandPressed == true) {
+            if (event.key == "h") {
+                window.location.href = "/";
+            }
+        } else {
+            if (event.key == importantKey) {
+                commandPressed = true;
+            }
+        }
+    }
+
+    function keyUp() {
+        if (event.key == importantKey) {
+            commandPressed = false;
+        }
+    }
+
+    var timer = false;
+    function onloadFunction() {
+        document.getElementById("container").style.opacity = "1";
+        if (window.pageYOffset == 0 && timer == false) {
+            timer = true;
+            setTimeout(function(){
+                if (window.pageYOffset == 0) {
+                    window.scrollBy(0, window.innerHeight); timer = false;
+                } else {
+                    timer = false;
+                }
+            }, 3000);
+        }
+        var now = new Date().getTime();
+        var bday = new Date("Apr 28, 2005 00:00:00").getTime();
+        diffBday = now - bday;
+        var years = Math.floor(diffBday / (1000 * 60 * 60 * 24 * 365));
+        document.getElementById("age-content").innerHTML = years + " years";
+    }
+
+    var widthPython = 0;
+    var widthHTML = 0;
+    var widthCSS = 0;
+    var widthLua = 0;
+    var widthJavaScript = 0;
+
+    function scrollingAnimation() {
+        document.body.style.opacity = "1";
+        if (window.pageYOffset == 0 && timer == false) {
+            timer = true;
+            setTimeout(function(){
+                if (window.pageYOffset == 0) {
+                    window.scrollBy(0, window.innerHeight); timer = false;
+                } else {
+                    timer = false;
+                }
+            }, 3000);
+        }
+        var name, position, age, bday, about, skills, python, html, css, lua, javascript;
+        name = document.getElementById("underline-name");
+        position = document.getElementById("underline-position");
+        age = document.getElementById("underline-age");
+        bday = document.getElementById("underline-bday");
+        about = document.getElementById("underline-about");
+        skills = document.getElementById("underline-skills");
+        python = document.getElementById("Python");
+        html = document.getElementById("HTML");
+        css = document.getElementById("CSS");
+        lua = document.getElementById("Lua");
+        javascript = document.getElementById("JavaScript");
+
+        if (isElementVisible(name) == "true") {
+            name.style.width = "49%";
+            name.style.marginLeft = "25.5%";
+        } else {
+            name.style.width = "0%";
+            name.style.marginLeft = "50%";
+        }
+
+        if (isElementVisible(position) == "true") {
+            position.style.width = "22%";
+            position.style.marginLeft = "39%";
+        } else {
+            position.style.width = "0%";
+            position.style.marginLeft = "50%";
+        }
+
+        if (isElementVisible(age) == "true") {
+            age.style.width = "13%";
+            age.style.marginLeft = "43.5%";
+        } else {
+            age.style.width = "0%";
+            age.style.marginLeft = "50%";
+        }
+
+        if (isElementVisible(bday) == "true") {
+            bday.style.width = "25%";
+            bday.style.marginLeft = "37.5%";
+        } else {
+            bday.style.width = "0%";
+            bday.style.marginLeft = "50%";
+        }
+
+        if (isElementVisible(about) == "true") {
+            about.style.width = "10%";
+            about.style.marginLeft = "45%";
+        } else {
+            about.style.width = "0%";
+            about.style.marginLeft = "50%";
+        }
+
+        if (isElementVisible(skills) == "true") {
+            skills.style.width = "42%";
+            skills.style.marginLeft = "29%";
+        } else {
+            skills.style.width = "0%";
+            skills.style.marginLeft = "50%";
+        }
+
+        if (isElementVisible(python) == "true") {
+            python.style.width = "95%";
+            python.style.backgroundColor = "#4CAF50";
+            if (widthPython == 0) {
+                var idPython = setInterval(framePython, 9.5);
+                function framePython() {
+                    if (widthPython >= 95) {
+                        clearInterval(idPython);
+                    } else {
+                        widthPython++;
+                        python.innerHTML = widthPython + "%";
+                    }
+                }
+            }
+        } else {
+            python.style.width = "0%";
+            python.style.backgroundColor = "#ddd";
+            python.innerHTML = "0%";
+            widthPython = 0;
+        }
+
+        if (isElementVisible(html) == "true") {
+            html.style.width = "93%";
+            html.style.backgroundColor = "#4CAF50";
+            if (widthHTML == 0) {
+                var idHTML = setInterval(frameHTML, 9.3);
+                function frameHTML() {
+                    if (widthHTML >= 93) {
+                        clearInterval(idHTML);
+                    } else {
+                        widthHTML++;
+                        html.innerHTML = widthHTML + "%";
+                    }
+                }
+            }
+        } else {
+            html.style.width = "0%";
+            html.style.backgroundColor = "#ddd";
+            html.innerHTML = "0%";
+            widthHTML = 0;
+        }
+
+        if (isElementVisible(css) == "true") {
+            css.style.width = "90%";
+            css.style.backgroundColor = "#4CAF50";
+            if (widthCSS == 0) {
+                var idCSS = setInterval(frameCSS, 9);
+                function frameCSS() {
+                    if (widthCSS >= 90) {
+                        clearInterval(idCSS);
+                    } else {
+                        widthCSS++;
+                        css.innerHTML = widthCSS + "%";
+                    }
+                }
+            }
+        } else {
+            css.style.width = "0%";
+            css.style.backgroundColor = "#ddd";
+            css.innerHTML = "0%";
+            widthCSS = 0;
+        }
+
+        if (isElementVisible(lua) == "true") {
+            lua.style.width = "80%";
+            lua.style.backgroundColor = "#4CAF50";
+            if (widthLua == 0) {
+                var idLua = setInterval(frameLua, 8);
+                function frameLua() {
+                    if (widthLua >= 80) {
+                        clearInterval(idLua);
+                    } else {
+                        widthLua++;
+                        lua.innerHTML = widthLua + "%";
+                    }
+                }
+            }
+        } else {
+            lua.style.width = "0%";
+            lua.style.backgroundColor = "#ddd";
+            lua.innerHTML = "0%";
+            widthLua = 0;
+        }
+
+        if (isElementVisible(javascript) == "true") {
+            javascript.style.width = "98%";
+            javascript.style.backgroundColor = "#4CAF50";
+            if (widthJavaScript == 0) {
+                var idJavaScript = setInterval(frameJavaScript, 7);
+                function frameJavaScript() {
+                    if (widthJavaScript >= 98) {
+                        clearInterval(idJavaScript);
+                    } else {
+                        widthJavaScript++;
+                        javascript.innerHTML = widthJavaScript + "%";
+                    }
+                }
+            }
+        } else {
+            javascript.style.width = "0%";
+            javascript.style.backgroundColor = "#ddd;";
+            javascript.innerHTML = "0%";
+            widthJavaScript = 0;
+        }
+    }
+
+    function isElementVisible(element) {
+        var vertical, horizontal, windowHeight, windowWidth, div, rect, x, y, w, h;
+        windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+        windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+        rect = element.getBoundingClientRect();
+        x = rect.left;
+        y = rect.top;
+        w = rect.width;
+        h = rect.height;
+        if (rect.top <= windowHeight && rect.top + rect.height >= 60) {
+            if (rect.left <= windowWidth && rect.left + rect.width >= 0) {
+                vertical = true;
+                horizontal = true;
+            } else {
+                vertical = true;
+                horizontal = false;
+            }
+        } else {
+            if (rect.left <= windowWidth && rect.left + rect.width >= 0) {
+                vertical = false;
+                horizontal = true;
+            } else {
+                vertical = false;
+                horizontal = false;
+            }
+        }
+
+        if (vertical == true && horizontal == true) {
+            return "true";
+        } else {
+            return "false";
+        }
+    }
+
+    function bdayHover() {
+        document.getElementById("underline-bday").style.width = "32%";
+        document.getElementById("underline-bday").style.marginLeft = "34%";
+    }
+
+    function bdayUnhover() {
+        document.getElementById("underline-bday").style.width = "25%";
+        document.getElementById("underline-bday").style.marginLeft = "37.5%";
+    }
+</script>
+</body>
+</html>

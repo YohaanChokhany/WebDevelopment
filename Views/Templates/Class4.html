@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Class 4</title>
+    <style>
+    table {table-layout: fixed; width: 80%}
+
+    .slidecontainer {
+      width: 100%;
+    }
+
+    .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 10px;
+      border-radius: 5px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .3s;
+      transition: .3s;
+    }
+
+    .slider:hover {
+      opacity: 1;
+    }
+
+    .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: red;
+      cursor: pointer;
+      transition: 0.1s
+    }
+
+    .slider::-webkit-slider-thumb:active {
+      width: 25px;
+      height: 25px;
+    }
+
+    .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: red;
+      cursor: pointer;
+    }
+        .collapsible {
+            background-color: #777;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        h1 {font-size: 40pt}
+        h2 {font-size: 32pt}
+
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
+
+        .content {
+            padding: 0 18px;
+            max-height: 0;
+            width: 100%;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: #fff;
+        }
+
+        .content p {
+            padding-top: 18px;
+        }
+
+        .footer {
+            color: #f1f1f1;
+            transition: 0.3s;
+            text-decoration: none
+        }
+
+        .footer:hover {
+            text-decoration: none;
+            color: #333
+        }
+
+        textarea {
+            border-width: 0px 0px 1px 0px;
+            border-style: solid;
+            border-color: red;
+            transition: 0.3s
+        }
+
+        textarea:focus {
+            border-color: #00A7FC
+        }
+
+        td, th {padding: 4px; text-align: left}
+
+        .custom-file-input::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+        .custom-file-input::before {
+            content: 'Select some files';
+            display: inline-block;
+            background: linear-gradient(top, #f9f9f9, #e3e3e3);
+            border: 1px solid #999;
+            border-radius: 3px;
+            padding: 5px 8px;
+            outline: none;
+            white-space: nowrap;
+            -webkit-user-select: none;
+            cursor: pointer;
+            text-shadow: 1px 1px #fff;
+            font-weight: 700;
+            font-size: 10pt;
+        }
+        .custom-file-input:hover::before {
+            border-color: black;
+        }
+        .custom-file-input:active::before {
+            background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+        }
+
+        .hiddenClass {
+            background-color: red;
+            color: #f1f1f1;
+            transition: 0.3s;
+            padding: 10px;
+        }
+
+        .hiddenClass:hover {
+            background-color: #333;
+            color: #f1f1f1;
+            text-decoration: none
+        }
+
+        .hiddenClass:active {
+            background-color: #555;
+            color: #f1f1f1
+        }
+
+        .JPEG::-webkit-file-upload-button, .PNG::-webkit-file-upload-button {
+            visibility: hidden;
+        }
+        .JPEG::before {
+            content: 'JPEG only';
+            display: inline-block;
+            background: linear-gradient(top, #f9f9f9, #e3e3e3);
+            border: 1px solid #999;
+            border-radius: 3px;
+            padding: 5px 8px;
+            outline: none;
+            white-space: nowrap;
+            -webkit-user-select: none;
+            cursor: pointer;
+            text-shadow: 1px 1px #fff;
+            font-weight: 700;
+            font-size: 10pt;
+        }
+        .JPEG:hover::before, .PNG:hover::before {
+            border-color: black;
+        }
+        .JPEG:active::before, .PNG:active::before {
+            background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+        }
+
+        .PNG::before {
+            content: 'PNG only';
+            display: inline-block;
+            background: linear-gradient(top, #f9f9f9, #e3e3e3);
+            border: 1px solid #999;
+            border-radius: 3px;
+            padding: 5px 8px;
+            outline: none;
+            white-space: nowrap;
+            -webkit-user-select: none;
+            cursor: pointer;
+            text-shadow: 1px 1px #fff;
+            font-weight: 700;
+            font-size: 10pt;
+        }
+
+        input[type=file]:focus {
+            outline: none;
+            border: none
+        }
+    </style>
+</head>
+<body onload="onloadFunction()" onkeydown="keyDown()" onkeyup="keyUp()" onblur="keysPressed = []">
+<div id="container" class="container" style="width: 100%">
+    <h1 id="title" align="center" class="title" style="padding-bottom: 20px;">Class 4</h1>
+    <h2 align="center" style="padding-bottom: 20px" class="header">Basic HTML Attributes</h2>
+    <div style="box-shadow: 0px 0px 50px gray; width: 80%; margin-left: 10%">
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">cols</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The cols attribute specifies the visible width of a text area.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <strong>Tip:</strong> The size of a textarea can also be set by the CSS height and width properties.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <strong>Example:</strong>
+                <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;textarea cols="10" placeholder="Type here..."&gt;&lt;/textarea&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;textarea cols="50" placeholder="Type here..."&gt;&lt;/textarea&gt;</code></h6>
+            </p>
+            <textarea cols="10" style="resize: none" placeholder="Type here..." onfocusout="this.placeholder = 'Type here...'" onfocus="this.placeholder = ''"></textarea><br /><br />
+            <textarea cols="50" style="resize: none" placeholder="Type here..." onfocusout="this.placeholder = 'Type here...'" onfocus="this.placeholder = ''"></textarea>
+            <div style="padding: 15px"></div>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">rows</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The rows attribute specifies the visible height of a text area, in lines.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <strong>Note:</strong> The size of a textarea can also be specified by the CSS height and width properties.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <strong>Example:</strong>
+                <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;textarea rows="2" placeholder="Type here..."&gt;&lt;/textarea&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;textarea rows="5" placeholder="Type here..."&gt;&lt;/textarea&gt;</code></h6>
+            </p>
+            <textarea rows="2" style="resize: none; width: 50%; margin-left: 25%" placeholder="Type here..." onfocusout="this.placeholder = 'Type here...'" onfocus="this.placeholder = ''"></textarea><br /><br />
+            <textarea rows="5" style="resize: none; width: 50%; margin-left: 25%" placeholder="Type here..." onfocusout="this.placeholder = 'Type here...'" onfocus="this.placeholder = ''"></textarea>
+            <div style="padding: 15px"></div>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">colspan</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The colspan attribute defines the number of columns a table cell should span.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                The colspan attribute can be used on the following elements:<br />
+                <code>&lt;td&gt;</code><br />
+                <code>&lt;th&gt;</code>
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <strong>Example:</strong>
+                <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;table&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;tr&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;th colspan="2"&gt;Monthly Savings&lt;/th&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;/tr&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;tr&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;td&gt;January&lt;/td&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;td&gt;&#36;100&lt;/td&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;/tr&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;tr&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;td&gt;February&lt;/td&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;td&gt;&#36;80&lt;/td&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;/tr&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;/table&gt;</code></h6>
+            </p>
+            <table border="1">
+                <tr>
+                    <th colspan="2">Monthly Savings</th>
+                </tr>
+                <tr>
+                    <td>January</td>
+                    <td>&#36;100</td>
+                </tr>
+                <tr>
+                    <td>February</td>
+                    <td>&#36;80</td>
+                </tr>
+            </table><br/>
+            <table border="1">
+                <tr>
+                    <th>Monthly Savings</th>
+                </tr>
+                <tr>
+                    <td>January</td>
+                    <td>&#36;100</td>
+                </tr>
+                <tr>
+                    <td>February</td>
+                    <td>&#36;80</td>
+                </tr>
+            </table>
+            <div style="padding: 15px"></div>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">rowspan</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The rowspan attribute specifies the number of rows a cell should span.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                The rowspan attribute can be used on the following elements:<br />
+                <code>&lt;td&gt;</code><br />
+                <code>&lt;th&gt;</code>
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <strong>Example:</strong>
+                <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;table&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;tr&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;th&gt;Monthly&lt;/th&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;th&gt;Savings&lt;/th&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;th&gt;Savings for holiday!&lt;/th&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;/tr&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;tr&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;td&gt;January&lt;/td&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;td&gt;&#36;100&lt;/td&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;td rowspan="2"&gt;&#36;50&lt;/td&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;/tr&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;tr&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;td&gt;February&lt;/td&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 40px"><code style="padding-top: 5px">&lt;td&gt;&#36;80&lt;/td&gt;</code></h6>
+                <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;/tr&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;/table&gt;</code></h6>
+            </p>
+            <table border="1">
+                <tr>
+                    <th>Month</th>
+                    <th>Savings</th>
+                    <th>Savings for holiday!</th>
+                </tr>
+                <tr>
+                    <td>January</td>
+                    <td>&#36;100</td>
+                    <td rowspan="2">&#36;50</td>
+                </tr>
+                <tr>
+                    <td>February</td>
+                    <td>&#36;80</td>
+                </tr>
+            </table>
+            <div style="padding: 15px"></div>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">accept</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The accept attribute specifies the types of files that the server accepts (that can be submitted through a file upload).
+            </p>
+            <p style="padding-bottom: 9px">
+                <strong>Note:</strong> The accept attribute can only be used with &lt;input type="file"&gt;.
+            </p>
+            <p style="padding-bottom: 9px">
+                <strong>Tip:</strong> Do not use this attribute as a validation tool. File uploads should be validated on the server.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                The accept attribute can be used on the following element:<br />
+                <code>&lt;input&gt;</code>
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <strong>Example:</strong>
+                <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;input type="file" name="image" accept="image/jpeg"&gt;</code></h6>
+                <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;input type="file" name="image" accept="image/png"&gt;</code></h6>
+            </p>
+            <input class="JPEG" type="file" accept="image/jpeg">
+            <input class="PNG" type="file" accept="image/png">
+            <div style="padding: 15px"></div>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">width</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The width attribute specifies the width of the element, in pixels.
+            </p>
+            <p style="padding-bottom: 9px">
+                <strong>Note:</strong> For input elements, the width attribute is used only with &lt;input type="image"&gt;.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                The width attribute can be used on the following elements:
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <code style="margin-top: 20px">&lt;canvas&gt;<br /></code>
+                <code>&lt;embed&gt;<br /></code>
+                <code>&lt;iframe&gt;<br /></code>
+                <code>&lt;img&gt;<br /></code>
+                <code>&lt;input&gt;<br /></code>
+                <code>&lt;object&gt;<br /></code>
+                <code>&lt;video&gt;<br /></code>
+            </p>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">height</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The height attribute specifies the height of the element, in pixels.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                The height attribute can be used on the following elements:
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <code style="margin-top: 20px">&lt;canvas&gt;<br /></code>
+                <code>&lt;embed&gt;<br /></code>
+                <code>&lt;iframe&gt;<br /></code>
+                <code>&lt;img&gt;<br /></code>
+                <code>&lt;input&gt;<br /></code>
+                <code>&lt;object&gt;<br /></code>
+                <code>&lt;video&gt;<br /></code>
+            </p>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">hidden</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The hidden attribute is a boolean attribute.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                When present, it specifies that an element is not yet, or is no longer, relevant.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                Browsers should not display elements that have the hidden attribute specified.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                The hidden attribute can also be used to keep a user from seeing an element until some other condition has been met (like selecting a checkbox, etc.). Then, a JavaScript could remove the hidden attribute, and make the element visible.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                The hidden attribute is part of the Global Attributes, and can be used on any HTML element.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 0px">
+                <strong>Example:</strong>
+                <h6 id="hiddenCode" style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;p hidden&gt;You can't see the paragraph.&lt;/p&gt;</code></h6>
+            </p>
+            <button class="hiddenClass" style="margin-top: -30px; border: none; width: 15%; margin-left: 42.5%" onclick="hiddenFunction(this)">Show Paragraph</button>
+            <p align="center" style="padding-top: 10px; padding-bottom: 9px;" id="hidden" hidden>You can now see this paragraph.</p>
+            <div style="padding: 20px"></div>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">max</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The max attribute specifies the maximum value of the element.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                When used by the &lt;progress&gt; element, the max attribute specifies how much work the task requires in total.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                The max attribute can be used on the following elements:
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <code style="margin-top: 20px">&lt;input&gt;<br /></code>
+                <code>&lt;meter&gt;<br /></code>
+                <code>&lt;progress&gt;</code>
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 0px">
+                <strong>Example:</strong>
+            </p>
+            <table align="center">
+                <tr>
+                    <td><h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;input type="number" max="4"&gt;</code></h6></td>
+                    <td><input type="number" value="2" max="4"></td>
+                </tr>
+                <tr>
+                    <td><h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;input type="range" max="4"&gt;</code></h6></td>
+                    <td><input class="slider" type="range" value="2" max="4" oninput="onchangeRange(this)"><h5 align="center" id="rangeMax">Current value is: 2</h5></td>
+                </tr>
+            </table>
+            <div style="padding: 4px"></div>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">min</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The min attribute specifies the minimum value of an element element.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                When used together with the &lt;meter&gt; element, the min attribute specifies the lower bound of the gauge.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                The min attribute can be used on the following elements:
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <code style="margin-top: 20px">&lt;input&gt;<br /></code>
+                <code>&lt;meter&gt;<br /></code>
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 0px">
+                <strong>Example:</strong>
+            </p>
+            <table align="center">
+                <tr>
+                    <td><h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;input type="number" min="-4"&gt;</code></h6></td>
+                    <td><input type="number" value="0" min="-4"></td>
+                </tr>
+                <tr>
+                    <td><h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;input type="range" min="-4"&gt;</code></h6></td>
+                    <td><input class="slider" type="range" value="0" min="-4" oninput="onchangeRangeMin(this)"><h5 align="center" id="rangeMin">Current value is: 0</h5></td>
+                </tr>
+            </table>
+            <div style="padding: 4px"></div>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">name</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The name attribute specifies a name for the element.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                This name attribute can be used to reference the element in a JavaScript.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                For form elements it is also used as a reference when the data is submitted,
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                For iframe element it can be used to target a form submission.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                For the map element, the name attribute is associated with the &lt;img&gt;'s usemap attribute and creates a relationship between the image and the map.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                For the meta element, the name attribute specifies a name for the information/value of the content attribute.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                For the param element, the name attribute is used together with the value attribute to specify parameters for the plugin specified with the &lt;object&gt; tag.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                The name attribute can be used on the following elements:
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <code style="margin-top: 20px">&lt;button&gt;<br /></code>
+                <code>&lt;fieldset&gt;<br /></code>
+                <code>&lt;form&gt;<br /></code>
+                <code>&lt;iframe&gt;<br /></code>
+                <code>&lt;input&gt;<br /></code>
+                <code>&lt;map&gt;<br /></code>
+                <code>&lt;meta&gt;<br /></code>
+                <code>&lt;object&gt;<br /></code>
+                <code>&lt;output&gt;<br /></code>
+                <code>&lt;param&gt;<br /></code>
+                <code>&lt;select&gt;<br /></code>
+                <code>&lt;textarea&gt;<br /></code>
+            </p>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">novalidate</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The novalidate attribute is a boolean attribute.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                When present, it specifies that the form-data (input) should not be validated when submitted.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                The novalidate attribute can be used on the following element:
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <code style="margin-top: 20px">&lt;form&gt;</code>
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 0px">
+                <strong>Example:</strong>
+            </p>
+            <table align="center">
+                <tr>
+                    <td style="text-align: left">
+                        <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;form novalidate&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;input type="email" placeholder="Email..." required&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;input type="submit"&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;/form&gt;</code></h6>
+                    </td>
+                    <td style="text-align: left">
+                        <form novalidate>
+                            <input type="email" placeholder="Email..." onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)" required><br />
+                            <input type="button" value="Submit">
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: left">
+                        <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;form&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;input type="email" placeholder="Email..." required&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt; text-indent: 20px"><code style="padding-top: 5px">&lt;input type="submit"&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt"><code style="padding-top: 5px">&lt;/form&gt;</code></h6>
+                    </td>
+                    <td style="text-align: left">
+                        <form>
+                            <input type="email" placeholder="Email..." onfocus="removePlaceholder(this)" onfocusout="addPlaceholder(this)" required><br />
+                            <input type="submit">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            <div style="padding: 4px"></div>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">src</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The src attribute specifies the location (URL) of the external resource.
+            </p>
+            <p style="padding-top: 0px">
+                The src attribute can be used on the following elements:
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <code style="margin-top: 20px">&lt;audio&gt;<br /></code>
+                <code>&lt;embed&gt;<br /></code>
+                <code>&lt;iframe&gt;<br /></code>
+                <code>&lt;img&gt;<br /></code>
+                <code>&lt;input&gt;<br /></code>
+                <code>&lt;script&gt;<br /></code>
+                <code>&lt;source&gt;<br /></code>
+                <code>&lt;track&gt;<br /></code>
+                <code>&lt;video&gt;<br /></code>
+            </p>
+            <p style="padding-bottom: 9px; padding-top: 0px">
+                <b>Example:</b> <code>&lt;img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google"&gt;</code>
+            </p>
+            <img id="google-image" src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" style="padding-bottom: 9px; margin-left: 40%; font-size: 20pt; color: #333; border-color: transparent; outline: none; margin-bottom: 9px" align="center">
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">for</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                When used together with the &lt;label&gt; element, the for attribute specifies which form element a label is bound to.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                When used together with the &lt;output&gt; element, the for attribute specifies the relationship between the result of the calculation, and the elements used in the calculation.
+            </p>
+            <p style="padding-top: 0px">
+                The for attribute can be used on the following elements:
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <code style="margin-top: 20px">&lt;label&gt;<br /></code>
+                <code>&lt;output&gt;<br /></code>
+            </p>
+            <p style="padding-bottom: 0px; padding-top: 0px">
+                <b>Example:</b>
+            </p>
+            <table align="center" style="padding-bottom: 9px">
+                <tr>
+                    <td>
+                        <h6 style="font-size: 10.5pt"><code>&lt;form&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;label for="male"&gt;Male&lt;/label&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="radio" name="gender" id="male" value="male"&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;label for="female"&gt;Female&lt;/label&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="radio" name="gender" id="female" value="female"&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;label for="other"&gt;Other&lt;/label&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="radio" name="gender" id="other" value="other"&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>&lt;input type="submit" value="Submit"&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt"><code>&lt;/form&gt;</code></h6>
+                    </td>
+                    <td style="text-align: right; width: 30%">
+                        <form>
+                            <label style="color: #333" for="male">Male</label>
+                            <input type="radio" name="gender" id="male" value="male"><br>
+                            <label style="color: #333" for="female">Female</label>
+                            <input type="radio" name="gender" id="female" value="female"><br>
+                            <label style="color: #333" for="other">Other</label>
+                            <input type="radio" name="gender" id="other" value="other"><br><br>
+                            <input type="button" value="Submit">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">form</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The form attribute specifies the form the element belongs to.
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                The value of this attribute must be equal to the id attribute of a &lt;form&gt; element in the same document.
+            </p>
+            <p style="padding-top: 0px">
+                The form attribute can be used on the following elements:
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <code style="margin-top: 20px">&lt;button&gt;<br /></code>
+                <code>&lt;fieldset&gt;<br /></code>
+                <code>&lt;input&gt;<br /></code>
+                <code>&lt;label&gt;<br /></code>
+                <code>&lt;meter&gt;<br /></code>
+                <code>&lt;object&gt;<br /></code>
+                <code>&lt;output&gt;<br /></code>
+                <code>&lt;select&gt;<br /></code>
+                <code>&lt;textarea&gt;<br /></code>
+            </p>
+            <p style="padding-bottom: 0px; padding-top: 0px">
+                <b>Example:</b>
+            </p>
+            <table align="center" style="padding-bottom: 9px">
+                <tr>
+                    <td>
+                        <h6 style="font-size: 10.5pt"><code>&lt;form id="form1"&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt; text-indent: 20px"><code>Name: &lt;input type="text" name="name" required&gt;</code></h6>\
+                        <h6 style="font-size: 10.5pt"><code>&lt;/form&gt;</code></h6>
+                        <h6 style="font-size: 10.5pt"><code>&lt;button type="submit" form="form1"&gt;Submit&lt;/button&gt;</code></h6>
+
+                        <p>A button located outside a form (but still a part of the form).</p>
+                    </td>
+                    <td style="text-align: right; width: 30%">
+                        <form id="form1">
+                          Name: <input type="text" name="name" oninput="changeButton(this, 'formSubmitButton')" required><br>
+                        </form>
+
+                        <button type="submit" form="form1" id="formSubmitButton">Submit</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <button onmouseenter="enlarge(this)" onmouseleave="backToNormal(this)"  class="collapsible" style="text-align: center; font-size: 20pt">rel</button>
+        <div class="content">
+            <p style="padding-bottom: 9px">
+                The rel attribute specifies the relationship between the current document and the linked document/resource.
+            </p>
+            <p style="padding-top: 0px">
+                The rel attribute can be used on the following elements:
+            </p>
+            <p style="padding-top: 0px; padding-bottom: 9px">
+                <code style="margin-top: 20px">&lt;a&gt;<br /></code>
+                <code>&lt;area&gt;<br /></code>
+                <code>&lt;link&gt;<br /></code>
+                <code>&lt;form&gt;<br /></code>
+            </p>
+            <p style="padding-bottom: 9px; padding-top: 0px">
+                <b>Example:</b>
+            </p>
+            <p style="padding-bottom: 9px; padding-top: 0px">
+                <code>&lt;link rel="stylesheet" type="text/css" href="name.css"&gt;</code>
+            </p>
+        </div>
+    </div>
+</div>
+<div style="padding-bottom: 50px"></div>
+</div>
+<div style="padding: 1px;width: 100%; background-color: red">
+    <h6 style="font-size: 10.5pt; text-align: center; color: #f1f1f1;">© 2021 <a class="footer" href="/">Yohaan Chokhany</a> | All Rights Reserved</h6>
+</div>
+
+<script>
+    var isThere = false;
+    var keysPressed = [];
+    var commandPressed = false;
+    var altPressed = true;
+    var arrowLeft = false;
+    var arrowRight = false;
+    var keyH = false;
+    var importantKey;
+    if (navigator.appVersion.indexOf("Mac") != -1) {
+        importantKey = "Meta";
+    } else {
+        importantKey = "Control";
+    }
+
+    function keyDown() {
+        for (var i = 0; i < keysPressed.length; i++) {
+            if (keysPressed[i] == event.key) {
+                isThere = true;
+                break;
+            } else {
+                isThere = false;
+            }
+        }
+        if (isThere == false) {
+            keysPressed.push(event.key);
+        } else {
+            isThere = false;
+        }
+        if (keysPressed.length == 2) {
+            for (var i = 0; i < 3; i++) {
+                if (keysPressed[i] == importantKey) {
+                    commandPressed = true;
+                } else if (keysPressed[i] == "Alt") {
+                    altPressed = true;
+                } else if (keysPressed[i] == "ArrowRight") {
+                    arrowRight = true;
+                } else if (keysPressed[i] == "ArrowLeft") {
+                    arrowLeft = true;
+                } else if (keysPressed[i] == "h") {
+                    keyH = true;
+                }
+            }
+
+            if (commandPressed == true && keyH == true) {
+                window.location.href = "/";
+            } else if (altPressed == true && arrowLeft == true) {
+                window.location.href = "/class3";
+            } else if (altPressed == true && arrowRight == true) {
+                window.location.href = "/class5";
+            } else {
+                commandPressed = false;
+                altPressed = false;
+                arrowLeft = false;
+                arrowRight = false;
+                keyH = false;
+            }
+        }
+    }
+
+
+    function keyUp() {
+        keysPressed.pop(event.key);
+        if (event.key == importantKey) {
+            keysPressed = []
+        }
+    }
+
+
+    function onchangeRange(x) {
+        document.getElementById("rangeMax").innerHTML = "Current value is: " + x.value;
+    }
+
+
+    function onchangeRangeMin(x) {
+        document.getElementById("rangeMin").innerHTML = "Current value is: " + x.value;
+    }
+
+
+    function hiddenFunction(x) {
+        var hidden = document.getElementById("hidden");
+        var hiddenCode = document.getElementById("hiddenCode");
+        if (hidden.hidden == true) {
+            hidden.hidden = false;
+            hiddenCode.innerHTML = "<code style='padding-top: 5px'>&lt;p&gt;You can now see the paragraph.&lt;/p&gt;</code>";
+            x.innerHTML = "Hide Paragraph";
+        } else {
+            hidden.hidden = true;
+            hiddenCode.innerHTML = "<code style='padding-top: 5px'>&lt;p hidden&gt;You can&apos;t see the paragraph.&lt;/p&gt;</code>";
+            x.innerHTML = "Show Paragraph";
+        }
+    }
+
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+
+    function onloadFunction() {
+        document.getElementById("container").style.opacity = "1";
+    }
+
+    function enlarge(x) {
+        x.style.fontSize = "25pt";
+    }
+
+    function backToNormal(x) {
+        x.style.fontSize = "20pt";
+    }
+
+    function removePlaceholder(x) {
+        x.placeholder = "";
+    }
+
+    function addPlaceholder(x) {
+        if (x.type == "email") {
+            x.placeholder = "Email...";
+        } else if (x.type == "number") {
+            x.placeholder = "Number...";
+        } else if (x.type == "password") {
+            x.placeholder = "Password...";
+        } else if (x.type == "search") {
+            x.placeholder = "Search...";
+        } else if (x.type == "tel") {
+            x.placeholder = "Tel...";
+        } else if (x.type == "text") {
+            x.placeholder = "Text...";
+        } else if (x.type == "url") {
+            x.placeholder = "URL...";
+        }
+    }
+
+
+    function changeButton(x, id) {
+        var button = document.getElementById(id);
+        if (x.value == "") {
+            button.type = "submit";
+        } else {
+            button.type = "button";
+        }
+    }
+</script>
+</body>
+</html>
